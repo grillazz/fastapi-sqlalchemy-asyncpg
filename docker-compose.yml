@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    env_file:
+      - .secrets
+      - .env
+    command: bash -c "
+      uvicorn the_app.main:app
+      --host 0.0.0.0 --port 8080
+      --lifespan=on --use-colors --loop uvloop --http httptools
+      --reload --reload-dir /app
+      "
+    volumes:
+      - .:/app
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    env_file:
+      - .secrets
+      - .env
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST_AUTH_METHOD=trust
