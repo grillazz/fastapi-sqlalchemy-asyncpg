@@ -26,11 +26,11 @@ class Settings(BaseSettings):
 
     """
 
-    pg_user: str = os.getenv("POSTGRES_USER", "")
-    pg_pass: str = os.getenv("POSTGRES_PASS", "")
-    pg_host: str = os.getenv("POSTGRES_HOST", "")
-    pg_database: str = os.getenv("POSTGRES_DB", "")
-    pg_test_database: str = os.getenv("POSTGRES_TEST_DB", "")
+    pg_user: str = os.getenv("SQL_USER", "")
+    pg_pass: str = os.getenv("SQL_PASS", "")
+    pg_host: str = os.getenv("SQL_HOST", "")
+    pg_database: str = os.getenv("SQL_DB", "")
+    pg_test_database: str = os.getenv("SQL_TEST_DB", "")
     asyncpg_url: str = f"postgresql+asyncpg://{pg_user}:{pg_pass}@{pg_host}:5432/{pg_database}"
     asyncpg_test_url: str = f"postgresql+asyncpg://{pg_user}:{pg_pass}@{pg_host}:5432/{pg_test_database}"
 

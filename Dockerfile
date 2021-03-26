@@ -20,7 +20,6 @@ WORKDIR /app
 COPY ./the_app/ /app/
 COPY ./tests/ /app/
 COPY .env /app/
-COPY .secrets /app/
 
 RUN set -ex && bash -c "eval $(grep 'PYTHONDONTWRITEBYTECODE' .env)"
 RUN set -ex && bash -c "eval $(grep 'PYTHONUNBUFFERED' .env)"

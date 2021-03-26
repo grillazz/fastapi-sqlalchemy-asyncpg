@@ -8,7 +8,7 @@ build:	## Build project with compose
 
 .PHONY: up
 up:	## Run project with compose
-	docker-compose up
+	docker-compose up --remove-orphans
 
 .PHONY: down
 down: ## Reset project containers with compose
@@ -24,7 +24,7 @@ requirements:	## Refresh requirements.txt from pipfile.lock
 
 .PHONY: test
 test:	## Run project tests
-	docker-compose run --rm web pytest
+	docker-compose run --rm app pytest
 
 .PHONY: lint
 lint:  ## Linter project code.
