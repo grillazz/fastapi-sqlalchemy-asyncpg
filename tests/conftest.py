@@ -8,12 +8,14 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from the_app.main import app
 from the_app import config
-from the_app.database import get_db, engine
+from the_app.database import get_db
 from the_app.models.base import Base
+
+from sqlalchemy.pool import NullPool
 
 global_settings = config.get_settings()
 url = global_settings.asyncpg_test_url
-engine = create_async_engine(url)
+engine = create_async_engine(url, poolclass=NullPool)
 
 async_session = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
 

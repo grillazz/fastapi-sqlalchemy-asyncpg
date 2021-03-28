@@ -12,7 +12,7 @@ class Stuff(Base):
     __tablename__ = "stuff"
     id = Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4, autoincrement=True)
     name = Column(String, nullable=False, primary_key=True, unique=True)
-    description = Column(String, nullable=False, unique=True)
+    description = Column(String, nullable=False)
 
     def __init__(self, name: str, description: str):
         self.name = name
