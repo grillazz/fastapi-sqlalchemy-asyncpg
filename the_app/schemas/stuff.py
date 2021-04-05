@@ -38,6 +38,7 @@ class StuffResponse(BaseModel):
     )
 
     class Config:
+        orm_mode = True
         schema_extra = {
             "example": {
                 "config_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",

@@ -1,5 +1,3 @@
-from uuid import UUID
-
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -13,7 +11,7 @@ router = APIRouter()
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=StuffResponse)
 async def create_stuff(stuff: StuffSchema, db_session: AsyncSession = Depends(get_db)):
     stuff_instance = await Stuff.create(db_session, stuff)
-    return stuff_instance.__dict__
+    return stuff_instance
 
 
 @router.get("/", response_model=StuffResponse)
@@ -22,7 +20,7 @@ async def find_stuff(
     db_session: AsyncSession = Depends(get_db),
 ):
     stuff_instance = await Stuff.find(db_session, name)
-    return stuff_instance.__dict__
+    return stuff_instance
 
 
 @router.delete("/")
@@ -39,4 +37,4 @@ async def update_stuff(
 ):
     stuff_instance = await Stuff.find(db_session, name)
     stuff_instance = await stuff_instance.update(db_session, stuff)
-    return stuff_instance.__dict__
+    return stuff_instance
