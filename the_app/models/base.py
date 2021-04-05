@@ -21,9 +21,7 @@ class Base:
             db_session.add(self)
             return await db_session.commit()
         except SQLAlchemyError as ex:
-            ic("Have to rollback, save failed:")
-            ic(ex)
-            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=ex.__str__())
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex))
 
     async def delete(self, db_session: AsyncSession):
         try:
@@ -31,6 +29,4 @@ class Base:
             await db_session.commit()
             return True
         except SQLAlchemyError as ex:
-            ic("Have to rollback, save failed:")
-            ic(ex)
-            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=ex.__str__())
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex))
