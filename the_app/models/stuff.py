@@ -18,15 +18,6 @@ class Stuff(Base):
         self.name = name
         self.description = description
 
-    @classmethod
-    async def create(cls, db_session: AsyncSession, schema: StuffSchema):
-        stuff = Stuff(
-            name=schema.name,
-            description=schema.description,
-        )
-        await stuff.save(db_session)
-        return stuff
-
     async def update(self, db_session: AsyncSession, schema: StuffSchema):
         self.name = schema.name
         self.description = schema.description
