@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import Column, String, delete, select
+from sqlalchemy import Column, String, select
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -25,22 +25,16 @@ class Stuff(Base):
             description=schema.description,
         )
         await stuff.save(db_session)
-        return stuff.id
+        return stuff
 
     async def update(self, db_session: AsyncSession, schema: StuffSchema):
         self.name = schema.name
         self.description = schema.description
-        return await self.save(db_session)
+        await self.save(db_session)
+        return self
 
     @classmethod
     async def find(cls, db_session: AsyncSession, name: str):
         stmt = select(cls).where(cls.name == name)
         result = await db_session.execute(stmt)
         return result.scalars().first()
-
-    @classmethod
-    async def delete(cls, db_session: AsyncSession, stuff_id: UUID):
-        stmt = delete(cls).where(cls.id == stuff_id)
-        await db_session.execute(stmt)
-        await db_session.commit()
-        return True

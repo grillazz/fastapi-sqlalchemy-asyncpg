@@ -1,17 +1,14 @@
 import pytest
 from httpx import AsyncClient
-
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import NullPool
 
-from the_app.main import app
 from the_app import config
 from the_app.database import get_db
+from the_app.main import app
 from the_app.models.base import Base
-
-from sqlalchemy.pool import NullPool
 
 global_settings = config.get_settings()
 url = global_settings.asyncpg_test_url
@@ -30,6 +27,7 @@ async def get_test_db():
         raise ex
     finally:
         await session.close()
+
 
 app.dependency_overrides[get_db] = get_test_db
 

@@ -1,4 +1,5 @@
 from uuid import UUID
+
 import pytest
 from fastapi import status
 from httpx import AsyncClient
@@ -11,10 +12,7 @@ pytestmark = pytest.mark.asyncio
     "payload, status_code",
     (
         (
-            {
-                "name": "motorhead",
-                "description": "we play rock and roll"
-            },
+            {"name": "motorhead", "description": "we play rock and roll"},
             status.HTTP_201_CREATED,
         ),
     ),
@@ -29,10 +27,7 @@ async def test_add_configuration(client: AsyncClient, payload: dict, status_code
     "payload, status_code",
     (
         (
-            {
-                "name": "motorhead",
-                "description": "we play rock and roll"
-            },
+            {"name": "motorhead", "description": "we play rock and roll"},
             status.HTTP_200_OK,
         ),
     ),
@@ -50,18 +45,15 @@ async def test_get_configuration(client: AsyncClient, payload: dict, status_code
     "payload, status_code",
     (
         (
-            {
-                "name": "motorhead",
-                "description": "we play rock and roll"
-            },
+            {"name": "motorhead", "description": "we play rock and roll"},
             status.HTTP_200_OK,
         ),
     ),
 )
 async def test_delete_configuration(client: AsyncClient, payload: dict, status_code: int):
     response = await client.post("/v1/", json=payload)
-    stuff_id = response.json()["id"]
-    response = await client.delete(f"/v1/?stuff_id={stuff_id}")
+    name = response.json()["name"]
+    response = await client.delete(f"/v1/?name={name}")
     assert response.status_code == status_code
 
 
@@ -69,10 +61,7 @@ async def test_delete_configuration(client: AsyncClient, payload: dict, status_c
     "payload, status_code",
     (
         (
-            {
-                "name": "motorhead",
-                "description": "we play rock and roll"
-            },
+            {"name": "motorhead", "description": "we play rock and roll"},
             status.HTTP_200_OK,
         ),
     ),
@@ -81,15 +70,14 @@ async def test_delete_configuration(client: AsyncClient, payload: dict, status_c
     "patch_payload, patch_status_code",
     (
         (
-            {
-                "name": "motorhead",
-                "description": "we play loud"
-            },
+            {"name": "motorhead", "description": "we play loud"},
             status.HTTP_200_OK,
         ),
     ),
 )
-async def test_update_configuration(client: AsyncClient, payload: dict, status_code: int, patch_payload: dict, patch_status_code: int):
+async def test_update_configuration(
+    client: AsyncClient, payload: dict, status_code: int, patch_payload: dict, patch_status_code: int
+):
     await client.post("/v1/", json=payload)
     name = payload["name"]
     response = await client.patch(f"/v1/?name={name}", json=patch_payload)

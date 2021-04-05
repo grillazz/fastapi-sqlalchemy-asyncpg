@@ -10,30 +10,33 @@ from the_app.schemas.stuff import StuffResponse, StuffSchema
 router = APIRouter()
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=StuffResponse)
 async def create_stuff(stuff: StuffSchema, db_session: AsyncSession = Depends(get_db)):
-    stuff_id = await Stuff.create(db_session, stuff)
-    return {**stuff.dict(), "id": stuff_id}
+    stuff_instance = await Stuff.create(db_session, stuff)
+    return stuff_instance.__dict__
 
 
-@router.delete("/")
-async def delete_stuff(stuff_id: UUID, db_session: AsyncSession = Depends(get_db)):
-    return await Stuff.delete(db_session, stuff_id)
-
-
-@router.get("/")
+@router.get("/", response_model=StuffResponse)
 async def find_stuff(
     name: str,
     db_session: AsyncSession = Depends(get_db),
 ):
-    return await Stuff.find(db_session, name)
+    stuff_instance = await Stuff.find(db_session, name)
+    return stuff_instance.__dict__
 
 
-@router.patch("/")
-async def update_config(
+@router.delete("/")
+async def delete_stuff(name: str, db_session: AsyncSession = Depends(get_db)):
+    stuff_instance = await Stuff.find(db_session, name)
+    return await Stuff.delete(stuff_instance, db_session)
+
+
+@router.patch("/", response_model=StuffResponse)
+async def update_stuff(
     stuff: StuffSchema,
     name: str,
     db_session: AsyncSession = Depends(get_db),
 ):
-    instance_of_the_stuff = await Stuff.find(db_session, name)
-    return instance_of_the_stuff.update(db_session, stuff)
+    stuff_instance = await Stuff.find(db_session, name)
+    stuff_instance = await stuff_instance.update(db_session, stuff)
+    return stuff_instance.__dict__
