@@ -20,14 +20,13 @@ async def find_stuff(
     name: str,
     db_session: AsyncSession = Depends(get_db),
 ):
-    stuff_instance = await Stuff.find(db_session, name)
-    return stuff_instance
+    return await Stuff.find(db_session, name)
 
 
 @router.delete("/")
 async def delete_stuff(name: str, db_session: AsyncSession = Depends(get_db)):
-    stuff_instance = await Stuff.find(db_session, name)
-    return await Stuff.delete(stuff_instance, db_session)
+    stuff = await Stuff.find(db_session, name)
+    return await Stuff.delete(stuff, db_session)
 
 
 @router.patch("/", response_model=StuffResponse)
