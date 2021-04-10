@@ -1,11 +1,11 @@
 import uuid
 
+from fastapi import HTTPException, status
 from sqlalchemy import Column, String, select
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from the_app.models.base import Base
-from the_app.schemas.stuff import StuffSchema
 
 
 class Stuff(Base):
@@ -18,14 +18,14 @@ class Stuff(Base):
         self.name = name
         self.description = description
 
-    async def update(self, db_session: AsyncSession, schema: StuffSchema):
-        self.name = schema.name
-        self.description = schema.description
-        await self.save(db_session)
-        return self
-
     @classmethod
     async def find(cls, db_session: AsyncSession, name: str):
         stmt = select(cls).where(cls.name == name)
         result = await db_session.execute(stmt)
-        return result.scalars().first()
+        if instance := result.scalars().first() is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail={"Record not found": f"There is no record for requested name value : {name}"},
+            )
+        else:
+            return instance

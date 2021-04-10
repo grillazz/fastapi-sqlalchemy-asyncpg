@@ -1,7 +1,6 @@
 from typing import Any
 
 from fastapi import HTTPException, status
-from icecream import ic
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
@@ -30,3 +29,8 @@ class Base:
             return True
         except SQLAlchemyError as ex:
             raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex))
+
+    async def update(self, db_session: AsyncSession, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+        await self.save(db_session)

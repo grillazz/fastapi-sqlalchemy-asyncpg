@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from the_app.database import get_db
@@ -32,10 +32,10 @@ async def delete_stuff(name: str, db_session: AsyncSession = Depends(get_db)):
 
 @router.patch("/", response_model=StuffResponse)
 async def update_stuff(
-    stuff: StuffSchema,
+    payload: StuffSchema,
     name: str,
     db_session: AsyncSession = Depends(get_db),
 ):
-    stuff_instance = await Stuff.find(db_session, name)
-    stuff_instance = await stuff_instance.update(db_session, stuff)
-    return stuff_instance
+    stuff = await Stuff.find(db_session, name)
+    await stuff.update(db_session, **payload.dict())
+    return stuff
