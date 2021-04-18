@@ -22,7 +22,8 @@ class Stuff(Base):
     async def find(cls, db_session: AsyncSession, name: str):
         stmt = select(cls).where(cls.name == name)
         result = await db_session.execute(stmt)
-        if instance := result.scalars().first() is None:
+        instance = result.scalars().first()
+        if instance is None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail={"Record not found": f"There is no record for requested name value : {name}"},
