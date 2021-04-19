@@ -5,6 +5,7 @@ services:
     build: .
     env_file:
       - .env
+      - .secrets
     command: bash -c "
       uvicorn the_app.main:app
       --host 0.0.0.0 --port 8080
@@ -27,15 +28,15 @@ services:
       - postgres_data:/var/lib/postgresql/data
     env_file:
       - .env
+      - .secrets
     ports:
       - 5432:5432
     environment:
       - POSTGRES_USER=${SQL_USER}
-      - POSTGRES_PASSWORD=${SQL_PASS}
     healthcheck:
       test:
         [
-            "CMD-SHELL", "pg_isready -d $POSTGRES_DB -U $POSTGRES_USER"
+            "CMD-SHELL", "pg_isready -d $SQL_DB -U $SQL_USER"
         ]
       interval: 5s
       timeout: 5s

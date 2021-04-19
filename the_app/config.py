@@ -27,7 +27,7 @@ class Settings(BaseSettings):
     """
 
     pg_user: str = os.getenv("SQL_USER", "")
-    pg_pass: str = os.getenv("SQL_PASS", "")
+    pg_pass: str = os.getenv("POSTGRES_PASSWORD", "")
     pg_host: str = os.getenv("SQL_HOST", "")
     pg_database: str = os.getenv("SQL_DB", "")
     pg_test_database: str = os.getenv("SQL_TEST_DB", "")
