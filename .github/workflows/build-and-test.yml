@@ -17,6 +17,8 @@ jobs:
         image: postgres:13
         env:
           POSTGRES_USER: user
+          POSTGRES_PASSWORD: secret
+          POSTGRES_DB: devdb
         ports:
           - 5432:5432
         # needed because the postgres container does not provide a healthcheck
