@@ -31,7 +31,9 @@ jobs:
         with:
           python-version: 3.9
       - name: Install pipenv
-        run: pip install pipenv
+        run: pip install pipenv --upgrade
+      - name: Upgrde pip, setuptools and wheel
+        run: pip install --upgrade pip setuptools wheel
       - name: Install required libs
         run: pipenv install --system --sequential --ignore-pipfile --dev
       - name: Run tests
