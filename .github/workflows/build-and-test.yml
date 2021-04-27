@@ -1,0 +1,45 @@
+
+name: Unit Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      sqldb:
+        image: postgres:13
+        env:
+          POSTGRES_USER: user
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+      - name: Install pipenv
+        run: pip install pipenv
+      - name: Install required libs
+        run: pipenv install --system --sequential --ignore-pipfile --dev
+      - name: Run tests
+        run: pytest
+        env:
+          PYTHONDONTWRITEBYTECODE: 1
+          PYTHONUNBUFFERED: 1
+          SQL_DB: devdb
+          SQL_TEST_DB: testdb
+          SQL_HOST: db
+          SQL_USER: user
+          SQL_PASS: secret
+
