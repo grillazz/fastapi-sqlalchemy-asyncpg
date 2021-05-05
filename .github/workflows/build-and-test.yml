@@ -21,7 +21,7 @@ jobs:
           POSTGRES_DB: devdb
         ports:
           - 5432:5432
-        # needed because the postgres container does not provide a healthcheck
+        # needed because the postgres container does not provide a health check
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
@@ -43,7 +43,7 @@ jobs:
           PYTHONUNBUFFERED: 1
           SQL_DB: devdb
           SQL_TEST_DB: testdb
-          SQL_HOST: db
+          SQL_HOST: 127.0.0.1
           SQL_USER: user
           SQL_PASS: secret
 
