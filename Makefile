@@ -27,8 +27,9 @@ test:	## Run project tests
 	docker-compose run --rm app pytest
 
 .PHONY: lint
-lint:  ## Linter project code.
+lint:  ## Linte project code.
 	isort .
 	black --fast --line-length=120 .
 	mypy --ignore-missing-imports the_app
 	flake8 --config .flake8 .
+
