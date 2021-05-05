@@ -18,7 +18,7 @@ jobs:
         env:
           POSTGRES_USER: user
           POSTGRES_PASSWORD: secret
-          POSTGRES_DB: devdb
+          POSTGRES_DB: testdb
         ports:
           - 5432:5432
         # needed because the postgres container does not provide a health check
