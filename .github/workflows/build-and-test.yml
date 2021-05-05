@@ -45,5 +45,4 @@ jobs:
           SQL_TEST_DB: testdb
           SQL_HOST: 127.0.0.1
           SQL_USER: user
-          SQL_PASS: secret
-
+          POSTGRES_PASSWORD: secret
