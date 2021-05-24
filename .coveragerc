@@ -1,0 +1,9 @@
+[run]
+branch = True
+
+concurrency =
+  greenlet
+
+omit =
+  *tests/*,
+
