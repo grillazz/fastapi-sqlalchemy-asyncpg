@@ -8,6 +8,7 @@ isort = "*"
 mypy = "*"
 flake8 = "*"
 black = "*"
+safety = "*"
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 pydantic = "*"
