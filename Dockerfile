@@ -10,10 +10,10 @@ COPY Pipfile.lock Pipfile.lock
 RUN set -ex && pip install pipenv --upgrade
 
 # Upgrde pip, setuptools and wheel
-RUN set -ex && pip install --upgrade pip setuptools wheel
+#RUN set -ex && pip install --upgrade pip setuptools wheel
 
 # Install dependencies
-RUN set -ex && pipenv install --system --sequential --ignore-pipfile --dev
+RUN set -ex && pipenv lock -r > req.txt && pip install -r req.txt
 
 FROM builder as final
 WORKDIR /app
