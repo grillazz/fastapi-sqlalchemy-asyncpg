@@ -27,7 +27,7 @@ test:	## Run project tests
 	docker-compose run --rm app pytest
 
 .PHONY: safety
-test:	## Check project and dependencies with safety https://github.com/pyupio/safety
+safety:	## Check project and dependencies with safety https://github.com/pyupio/safety
 	docker-compose run --rm app safety check
 
 .PHONY: lint
