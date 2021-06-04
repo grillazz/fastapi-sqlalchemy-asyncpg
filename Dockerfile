@@ -9,9 +9,6 @@ COPY Pipfile.lock Pipfile.lock
 # Install pipenv
 RUN set -ex && pip install pipenv --upgrade
 
-# Upgrde pip, setuptools and wheel
-#RUN set -ex && pip install --upgrade pip setuptools wheel
-
 # Install dependencies
 RUN set -ex && pipenv lock -r > req.txt && pip install -r req.txt
 
