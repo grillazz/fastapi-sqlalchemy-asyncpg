@@ -16,6 +16,11 @@ class Base:
         return cls.__name__.lower()
 
     async def save(self, db_session: AsyncSession):
+        """
+
+        :param db_session:
+        :return:
+        """
         try:
             db_session.add(self)
             return await db_session.commit()
@@ -23,6 +28,11 @@ class Base:
             raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex))
 
     async def delete(self, db_session: AsyncSession):
+        """
+
+        :param db_session:
+        :return:
+        """
         try:
             await db_session.delete(self)
             await db_session.commit()
@@ -31,6 +41,12 @@ class Base:
             raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex))
 
     async def update(self, db_session: AsyncSession, **kwargs):
+        """
+
+        :param db_session:
+        :param kwargs:
+        :return:
+        """
         for k, v in kwargs.items():
             setattr(self, k, v)
         await self.save(db_session)
