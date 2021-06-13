@@ -8,8 +8,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from the_app.models.base import Base
 
 
-class Stuff(Base):
-    __tablename__ = "stuff"
+class Nonsense(Base):
+    __tablename__ = "nonsense"
     id = Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4, autoincrement=True)
     name = Column(String, nullable=False, primary_key=True, unique=True)
     description = Column(String, nullable=False)

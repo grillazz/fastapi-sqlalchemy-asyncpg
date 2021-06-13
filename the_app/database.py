@@ -2,7 +2,7 @@ from typing import AsyncGenerator
 
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker
 
 from the_app import config
 
@@ -11,6 +11,7 @@ url = global_settings.asyncpg_url
 
 engine = create_async_engine(
     url,
+    future=True,
     echo=True,
 )
 
