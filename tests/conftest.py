@@ -12,7 +12,7 @@ from the_app.models.base import Base
 
 global_settings = config.get_settings()
 url = global_settings.asyncpg_test_url
-engine = create_async_engine(url, poolclass=NullPool)
+engine = create_async_engine(url, poolclass=NullPool, future=True)
 
 async_session = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
 
