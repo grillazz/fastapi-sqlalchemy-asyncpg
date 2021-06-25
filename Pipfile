@@ -18,6 +18,7 @@ sqlalchemy = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
 python-jose = {extras = ["cryptography"], version = "*"}
+passlib = {extras = ["bcrypt"], version = "*"}
 
 [dev-packages]
 icecream = "*"
