@@ -34,6 +34,10 @@ class Settings(BaseSettings):
     asyncpg_url: str = f"postgresql+asyncpg://{pg_user}:{pg_pass}@{pg_host}:5432/{pg_database}"
     asyncpg_test_url: str = f"postgresql+asyncpg://{pg_user}:{pg_pass}@{pg_host}:5432/{pg_test_database}"
 
+    jwt_secret_key: str = os.getenv("SECRET_KEY", "")
+    jwt_algorithm: str = os.getenv("ALGORITHM", "")
+    jwt_access_toke_expire_minutes: int = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 1)
+
 
 @lru_cache()
 def get_settings():

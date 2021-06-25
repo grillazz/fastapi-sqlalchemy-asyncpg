@@ -31,9 +31,12 @@ safety:	## Check project and dependencies with safety https://github.com/pyupio/
 	docker-compose run --rm app safety check
 
 .PHONY: lint
-lint:  ## Linte project code.
+lint:  ## Lint project code.
 	isort .
 	black --fast --line-length=120 .
 	mypy --ignore-missing-imports the_app
 	flake8 --config .flake8 .
 
+.PHONY: secret
+secret: ## Generate random secret.
+	openssl rand -hex 32
