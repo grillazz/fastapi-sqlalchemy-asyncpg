@@ -17,6 +17,7 @@ asyncpg = "*"
 sqlalchemy = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
+python-jose = {extras = ["cryptography"], version = "*"}
 
 [dev-packages]
 icecream = "*"
