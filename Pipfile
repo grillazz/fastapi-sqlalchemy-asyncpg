@@ -11,7 +11,7 @@ black = "*"
 safety = "*"
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
-pydantic = "*"
+pydantic = {extras = ["email"], version = "*"}
 httpx = "*"
 asyncpg = "*"
 sqlalchemy = "*"
@@ -19,6 +19,7 @@ pytest-asyncio = "*"
 pytest-cov = "*"
 python-jose = {extras = ["cryptography"], version = "*"}
 passlib = {extras = ["bcrypt"], version = "*"}
+python-multipart = "*"
 
 [dev-packages]
 icecream = "*"
