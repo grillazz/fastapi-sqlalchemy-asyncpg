@@ -20,6 +20,7 @@ pytest-cov = "*"
 python-jose = {extras = ["cryptography"], version = "*"}
 passlib = {extras = ["bcrypt"], version = "*"}
 python-multipart = "*"
+autoflake = "*"
 
 [dev-packages]
 icecream = "*"
