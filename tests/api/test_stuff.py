@@ -18,7 +18,7 @@ pytestmark = pytest.mark.asyncio
     ),
 )
 async def test_add_configuration(client: AsyncClient, payload: dict, status_code: int):
-    response = await client.post("/v1/", json=payload)
+    response = await client.post("/stuff", json=payload)
     assert response.status_code == status_code
     assert payload["name"] == response.json()["name"]
 
@@ -33,9 +33,9 @@ async def test_add_configuration(client: AsyncClient, payload: dict, status_code
     ),
 )
 async def test_get_configuration(client: AsyncClient, payload: dict, status_code: int):
-    await client.post("/v1/", json=payload)
+    await client.post("/stuff", json=payload)
     name = payload["name"]
-    response = await client.get(f"/v1/?name={name}")
+    response = await client.get(f"/stuff/?name={name}")
     assert response.status_code == status_code
     assert payload["name"] == response.json()["name"]
     assert UUID(response.json()["id"])
@@ -51,9 +51,9 @@ async def test_get_configuration(client: AsyncClient, payload: dict, status_code
     ),
 )
 async def test_delete_configuration(client: AsyncClient, payload: dict, status_code: int):
-    response = await client.post("/v1/", json=payload)
+    response = await client.post("/stuff", json=payload)
     name = response.json()["name"]
-    response = await client.delete(f"/v1/?name={name}")
+    response = await client.delete(f"/stuff/?name={name}")
     assert response.status_code == status_code
 
 
@@ -78,9 +78,9 @@ async def test_delete_configuration(client: AsyncClient, payload: dict, status_c
 async def test_update_configuration(
     client: AsyncClient, payload: dict, status_code: int, patch_payload: dict, patch_status_code: int
 ):
-    await client.post("/v1/", json=payload)
+    await client.post("/stuff/", json=payload)
     name = payload["name"]
-    response = await client.patch(f"/v1/?name={name}", json=patch_payload)
+    response = await client.patch(f"/stuff/?name={name}", json=patch_payload)
     assert response.status_code == patch_status_code
-    response = await client.get(f"/v1/?name={name}")
+    response = await client.get(f"/stuff/?name={name}")
     assert patch_payload["description"] == response.json()["description"]

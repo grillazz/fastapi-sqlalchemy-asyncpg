@@ -42,7 +42,7 @@ async def start_db():
 async def client() -> AsyncClient:
     async with AsyncClient(
         app=app,
-        base_url="http://testserver",
+        base_url="http://testserver/v1",
         headers={"Content-Type": "application/json"},
     ) as client:
         await start_db()
