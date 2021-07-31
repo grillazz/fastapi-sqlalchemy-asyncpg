@@ -5,7 +5,7 @@ from the_app.database import get_db
 from the_app.models.nonsense import Nonsense
 from the_app.schemas.nnonsense import NonsenseResponse, NonsenseSchema
 
-router = APIRouter()
+router = APIRouter(prefix="/v1/nonsense")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=NonsenseResponse)
