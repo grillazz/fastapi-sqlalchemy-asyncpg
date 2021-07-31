@@ -9,10 +9,10 @@ from the_app.models.base import Base
 
 log = logging.getLogger(__name__)
 
-app = FastAPI(title="Stuff And Nonsense", version="0.1")
+app = FastAPI(title="Stuff And Nonsense", version="0.2")
 
-app.include_router(stuff_router, prefix="/v1")
-app.include_router(nonsense_router, prefix="/v1")
+app.include_router(stuff_router)
+app.include_router(nonsense_router)
 
 
 async def start_db():

@@ -5,7 +5,7 @@ from the_app.database import get_db
 from the_app.models.stuff import Stuff
 from the_app.schemas.stuff import StuffResponse, StuffSchema
 
-router = APIRouter()
+router = APIRouter(prefix="/v1/stuff")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=StuffResponse)
