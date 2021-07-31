@@ -32,10 +32,18 @@ safety:	## Check project and dependencies with safety https://github.com/pyupio/
 
 .PHONY: lint
 lint:  ## Lint project code.
-	isort .
-	black --fast --line-length=120 .
-	mypy --ignore-missing-imports the_app
-	flake8 --config .flake8 .
+	isort the_app tests --check
+	flake8 --config .flake8 the_app tests
+	mypy the_app tests
+	black the_app tests --line-length=120 --check --diff
+
+
+.PHONY: format
+format:  ## Format project code.
+	isort the_app tests
+	autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place the_app tests --exclude=__init__.py
+	black the_app tests --line-length=120
+
 
 .PHONY: secret
 secret: ## Generate random secret.
