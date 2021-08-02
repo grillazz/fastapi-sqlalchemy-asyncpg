@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d3d739886ddcce32fd54d9cecfc8cd1330575790b688f06c9e5fa0add279a900"
+            "sha256": "4214d1a9d13197e8f5f38c28f60f410073a30052dddbdbe3f2e2e11d22e3a13f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -256,7 +256,7 @@
                 "sha256:a1b5f169102e1c894f9a7d5ccf6f9402a836a5d24be80a986c7ce9eaed78f367",
                 "sha256:e953a25e44ebb60a5c6efc2add4420c177f1d8404509da88da9729202f306994"
             ],
-            "markers": "python_full_version >= '3.5.0'",
+            "markers": "python_version >= '3.5'",
             "version": "==0.5.1"
         },
         "ecdsa": {
@@ -276,11 +276,11 @@
         },
         "fastapi": {
             "hashes": [
-                "sha256:c9256a89b0436223b45f53fe3a39b178f3da6be5841a2c59deedff4b676d003f",
-                "sha256:f4dba2596b1e0a1f962834c3b9ec4291a7aec387a1031c6c2e25bf239d27fd0f"
+                "sha256:6ea2286e439c4ced7cce2b2862c25859601bf327a515c12dd6e431ef5d49d12f",
+                "sha256:d3e3c0ac35110efb22ee3ed28201cf32f9d11a9a0e52d7dd676cad25f5219523"
             ],
             "index": "pypi",
-            "version": "==0.68.0"
+            "version": "==0.65.3"
         },
         "flake8": {
             "hashes": [
@@ -289,6 +289,22 @@
             ],
             "index": "pypi",
             "version": "==3.9.2"
+        },
+        "flake8-fastapi": {
+            "hashes": [
+                "sha256:aa004b3813bf97088dc0dc273f63cd04972251eb4a6964f7ec9d2c264c922a84",
+                "sha256:c3bce2c282bf6565011cc0c08618a155f9afe52ba2847185d636a8eb7f67bc5a"
+            ],
+            "index": "pypi",
+            "version": "==0.6.1"
+        },
+        "flake8-plugin-utils": {
+            "hashes": [
+                "sha256:1fe43e3e9acf3a7c0f6b88f5338cad37044d2f156c43cb6b080b5f9da8a76f06",
+                "sha256:20fa2a8ca2decac50116edb42e6af0a1253ef639ad79941249b840531889c65a"
+            ],
+            "markers": "python_version >= '3.6' and python_version < '4'",
+            "version": "==1.3.2"
         },
         "greenlet": {
             "hashes": [
@@ -729,7 +745,7 @@
                 "sha256:78f9a9bf4e7be0c5ded4583326e7461e3a3c5aae24073648b4bdfa797d78c9d2",
                 "sha256:9d689e6ca1b3038bc82bf8d23e944b6b6037bc02301a574935b2dd946e0353b9"
             ],
-            "markers": "python_version < '4' and python_full_version >= '3.5.0'",
+            "markers": "python_version >= '3.5' and python_version < '4'",
             "version": "==4.7.2"
         },
         "safety": {
@@ -753,7 +769,7 @@
                 "sha256:471b71698eac1c2112a40ce2752bb2f4a4814c22a54a3eed3676bc0f5ca9f663",
                 "sha256:c4666eecec1d3f50960c6bdf61ab7bc350648da6c126e3cf6898d8cd4ddcd3de"
             ],
-            "markers": "python_full_version >= '3.5.0'",
+            "markers": "python_version >= '3.5'",
             "version": "==1.2.0"
         },
         "sqlalchemy": {
@@ -945,10 +961,10 @@
         },
         "executing": {
             "hashes": [
-                "sha256:1971c98963857f2c03f4b688d93fc4b28ce756bd102955ea8ea7ce0a7fd9a28f",
-                "sha256:509fe590e9da1c0659a273c42493a25af6f43d61cf36f085fc1b6cf2c6419d1f"
+                "sha256:77ed91874d321338865ea2bf7337636a5de8e9a7f8323527d29c4fad2a1b48f7",
+                "sha256:7ef8637519b0c01b69c4a1785a0d13dcc2cf9f0d078804268887edad2b4f26d1"
             ],
-            "version": "==0.7.0"
+            "version": "==0.8.0"
         },
         "icecream": {
             "hashes": [
@@ -960,11 +976,11 @@
         },
         "ipython": {
             "hashes": [
-                "sha256:54bbd1fe3882457aaf28ae060a5ccdef97f212a741754e420028d4ec5c2291dc",
-                "sha256:aa21412f2b04ad1a652e30564fff6b4de04726ce875eab222c8430edc6db383a"
+                "sha256:0cff04bb042800129348701f7bd68a430a844e8fb193979c08f6c99f28bb735e",
+                "sha256:892743b65c21ed72b806a3a602cca408520b3200b89d1924f4b3d2cdb3692362"
             ],
             "index": "pypi",
-            "version": "==7.25.0"
+            "version": "==7.26.0"
         },
         "ipython-genutils": {
             "hashes": [
