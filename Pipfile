@@ -12,15 +12,12 @@ black = "*"
 safety = "*"
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
-pydantic = {extras = ["email"], version = "*"}
+pydantic = "*"
 httpx = "*"
 asyncpg = "*"
 sqlalchemy = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
-python-jose = {extras = ["cryptography"], version = "*"}
-passlib = {extras = ["bcrypt"], version = "*"}
-python-multipart = "*"
 autoflake = "*"
 
 [dev-packages]

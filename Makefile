@@ -43,8 +43,3 @@ format:  ## Format project code.
 	isort the_app tests
 	autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place the_app tests --exclude=__init__.py
 	black the_app tests --line-length=120
-
-
-.PHONY: secret
-secret: ## Generate random secret.
-	openssl rand -hex 32
