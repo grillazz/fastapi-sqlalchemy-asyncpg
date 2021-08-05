@@ -5,8 +5,32 @@
 [![license](https://img.shields.io/github/license/grillazz/fastapi-sqlalchemy-asyncpg)](https://github.com/grillazz/fastapi-sqlalchemy-asyncpg/blob/main/LICENSE)
 ![visitors](https://visitor-badge.laobi.icu/badge?page_id=grillazz.fastapi-sqlalchemy-asyncpg")
 
-Simple integration of FastAPI with SQLAlchemy 1.4 as ORM with PostgreSQL on asyncpg driver
+Example for [FastAPI](https://fastapi.tiangolo.com/) integration with [SQLAlchemy](https://www.sqlalchemy.org/) ORM with PostgreSQL via [asyncpg](https://github.com/MagicStack/asyncpg) a fast Database Client Library for python/asyncio.
 
-Dear visitor please use magic of `make help` to play with this project.
+Beside of using latest and greatest version of [SQLAlchemy](https://www.sqlalchemy.org/) with it robustness, powerfulness and speed
+of [asyncpg](https://github.com/MagicStack/asyncpg) there is [FastAPI](https://fastapi.tiangolo.com/) (modern, fast (high-performance), 
+web framework for building APIs with Python 3.9+ based on standard Python type hints.) already reviewed
+on [thoughtworks](https://www.thoughtworks.com/radar/languages-and-frameworks?blipid=202104087).
+
+
+
+### How to Setup
+To build , run and test and more ... use magic of make help to play with this project.
+```shell
+make help
+```
+and you receive below list:
+```text
+build                Build project with compose
+down                 Reset project containers with compose
+format               Format project code.
+help                 Show this help
+lint                 Lint project code.
+lock                 Refresh pipfile.lock
+requirements         Refresh requirements.txt from pipfile.lock
+safety               Check project and dependencies with safety https://github.com/pyupio/safety
+test                 Run project tests
+up                   Run project with compose
+```
 
 Hope you enjoy it.
