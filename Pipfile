@@ -19,6 +19,7 @@ sqlalchemy = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
 autoflake = "*"
+rich = "*"
 
 [dev-packages]
 icecream = "*"
