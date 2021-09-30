@@ -20,6 +20,7 @@ pytest-asyncio = "*"
 pytest-cov = "*"
 autoflake = "*"
 rich = "*"
+pyupgrade = "*"
 
 [dev-packages]
 icecream = "*"
