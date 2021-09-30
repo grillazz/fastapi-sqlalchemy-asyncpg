@@ -30,6 +30,10 @@ test:	## Run project tests
 safety:	## Check project and dependencies with safety https://github.com/pyupio/safety
 	docker-compose run --rm app safety check
 
+.PHONY: py-upgrade
+py-upgrade:	## Upgrade project py files with pyupgrade library for python version 3.9
+	docker-compose run --rm app pyupgrade --py39-plus `find . -name "*.py"`
+
 .PHONY: lint
 lint:  ## Lint project code.
 	isort the_app tests --check
