@@ -8,14 +8,14 @@ from the_app.schemas.stuff import StuffResponse, StuffSchema
 router = APIRouter(prefix="/v1/stuff")
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=StuffResponse)
+@router.post("", status_code=status.HTTP_201_CREATED, response_model=StuffResponse)
 async def create_stuff(payload: StuffSchema, db_session: AsyncSession = Depends(get_db)):
     stuff = Stuff(**payload.dict())
     await stuff.save(db_session)
     return stuff
 
 
-@router.get("/", response_model=StuffResponse)
+@router.get("/{name}", response_model=StuffResponse)
 async def find_stuff(
     name: str,
     db_session: AsyncSession = Depends(get_db),
@@ -23,13 +23,13 @@ async def find_stuff(
     return await Stuff.find(db_session, name)
 
 
-@router.delete("/")
+@router.delete("/{name}")
 async def delete_stuff(name: str, db_session: AsyncSession = Depends(get_db)):
     stuff = await Stuff.find(db_session, name)
     return await Stuff.delete(stuff, db_session)
 
 
-@router.patch("/", response_model=StuffResponse)
+@router.patch("/{name}", response_model=StuffResponse)
 async def update_stuff(
     payload: StuffSchema,
     name: str,
