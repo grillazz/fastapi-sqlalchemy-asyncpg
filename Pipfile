@@ -4,25 +4,29 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+fastapi = "*"
+requests = "*"
+httpx = "*"
+uvicorn = "*"
+uvloop = "*"
+asyncpg = "*"
+sqlalchemy = "*"
+alembic = "*"
+eventlet = "*"
+aioredis = "*"
+rich = "*"
+pytest-asyncio = "*"
+pytest-cov = "*"
+
+[dev-packages]
 isort = "*"
 mypy = "*"
 flake8 = "*"
 flake8-fastapi = "*"
 black = "*"
 safety = "*"
-fastapi = "*"
-uvicorn = {extras = ["standard"], version = "*"}
-pydantic = "*"
-httpx = "*"
-asyncpg = "*"
-sqlalchemy = "*"
-pytest-asyncio = "*"
-pytest-cov = "*"
 autoflake = "*"
-rich = "*"
 pyupgrade = "*"
-
-[dev-packages]
 icecream = "*"
 ipython = "*"
 
