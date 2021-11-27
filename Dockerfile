@@ -1,5 +1,5 @@
 # Pull base image
-FROM python:3.9-slim-buster as builder
+FROM python:3.10-slim-buster as builder
 
 # Set environment variables
 WORKDIR /pipfiles
