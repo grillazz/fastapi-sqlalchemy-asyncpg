@@ -6,6 +6,7 @@ from httpx import AsyncClient
 
 pytestmark = pytest.mark.anyio
 
+
 @pytest.mark.parametrize(
     "payload, status_code",
     (
