@@ -10,6 +10,16 @@ from the_app.database import get_db
 from the_app.main import app
 from the_app.models.base import Base
 
+
+@pytest.fixture(
+    params=[
+        pytest.param(("asyncio", {"use_uvloop": True}), id="asyncio+uvloop"),
+    ]
+)
+def anyio_backend(request):
+    return request.param
+
+
 global_settings = config.get_settings()
 url = global_settings.asyncpg_test_url
 engine = create_async_engine(url, poolclass=NullPool, future=True)
@@ -41,9 +51,9 @@ async def start_db():
 @pytest.fixture
 async def client() -> AsyncClient:
     async with AsyncClient(
-        app=app,
-        base_url="http://testserver/v1",
-        headers={"Content-Type": "application/json"},
+            app=app,
+            base_url="http://testserver/v1",
+            headers={"Content-Type": "application/json"},
     ) as client:
         await start_db()
         yield client
