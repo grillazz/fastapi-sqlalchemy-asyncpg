@@ -17,6 +17,7 @@ aioredis = "*"
 rich = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
+pylint = "*"
 
 [dev-packages]
 isort = "*"
