@@ -31,8 +31,8 @@ safety:	## Check project and dependencies with safety https://github.com/pyupio/
 	docker-compose run --rm app safety check
 
 .PHONY: py-upgrade
-py-upgrade:	## Upgrade project py files with pyupgrade library for python version 3.9
-	docker-compose run --rm app pyupgrade --py39-plus `find . -name "*.py"`
+py-upgrade:	## Upgrade project py files with pyupgrade library for python version 3.10
+	pyupgrade --py310-plus `find the_app -name "*.py"`
 
 .PHONY: lint
 lint:  ## Lint project code.
