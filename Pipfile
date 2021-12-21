@@ -16,6 +16,7 @@ eventlet = "*"
 aioredis = "*"
 rich = "*"
 pytest-cov = "*"
+pylint = "*"
 
 [dev-packages]
 isort = "*"
