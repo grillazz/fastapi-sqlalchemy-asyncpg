@@ -15,7 +15,6 @@ alembic = "*"
 eventlet = "*"
 aioredis = "*"
 rich = "*"
-pytest-asyncio = "*"
 pytest-cov = "*"
 
 [dev-packages]
