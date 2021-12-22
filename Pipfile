@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 fastapi = "*"
-requests = "*"
+httptools = "*"
 httpx = "*"
 uvicorn = "*"
 uvloop = "*"
