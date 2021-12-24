@@ -10,7 +10,7 @@ router = APIRouter(prefix="/v1/stuff")
 
 @router.post("", status_code=status.HTTP_201_CREATED, response_model=StuffResponse)
 async def create_stuff(payload: StuffSchema, db_session: AsyncSession = Depends(get_db)):
-    stuff = Stuff(**payload.dict())
+    stuff = Stuff(name=payload.name, description=payload.description)
     await stuff.save(db_session)
     return stuff
 
