@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 fastapi = "*"
-pydantic = "==1.8.2"
+pydantic = "*"
 httptools = "*"
 httpx = "*"
 uvicorn = "*"
