@@ -11,12 +11,13 @@ httpx = "*"
 uvicorn = "*"
 uvloop = "*"
 asyncpg = "*"
-sqlalchemy = "*"
+sqlalchemy = {extras = ["asyncio"], version = "*"}
 alembic = "*"
 eventlet = "*"
 aioredis = "*"
 rich = "*"
 pytest-cov = "*"
+pytest-asyncio = "*"
 pylint = "*"
 
 [dev-packages]
