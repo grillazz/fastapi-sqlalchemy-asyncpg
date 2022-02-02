@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "628f478121edd35aa12ccc88be545920a333b3a9b3f427de1feb55d26f2bffc7"
+            "sha256": "285d79d1ea6cc1173f0db1f9369ab590f6287d79c63c50e0cc086f52ef8289f9"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -637,6 +637,9 @@
             "version": "==1.2.0"
         },
         "sqlalchemy": {
+            "extras": [
+                "asyncio"
+            ],
             "hashes": [
                 "sha256:05fa14f279d43df68964ad066f653193187909950aa0163320b728edfc400167",
                 "sha256:0ddc5e5ccc0160e7ad190e5c61eb57560f38559e22586955f205e537cda26034",
@@ -889,7 +892,7 @@
                 "sha256:1fe43e3e9acf3a7c0f6b88f5338cad37044d2f156c43cb6b080b5f9da8a76f06",
                 "sha256:20fa2a8ca2decac50116edb42e6af0a1253ef639ad79941249b840531889c65a"
             ],
-            "markers": "python_version >= '3.6' and python_version < '4.0'",
+            "markers": "python_version >= '3.6' and python_version < '4'",
             "version": "==1.3.2"
         },
         "icecream": {
@@ -1260,7 +1263,7 @@
                 "sha256:000ca7f471a233c2251c6c7023ee85305721bfdf18621ebff4fd17a8653427ed",
                 "sha256:0e7c33d9a63e7ddfcb86780aac87befc2fbddf46c58dbb487e0855f7ceec283c"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
             "version": "==1.26.8"
         },
         "wcwidth": {
