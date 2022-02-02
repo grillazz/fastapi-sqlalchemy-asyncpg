@@ -32,3 +32,6 @@ async def client() -> AsyncClient:
     ) as client:
         await start_db()
         yield client
+        # for AsyncEngine created in function scope, close and
+        # clean-up pooled connections
+        await engine.dispose()
