@@ -10,9 +10,9 @@ build:	## Build project with compose
 up:	## Run project with compose
 	docker-compose up --remove-orphans
 
-.PHONY: down
-down: ## Reset project containers with compose
-	docker-compose down
+.PHONY: clean
+clean: ## Clean Reset project containers with compose
+	docker-compose down -v --remove-orphans
 
 .PHONY: lock
 lock:	## Refresh pipfile.lock
@@ -24,7 +24,7 @@ requirements:	## Refresh requirements.txt from pipfile.lock
 
 .PHONY: test
 test:	## Run project tests
-	docker-compose run --rm app pytest
+	docker-compose -f docker-compose.yml -f docker-compose.test.yml  run --rm app pytest
 
 .PHONY: safety
 safety:	## Check project and dependencies with safety https://github.com/pyupio/safety
