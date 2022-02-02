@@ -31,6 +31,4 @@ async def get_db() -> AsyncGenerator:
         raise ex
     finally:
         await session.close()
-        # for AsyncEngine created in function scope, close and
-        # clean-up pooled connections
-        await engine.dispose()
+
