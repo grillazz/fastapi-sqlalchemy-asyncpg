@@ -1,4 +1,5 @@
 import pytest
+import pytest_asyncio
 from httpx import AsyncClient
 from the_app.main import app
 from the_app.models.base import Base
@@ -23,7 +24,7 @@ async def start_db():
     await engine.dispose()
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def client() -> AsyncClient:
     async with AsyncClient(
         app=app,
