@@ -14,7 +14,6 @@ asyncpg = "*"
 sqlalchemy = {extras = ["asyncio"], version = "*"}
 alembic = "*"
 eventlet = "*"
-aioredis = "*"
 rich = "*"
 pytest-cov = "*"
 pytest-asyncio = "*"
