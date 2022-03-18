@@ -31,7 +31,7 @@ async def get_db() -> AsyncGenerator:
             await session.rollback()
             raise sql_ex
         except HTTPException as http_ex:
-            session.rollback()
+            await session.rollback()
             raise http_ex
         finally:
             await session.close()
