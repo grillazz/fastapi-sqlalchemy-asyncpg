@@ -1,9 +1,10 @@
 import pytest
 import pytest_asyncio
 from httpx import AsyncClient
+
+from the_app.database import engine
 from the_app.main import app
 from the_app.models.base import Base
-from the_app.database import engine
 
 
 @pytest.fixture(
