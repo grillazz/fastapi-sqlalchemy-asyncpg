@@ -34,3 +34,9 @@ up                   Run project with compose
 ```
 
 Hope you enjoy it.
+
+It tooks me a while to find nice data set. Hope shkezz as example will be able to cover 
+first part with read only declarative base and all type of selects :)
+I took data set form https://github.com/catherinedevlin/opensourceshakespeare
+Next generated declarative base with https://github.com/agronholm/sqlacodegen
+And after soem twiking i get desired result
