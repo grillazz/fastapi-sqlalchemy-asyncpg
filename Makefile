@@ -14,13 +14,9 @@ up:	## Run project with compose
 clean: ## Clean Reset project containers with compose
 	docker-compose down -v --remove-orphans
 
-.PHONY: lock
-lock:	## Refresh pipfile.lock
-	pipenv lock --pre
-
 .PHONY: requirements
 requirements:	## Refresh requirements.txt from pipfile.lock
-	pipenv lock -r > requirements.txt
+	pipenv lock -r -d > requirements.txt
 
 .PHONY: test
 test:	## Run project tests
