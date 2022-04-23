@@ -38,7 +38,7 @@ class Settings(BaseSettings):
     jwt_access_toke_expire_minutes: int = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 1)
 
 
-@lru_cache
+@lru_cache()
 def get_settings():
     logger.info("Loading config settings from the environment...")
     return Settings()
