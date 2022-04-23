@@ -1,9 +1,9 @@
 from sqlalchemy import (Column, ForeignKeyConstraint, Integer,
                         PrimaryKeyConstraint, String, Table, Text,
-                        UniqueConstraint)
-from sqlalchemy.orm import declarative_base, relationship
+                        UniqueConstraint, ForeignKey)
+from sqlalchemy.orm import relationship
 
-Base = declarative_base()
+from the_app.models.base import Base
 metadata = Base.metadata
 
 
