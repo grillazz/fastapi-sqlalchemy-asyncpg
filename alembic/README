@@ -1,0 +1,16 @@
+Alembic commands
+====================
+
+### Check current revision
+>alembic current
+
+### Make new revision
+>alembic revision --autogenerate -m "first revision"
+
+After autogeneration it is highly recommended to check new revision in /versions/ folder, and adjust it if needed
+
+### Upgrade the DB to the newest revision
+>alembic upgrade head
+
+### Downgrade DB to previous revision
+>alembic downgrade -1
