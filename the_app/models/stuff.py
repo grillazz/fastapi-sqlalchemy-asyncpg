@@ -32,7 +32,7 @@ class Stuff(Base):
         if instance is None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail={"Not found": f"There is no record for requested: {name=}"},
+                detail={"Not found": f"There is no record for name: {name}"},
             )
         else:
             return instance
