@@ -33,10 +33,13 @@ test                 Run project tests
 up                   Run project with compose
 ```
 
-Hope you enjoy it.
 
-It tooks me a while to find nice data set. Hope shkezz as example will be able to cover 
-first part with read only declarative base and all type of selects :)
-I took data set form https://github.com/catherinedevlin/opensourceshakespeare
-Next generated declarative base with https://github.com/agronholm/sqlacodegen
-And after soem twiking i get desired result
+### How to feed database
+
+It took me a while to find nice data set. Hope works of Shakespeare as example will be able to cover 
+first part with read only declarative base configuration and all type of funny selects :)
+Data set is coming form https://github.com/catherinedevlin/opensourceshakespeare
+Next models were generated with https://github.com/agronholm/sqlacodegen
+And after some tweaking I got desired result
+
+Hope you enjoy it.
