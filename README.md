@@ -9,7 +9,7 @@ Example for [FastAPI](https://fastapi.tiangolo.com/) integration with [SQLAlchem
 
 Beside of using latest and greatest version of [SQLAlchemy](https://www.sqlalchemy.org/) with it robustness, powerfulness and speed
 of [asyncpg](https://github.com/MagicStack/asyncpg) there is [FastAPI](https://fastapi.tiangolo.com/) (modern, fast (high-performance), 
-web framework for building APIs with Python 3.10+ based on standard Python type hints.) already reviewed
+web framework for building APIs with Python 3.7+ based on standard Python type hints.) already reviewed
 on [thoughtworks](https://www.thoughtworks.com/radar/languages-and-frameworks?blipid=202104087).
 
 
