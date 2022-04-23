@@ -9,7 +9,7 @@ Example for [FastAPI](https://fastapi.tiangolo.com/) integration with [SQLAlchem
 
 Beside of using latest and greatest version of [SQLAlchemy](https://www.sqlalchemy.org/) with it robustness, powerfulness and speed
 of [asyncpg](https://github.com/MagicStack/asyncpg) there is [FastAPI](https://fastapi.tiangolo.com/) (modern, fast (high-performance), 
-web framework for building APIs with Python 3.10+ based on standard Python type hints.) already reviewed
+web framework for building APIs with Python 3.7+ based on standard Python type hints.) already reviewed
 on [thoughtworks](https://www.thoughtworks.com/radar/languages-and-frameworks?blipid=202104087).
 
 
@@ -33,10 +33,13 @@ test                 Run project tests
 up                   Run project with compose
 ```
 
-Hope you enjoy it.
 
-It tooks me a while to find nice data set. Hope shkezz as example will be able to cover 
-first part with read only declarative base and all type of selects :)
-I took data set form https://github.com/catherinedevlin/opensourceshakespeare
-Next generated declarative base with https://github.com/agronholm/sqlacodegen
-And after soem twiking i get desired result
+### How to feed database
+
+It took me a while to find nice data set. Hope works of Shakespeare as example will be able to cover 
+first part with read only declarative base configuration and all type of funny selects :)
+Data set is coming form https://github.com/catherinedevlin/opensourceshakespeare
+Next models were generated with https://github.com/agronholm/sqlacodegen
+And after some tweaking I got desired result
+
+Hope you enjoy it.
