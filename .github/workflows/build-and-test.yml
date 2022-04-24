@@ -24,6 +24,8 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
+      - name: Create database schema
+        run: PGPASSWORD=secret psql -h 127.0.0.1 -d testdb -U user -c "CREATE SCHEMA shakespeare;"
       - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -40,3 +42,5 @@ jobs:
           SQL_HOST: 127.0.0.1
           SQL_USER: user
           POSTGRES_PASSWORD: secret
+          PGPASSWORD: secret
+
