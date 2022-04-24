@@ -15,7 +15,7 @@ jobs:
       sqldb:
         image: postgres:13
         env:
-          POSTGRES_USER: user
+          POSTGRES_USER: userdb
           POSTGRES_PASSWORD: secret
           POSTGRES_DB: testdb
         ports:
@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: Create database schema
-        run: psql -h 127.0.0.1 -d testdb -U user -c '\connect testdb; CREATE SCHEMA shakespeare;'
+        run: psql -h sqldb -d testdb -U userdb -c 'CREATE SCHEMA shakespeare;'
       - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -40,7 +40,8 @@ jobs:
           PYTHONUNBUFFERED: 1
           SQL_DB: testdb
           SQL_HOST: 127.0.0.1
-          SQL_USER: user
-          POSTGRES_PASSWORD: secret
+          SQL_USER: userdb
+#          POSTGRES_PASSWORD: secret
           PGPASSWORD: secret
+
 
