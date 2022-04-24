@@ -42,3 +42,5 @@ jobs:
           SQL_HOST: 127.0.0.1
           SQL_USER: user
           POSTGRES_PASSWORD: secret
+          PGPASSWORD: secret
+
