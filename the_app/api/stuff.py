@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -6,6 +7,19 @@ from the_app.models.stuff import Stuff
 from the_app.schemas.stuff import StuffResponse, StuffSchema
 
 router = APIRouter(prefix="/v1/stuff")
+
+
+@router.post("/add_many", status_code=status.HTTP_201_CREATED)
+async def create_multi_stuff(payload: List[StuffSchema], db_session: AsyncSession = Depends(get_db)):
+    stuff_instances = [
+        Stuff(
+            name=stuf.name, description=stuf.description
+        )
+        for stuf in payload
+    ]
+    db_session.add_all(stuff_instances)
+    await db_session.commit()
+    return True
 
 
 @router.post("", status_code=status.HTTP_201_CREATED, response_model=StuffResponse)
