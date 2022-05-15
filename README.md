@@ -27,7 +27,7 @@ format               Format project code.
 help                 Show this help
 lint                 Lint project code.
 lock                 Refresh pipfile.lock
-requirements         Refresh requirements.txt from pipfile.lock
+requirements         Refresh requirements.txt
 safety               Check project and dependencies with safety https://github.com/pyupio/safety
 test                 Run project tests
 up                   Run project with compose
