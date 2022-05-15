@@ -16,7 +16,7 @@ clean: ## Clean Reset project containers with compose
 
 .PHONY: requirements
 requirements:	## Refresh requirements.txt from pipfile.lock
-	pipenv lock -r -d > requirements.txt
+	pipenv requirements > requirements.txt
 
 .PHONY: test
 test:	## Run project tests
