@@ -1,5 +1,3 @@
-from typing import List
-
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -15,7 +13,7 @@ logger = get_logger(__name__)
 
 
 @router.post("/add_many", status_code=status.HTTP_201_CREATED)
-async def create_multi_stuff(payload: List[StuffSchema], db_session: AsyncSession = Depends(get_db)):
+async def create_multi_stuff(payload: list[StuffSchema], db_session: AsyncSession = Depends(get_db)):
     try:
         stuff_instances = [Stuff(name=stuf.name, description=stuf.description) for stuf in payload]
         db_session.add_all(stuff_instances)
