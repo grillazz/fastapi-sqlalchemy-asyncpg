@@ -9,6 +9,7 @@ pydantic = "*"
 httptools = "*"
 httpx = "*"
 uvicorn = "*"
+pandas = "*"
 uvloop = "*"
 asyncpg = "*"
 sqlalchemy = {extras = ["asyncio"], version = "*"}
@@ -17,6 +18,8 @@ eventlet = "*"
 rich = "*"
 pytest-cov = "*"
 pytest-asyncio = "*"
+numpy = "*"
+python-multipart = "*"
 
 [dev-packages]
 isort = "*"

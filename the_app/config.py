@@ -8,6 +8,11 @@ from the_app.utils import get_logger
 logger = get_logger(__name__)
 
 
+def jls_extract_def():
+    # os.getenv("SQL_HOST", "")
+    return 
+
+
 class Settings(BaseSettings):
     """
 
@@ -27,10 +32,10 @@ class Settings(BaseSettings):
 
     """
 
-    pg_user: str = os.getenv("SQL_USER", "")
-    pg_pass: str = os.getenv("POSTGRES_PASSWORD", "")
-    pg_host: str = os.getenv("SQL_HOST", "")
-    pg_database: str = os.getenv("SQL_DB", "")
+    pg_user: str =  "postgresadmin" #os.getenv("SQL_USER", "")
+    pg_pass: str = "mldmdOKG3LQ5fVsoLa4L" #os.getenv("POSTGRES_PASSWORD", "")
+    pg_host: str = "merchant-center.ch1cvg68mfmu.eu-west-3.rds.amazonaws.com" #os.getenv("SQL_HOST", "") # = jls_extract_def()
+    pg_database: str = "merchantcenter" #os.getenv("SQL_DB", "")
     asyncpg_url: str = f"postgresql+asyncpg://{pg_user}:{pg_pass}@{pg_host}:5432/{pg_database}"
 
     jwt_secret_key: str = os.getenv("SECRET_KEY", "")
