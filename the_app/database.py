@@ -9,7 +9,7 @@ from the_app import config
 
 global_settings = config.get_settings()
 url = global_settings.asyncpg_url
-
+print(url)
 engine = create_async_engine(
     url,
     future=True,
