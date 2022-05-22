@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: Create database schema
-        run: PGPASSWORD=secret psql -h 127.0.0.1 -d testdb -U user -c "CREATE SCHEMA shakespeare;"
+        run: PGPASSWORD=secret psql -h 127.0.0.1 -d testdb -U user -c "CREATE SCHEMA shakespeare; CREATE SCHEMA the_others;"
       - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
