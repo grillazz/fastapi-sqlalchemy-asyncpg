@@ -10,6 +10,9 @@ from the_app.models.base import Base
 
 class Nonsense(Base):
     __tablename__ = "nonsense"
+    __table_args__ = (
+        {"schema": "the_others"},
+    )
     id = Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4, autoincrement=True)
     name = Column(String, nullable=False, primary_key=True, unique=True)
     description = Column(String, nullable=False)
@@ -17,6 +20,7 @@ class Nonsense(Base):
     def __init__(self, name: str, description: str):
         self.name = name
         self.description = description
+
 
     @classmethod
     async def find(cls, db_session: AsyncSession, name: str):
