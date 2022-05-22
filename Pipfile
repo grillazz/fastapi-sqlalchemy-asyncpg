@@ -19,6 +19,7 @@ pytest-cov = "*"
 pytest-asyncio = "*"
 
 [dev-packages]
+devtools = {extras = ["pygments"], version = "*"}
 isort = "*"
 mypy = "*"
 flake8 = "*"
@@ -26,7 +27,6 @@ black = "*"
 safety = "*"
 autoflake = "*"
 pyupgrade = "*"
-icecream = "*"
 ipython = "*"
 pylint = "*"
 
