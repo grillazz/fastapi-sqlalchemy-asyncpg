@@ -11,10 +11,10 @@ RUN set -ex && pip install --upgrade pip
 RUN set -ex && pip install -r requirements.txt
 
 FROM builder as final
-WORKDIR /app
-COPY ./the_app/ /app/
-COPY ./tests/ /app/
-COPY .env /app/
+WORKDIR /code
+COPY ./the_app/ /code/
+COPY ./tests/ /code/
+COPY .env /code/
 
 RUN set -ex && bash -c "eval $(grep 'PYTHONDONTWRITEBYTECODE' .env)"
 RUN set -ex && bash -c "eval $(grep 'PYTHONUNBUFFERED' .env)"
