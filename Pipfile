@@ -15,8 +15,6 @@ sqlalchemy = {extras = ["asyncio"], version = "*"}
 alembic = "*"
 eventlet = "*"
 rich = "*"
-pytest-cov = "*"
-pytest-asyncio = "*"
 
 [dev-packages]
 devtools = {extras = ["pygments"], version = "*"}
@@ -29,6 +27,8 @@ autoflake = "*"
 pyupgrade = "*"
 ipython = "*"
 pylint = "*"
+pytest-cov = "*"
+pytest-asyncio = "*"
 
 [requires]
 python_version = "3.10"
