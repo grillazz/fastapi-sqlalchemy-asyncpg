@@ -2,6 +2,7 @@ version: '3'
 
 services:
   app:
+    image: fastapi-sqlalchemy-asyncpg_app
     build: .
     env_file:
       - .env
@@ -20,11 +21,12 @@ services:
       - db
 
   db:
+    image: fastapi-sqlalchemy-asyncpg_db
     build:
       context: ./db
       dockerfile: Dockerfile
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - fastapi_postgres_data:/var/lib/postgresql/data
     env_file:
       - .env
       - .secrets
@@ -42,4 +44,4 @@ services:
       retries: 5
 
 volumes:
-  postgres_data:
+  fastapi_postgres_data:
