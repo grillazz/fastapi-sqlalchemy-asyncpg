@@ -11,8 +11,18 @@ up:	## Run project with compose
 	docker-compose up --remove-orphans
 
 .PHONY: clean
-clean: ## Clean Reset project containers with compose
-	docker-compose down -v --remove-orphans
+clean: ## Clean Reset project containers and volumes with compose
+	docker-compose down -v --remove-orphans | true
+	docker-compose rm -f | true
+	docker volume rm fastapi_postgres_data | true
+
+.PHONY: migrate-apply
+migrate-apply: ## apply alembic migrations to database/schema
+	docker-compose run --rm app alembic upgrade head
+
+.PHONY: migrate-create
+migrate-create: ## create new alembic migration
+	docker-compose run --rm app alembic revision --autogenerate
 
 .PHONY: requirements
 requirements:	## Refresh requirements.txt from pipfile.lock
@@ -37,9 +47,13 @@ lint:  ## Lint project code.
 	mypy the_app tests
 	black the_app tests --line-length=120 --check --diff
 
-
 .PHONY: format
 format:  ## Format project code.
 	isort the_app tests
 	autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place the_app tests --exclude=__init__.py
 	black the_app tests --line-length=120
+
+.PHONY: slim-build
+slim-build: ## with power of docker-slim build smaller and safer images
+	docker-slim build --compose-file docker-compose.yml --target-compose-svc app --dep-include-target-compose-svc-deps true --http-probe-exec app fastapi-sqlalchemy-asyncpg_app:latest
+
