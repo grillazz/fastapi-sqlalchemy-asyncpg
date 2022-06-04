@@ -8,22 +8,15 @@ from the_app.utils import get_logger
 
 logger = get_logger(__name__)
 
-app = FastAPI(title="Stuff And Nonsense API", version="0.3")
+app = FastAPI(title="Stuff And Nonsense API", version="0.4")
 
 app.include_router(stuff_router)
 app.include_router(nonsense_router)
 
 
-async def start_db():
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-    await engine.dispose()
-
-
 @app.on_event("startup")
 async def startup_event():
     logger.info("Starting up...")
-    await start_db()
 
 
 @app.on_event("shutdown")

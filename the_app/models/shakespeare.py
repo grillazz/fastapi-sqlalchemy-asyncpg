@@ -18,7 +18,7 @@ metadata = Base.metadata
 
 class Character(Base):
     __tablename__ = "character"
-    __table_args__ = (PrimaryKeyConstraint("id", name="character_pkey"), {"schema": "shakespeare_i_like"})
+    __table_args__ = (PrimaryKeyConstraint("id", name="character_pkey"), {"schema": "shakespeare"})
 
     id = Column(String(32))
     name = Column(String(64), nullable=False)
@@ -32,7 +32,7 @@ class Character(Base):
 
 class Wordform(Base):
     __tablename__ = "wordform"
-    __table_args__ = (PrimaryKeyConstraint("id", name="wordform_pkey"), {"schema": "shakespeare_i_like"})
+    __table_args__ = (PrimaryKeyConstraint("id", name="wordform_pkey"), {"schema": "shakespeare"})
 
     id = Column(Integer)
     plain_text = Column(String(64), nullable=False)
@@ -43,7 +43,7 @@ class Wordform(Base):
 
 class Work(Base):
     __tablename__ = "work"
-    __table_args__ = (PrimaryKeyConstraint("id", name="work_pkey"), {"schema": "shakespeare_i_like"})
+    __table_args__ = (PrimaryKeyConstraint("id", name="work_pkey"), {"schema": "shakespeare"})
 
     id = Column(String(32))
     title = Column(String(32), nullable=False)
@@ -68,7 +68,7 @@ class Chapter(Base):
         UniqueConstraint(
             "work_id", "section_number", "chapter_number", name="chapter_work_id_section_number_chapter_number_key"
         ),
-        {"schema": "shakespeare_i_like"},
+        {"schema": "shakespeare"},
     )
 
     id = Column(Integer)
@@ -104,7 +104,7 @@ class Paragraph(Base):
         ),
         ForeignKeyConstraint(["work_id"], ["shakespeare.work.id"], name="paragraph_work_id_fkey"),
         PrimaryKeyConstraint("id", name="paragraph_pkey"),
-        {"schema": "shakespeare_i_like"},
+        {"schema": "shakespeare"},
     )
 
     id = Column(Integer)
