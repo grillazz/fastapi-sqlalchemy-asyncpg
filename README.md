@@ -22,13 +22,16 @@ make help
 and you receive below list:
 ```text
 build                Build project with compose
-down                 Reset project containers with compose
+clean                Clean Reset project containers and volumes with compose
 format               Format project code.
 help                 Show this help
 lint                 Lint project code.
-lock                 Refresh pipfile.lock
-requirements         Refresh requirements.txt
+migrate-apply        apply alembic migrations to database/schema
+migrate-create       create new alembic migration
+py-upgrade           Upgrade project py files with pyupgrade library for python version 3.10
+requirements         Refresh requirements.txt from pipfile.lock
 safety               Check project and dependencies with safety https://github.com/pyupio/safety
+slim-build           with power of docker-slim build smaller and safer images
 test                 Run project tests
 up                   Run project with compose
 ```
