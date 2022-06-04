@@ -43,3 +43,6 @@ Next models were generated with https://github.com/agronholm/sqlacodegen
 And after some tweaking I got desired result
 
 Hope you enjoy it.
+
+### Change Log
+- 4 JUN 2022 alembic migrations added to project
