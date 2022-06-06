@@ -10,9 +10,9 @@ Example for [FastAPI](https://fastapi.tiangolo.com/) integration with [SQLAlchem
 Beside of using latest and greatest version of [SQLAlchemy](https://www.sqlalchemy.org/) with it robustness, powerfulness and speed
 of [asyncpg](https://github.com/MagicStack/asyncpg) there is [FastAPI](https://fastapi.tiangolo.com/) (modern, fast (high-performance), 
 web framework for building APIs with Python 3.8+ based on standard Python type hints.) already reviewed
-on [thoughtworks](https://www.thoughtworks.com/radar/languages-and-frameworks?blipid=202104087).
-
-
+on [thoughtworks](https://www.thoughtworks.com/radar/languages-and-frameworks?blipid=202104087) and noted in 
+Python Developers [Survey 2021 Results](https://lp.jetbrains.com/python-developers-survey-2021/#FrameworksLibraries)
+as the fifth official annual Python Developers Survey, conducted as a collaborative effort between the Python Software Foundation and JetBrains.
 
 ### How to Setup
 To build , run and test and more ... use magic of make help to play with this project.
