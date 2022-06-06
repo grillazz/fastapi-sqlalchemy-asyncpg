@@ -61,3 +61,7 @@ slim-build: ## with power of docker-slim build smaller and safer images
 feed_db: ## create database objects and insert data
 	docker-compose exec db psql devdb user -f /home/gx/code/shakespeare_work.sql | true
 	docker-compose exec db psql devdb user -f /home/gx/code/shakespeare_chapter.sql | true
+	docker-compose exec db psql devdb user -f /home/gx/code/shakespeare_wordform.sql | true
+	docker-compose exec db psql devdb user -f /home/gx/code/shakespeare_character.sql | true
+	docker-compose exec db psql devdb user -f /home/gx/code/shakespeare_paragraph.sql | true
+	docker-compose exec db psql devdb user -f /home/gx/code/shakespeare_character_work.sql
