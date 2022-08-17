@@ -8,7 +8,9 @@ from sqlalchemy import (
     Table,
     Text,
     UniqueConstraint,
+    select,
 )
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import relationship
 
 from the_app.models.base import Base
@@ -120,6 +122,13 @@ class Paragraph(Base):
     char_count = Column(Integer, nullable=False)
     word_count = Column(Integer, nullable=False)
 
-    character = relationship("Character", back_populates="paragraph")
-    chapter = relationship("Chapter", back_populates="paragraph")
-    work = relationship("Work", back_populates="paragraph")
+    character = relationship("Character", back_populates="paragraph", lazy="selectin")
+    chapter = relationship("Chapter", back_populates="paragraph", lazy="selectin")
+    work = relationship("Work", back_populates="paragraph", lazy="selectin")
+
+    @classmethod
+    async def find(cls, db_session: AsyncSession, character: str):
+        stmt = select(cls).join(Character).join(Chapter).join(Work).where(Character.name == character)
+        result = await db_session.execute(stmt)
+        instance = result.scalars().all()
+        return instance
