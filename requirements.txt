@@ -33,7 +33,7 @@ ipython==8.3.0
 isort==5.10.1
 jedi==0.18.1
 lazy-object-proxy==1.7.1
-Mako==1.2.0
+Mako==1.2.2
 MarkupSafe==2.1.1
 matplotlib-inline==0.1.3
 mccabe==0.6.1
