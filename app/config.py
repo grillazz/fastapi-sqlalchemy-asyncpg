@@ -3,7 +3,7 @@ from functools import lru_cache
 
 from pydantic import BaseSettings
 
-from the_app.utils import get_logger
+from app.utils import get_logger
 
 logger = get_logger(__name__)
 

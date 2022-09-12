@@ -26,7 +26,7 @@ migrate-create: ## create new alembic migration
 
 .PHONY: requirements
 requirements:	## Refresh requirements.txt from pipfile.lock
-	pipenv run pip freeze >> requirements.txt
+	pipenv lock --requirements --dev >| requirements.txt
 
 .PHONY: test
 test:	## Run project tests

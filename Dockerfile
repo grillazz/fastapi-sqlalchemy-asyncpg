@@ -12,7 +12,7 @@ RUN set -ex && pip install -r requirements.txt
 
 FROM builder as final
 WORKDIR /code
-COPY ./the_app/ /code/
+COPY app/ /code/
 COPY ./tests/ /code/
 COPY .env /code/
 

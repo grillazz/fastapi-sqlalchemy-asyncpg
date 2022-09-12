@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-from the_app import config
+from app import config
 
 global_settings = config.get_settings()
 url = global_settings.asyncpg_url

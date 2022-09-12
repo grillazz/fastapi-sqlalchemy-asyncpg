@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from the_app.database import get_db
-from the_app.models.nonsense import Nonsense
-from the_app.schemas.nnonsense import NonsenseResponse, NonsenseSchema
+from app.database import get_db
+from app.models.nonsense import Nonsense
+from app.schemas.nnonsense import NonsenseResponse, NonsenseSchema
 
 router = APIRouter(prefix="/v1/nonsense")
 

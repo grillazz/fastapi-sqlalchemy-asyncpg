@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import create_async_engine
 parent_dir = os.path.abspath(os.path.join(os.getcwd()))
 sys.path.append(parent_dir)
 
-from the_app.models.base import Base as app_base
+from app.models.base import Base as app_base
 
 target_metadata = app_base.metadata
 
