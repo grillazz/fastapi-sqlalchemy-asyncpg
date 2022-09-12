@@ -17,7 +17,7 @@ coverage==6.4
 decorator==5.1.1
 devtools==0.8.0
 dnspython==2.2.1
-dparse==0.5.1
+dparse==0.5.2
 eventlet==0.33.1
 executing==0.8.3
 fastapi==0.83.0
