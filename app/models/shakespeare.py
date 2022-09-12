@@ -13,7 +13,7 @@ from sqlalchemy import (
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import relationship
 
-from the_app.models.base import Base
+from app.models.base import Base
 
 metadata = Base.metadata
 

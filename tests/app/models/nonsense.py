@@ -5,7 +5,7 @@ from sqlalchemy import Column, String, select
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from the_app.models.base import Base
+from app.models.base import Base
 
 
 class Nonsense(Base):

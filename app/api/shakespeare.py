@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from the_app.database import get_db
-from the_app.models.shakespeare import Paragraph
+from app.database import get_db
+from app.models.shakespeare import Paragraph
 
 router = APIRouter(prefix="/v1/shakespeare")
 

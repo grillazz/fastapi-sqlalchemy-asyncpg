@@ -5,11 +5,11 @@ from sqlalchemy import Column, String, select
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from the_app.models.base import Base
+from app.models.base import Base
 
 
-class Nonsense(Base):
-    __tablename__ = "nonsense"
+class Stuff(Base):
+    __tablename__ = "stuff"
     __table_args__ = (
         {"schema": "happy_hog"},
     )
@@ -20,7 +20,6 @@ class Nonsense(Base):
     def __init__(self, name: str, description: str):
         self.name = name
         self.description = description
-
 
     @classmethod
     async def find(cls, db_session: AsyncSession, name: str):
@@ -36,7 +35,7 @@ class Nonsense(Base):
         if instance is None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail={"Record not found": f"There is no record for requested name value : {name}"},
+                detail={"Not found": f"There is no record for name: {name}"},
             )
         else:
             return instance
