@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "fastapi-sqlalchemy-asyncpg"
+version = "0.0.1"
+description = ""
+authors = ["Jakub Miazek <the@grillazz.com>"]
+packages = []
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+alembic = "*"
+asyncpg = "*"
+httpx = "*"
+pydantic = "*"
+sqlalchemy = "*"
+fastapi = "*"
+uvicorn = { extras = ["standard"], version = "*" }
+uvloop = "*"
+httptools = "*"
+rich = "*"
+devtools = {extras = ["pygments"], version = "*"}
+isort = "*"
+mypy = "*"
+flake8 = "*"
+black = "*"
+safety = "*"
+autoflake = "*"
+pyupgrade = "*"
+ipython = "*"
+pylint = "*"
+pytest-cov = "*"
+pytest-asyncio = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
