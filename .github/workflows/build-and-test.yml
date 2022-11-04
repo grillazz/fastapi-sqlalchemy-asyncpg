@@ -43,12 +43,8 @@ jobs:
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
-      - name: Test with Coverage
-        run: poetry run pytest --cov=. --cov-report=xml
-      - uses: actions/upload-artifact@v3
-        with:
-          name: coverage-xml
-          path: coverage.xml
+      - name: Test
+        run: poetry run pytest
         env:
           PYTHONDONTWRITEBYTECODE: 1
           PYTHONUNBUFFERED: 1
@@ -56,7 +52,5 @@ jobs:
           SQL_HOST: 127.0.0.1
           SQL_USER: user
           POSTGRES_PASSWORD: secret
-          PGPASSWORD: secret
-          POSTGRES_USER: user
-          POSTGRES_DB: testdb
+
 
