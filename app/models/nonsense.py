@@ -17,11 +17,6 @@ class Nonsense(Base):
     name = Column(String, nullable=False, primary_key=True, unique=True)
     description = Column(String, nullable=False)
 
-    def __init__(self, name: str, description: str):
-        self.name = name
-        self.description = description
-
-
     @classmethod
     async def find(cls, db_session: AsyncSession, name: str):
         """

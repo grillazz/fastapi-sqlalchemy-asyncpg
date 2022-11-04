@@ -51,3 +51,4 @@ Hope you enjoy it.
 ### Change Log
 - 4 JUN 2022 alembic migrations added to project
 - 6 JUN 2022 added initial dataset for shakespeare models
+- 3 OCT 2022 poetry added to project

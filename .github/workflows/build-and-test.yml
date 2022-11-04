@@ -1,14 +1,15 @@
-
-name: Unit Tests
-
-on: [pull_request]
-
+name: Continuous Disaster...
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.9", "3.10"]
+        python-version: ["3.10"]
       fail-fast: false
 
     services:
@@ -26,15 +27,24 @@ jobs:
     steps:
       - name: Create database schema
         run: PGPASSWORD=secret psql -h 127.0.0.1 -d testdb -U user -c "CREATE SCHEMA shakespeare; CREATE SCHEMA happy_hog;"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install required libs
-        run: pip install -r requirements.txt
-      - name: Run tests
-        run: pytest
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-3.10-${{ hashFiles('**/poetry.lock') }}
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+      - name: Test
+        run: poetry run pytest
         env:
           PYTHONDONTWRITEBYTECODE: 1
           PYTHONUNBUFFERED: 1
