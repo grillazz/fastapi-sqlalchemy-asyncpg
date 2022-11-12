@@ -38,20 +38,17 @@ safety:	## Check project and dependencies with safety https://github.com/pyupio/
 
 .PHONY: py-upgrade
 py-upgrade:	## Upgrade project py files with pyupgrade library for python version 3.10
-	pyupgrade --py310-plus `find the_app -name "*.py"`
+	pyupgrade --py310-plus `find app -name "*.py"`
 
 .PHONY: lint
 lint:  ## Lint project code.
-	isort the_app tests --check
-	flake8 --config .flake8 the_app tests
-	mypy the_app tests
-	black the_app tests --line-length=120 --check --diff
+	ruff .
 
 .PHONY: format
 format:  ## Format project code.
-	isort the_app tests
-	autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place the_app tests --exclude=__init__.py
-	black the_app tests --line-length=120
+	isort app tests
+	autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place app tests --exclude=__init__.py
+	black app tests --line-length=120
 
 .PHONY: slim-build
 slim-build: ## with power of docker-slim build smaller and safer images
