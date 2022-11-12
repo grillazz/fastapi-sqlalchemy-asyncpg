@@ -18,7 +18,7 @@ uvicorn = { extras = ["standard"], version = "*" }
 uvloop = "*"
 httptools = "*"
 rich = "*"
-devtools = {extras = ["pygments"], version = "*"}
+devtools = { extras = ["pygments"], version = "*" }
 black = "*"
 safety = "*"
 pyupgrade = "*"
@@ -34,8 +34,11 @@ build-backend = "poetry.core.masonry.api"
 [tool.ruff]
 line-length = 120
 
+
 select = ["E", "F", "U", "N", "C", "B"]
-ignore = []
+ignore = ["B008"]
+# B008 - Do not perform function calls in argument defaults. https://github.com/tiangolo/fastapi/issues/1522
+
 # Exclude a variety of commonly ignored directories.
 exclude = [
     "alembic",
