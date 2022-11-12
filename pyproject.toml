@@ -38,6 +38,7 @@ line-length = 120
 select = ["E", "F", "U", "N", "C", "B"]
 ignore = ["B008"]
 # B008 - Do not perform function calls in argument defaults. https://github.com/tiangolo/fastapi/issues/1522
+# B008 - fixed https://github.com/charliermarsh/ruff/releases/tag/v0.0.115
 
 # Exclude a variety of commonly ignored directories.
 exclude = [
@@ -48,3 +49,8 @@ target-version = "py310"
 
 [tool.ruff.flake8-quotes]
 docstring-quotes = "double"
+
+[tool.pytest.ini_options]
+addopts = "-v --doctest-modules --doctest-glob=*.md --ignore=alembic"
+asyncio_mode = "strict"
+env_files = [".env"]

@@ -27,10 +27,10 @@ class Settings(BaseSettings):
 
     """
 
-    pg_user: str = os.getenv("SQL_USER", "")
-    pg_pass: str = os.getenv("POSTGRES_PASSWORD", "")
+    pg_user: str = os.getenv("SQL_USER", "app-user")
+    pg_pass: str = os.getenv("POSTGRES_PASSWORD", "secret")
     pg_host: str = os.getenv("SQL_HOST", "")
-    pg_database: str = os.getenv("SQL_DB", "")
+    pg_database: str = os.getenv("SQL_DB", "testdb")
     asyncpg_url: str = f"postgresql+asyncpg://{pg_user}:{pg_pass}@{pg_host}:5432/{pg_database}"
 
     jwt_secret_key: str = os.getenv("SECRET_KEY", "")
