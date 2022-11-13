@@ -12,6 +12,15 @@ jobs:
         python-version: ["3.10"]
       fail-fast: false
 
+    env:
+      PYTHONDONTWRITEBYTECODE: 1
+      PYTHONUNBUFFERED: 1
+      SQL_DB: testdb
+      SQL_HOST: 127.0.0.1
+      SQL_USER: app-user
+      POSTGRES_PASSWORD: secret
+      PGPASSWORD: secret
+
     services:
       sqldb:
         image: postgres:14
@@ -47,11 +56,3 @@ jobs:
         run: poetry run pytest
       - name: Lint Code
         run: poetry run ruff .
-        env:
-          PYTHONDONTWRITEBYTECODE: 1
-          PYTHONUNBUFFERED: 1
-          SQL_DB: testdb
-          SQL_HOST: 127.0.0.1
-          SQL_USER: app-user
-          POSTGRES_PASSWORD: secret
-          PGPASSWORD: secret
