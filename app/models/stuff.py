@@ -10,9 +10,7 @@ from app.models.base import Base
 
 class Stuff(Base):
     __tablename__ = "stuff"
-    __table_args__ = (
-        {"schema": "happy_hog"},
-    )
+    __table_args__ = ({"schema": "happy_hog"},)
     id = Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4, autoincrement=True)
     name = Column(String, nullable=False, primary_key=True, unique=True)
     description = Column(String, nullable=False)

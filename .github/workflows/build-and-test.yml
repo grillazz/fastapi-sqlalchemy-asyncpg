@@ -16,7 +16,7 @@ jobs:
       sqldb:
         image: postgres:14
         env:
-          POSTGRES_USER: user
+          POSTGRES_USER: app-user
           POSTGRES_PASSWORD: secret
           POSTGRES_DB: testdb
         ports:
@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: Create database schema
-        run: PGPASSWORD=secret psql -h 127.0.0.1 -d testdb -U user -c "CREATE SCHEMA shakespeare; CREATE SCHEMA happy_hog;"
+        run: PGPASSWORD=secret psql -h 127.0.0.1 -d testdb -U app-user -c "CREATE SCHEMA shakespeare; CREATE SCHEMA happy_hog;"
       - uses: actions/checkout@v3
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -43,14 +43,15 @@ jobs:
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
-      - name: Test
+      - name: Test Code
         run: poetry run pytest
+      - name: Lint Code
+        run: poetry run ruff .
         env:
           PYTHONDONTWRITEBYTECODE: 1
           PYTHONUNBUFFERED: 1
           SQL_DB: testdb
           SQL_HOST: 127.0.0.1
-          SQL_USER: user
+          SQL_USER: app-user
           POSTGRES_PASSWORD: secret
           PGPASSWORD: secret
-

@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 
 from app.api.nonsense import router as nonsense_router
-from app.api.stuff import router as stuff_router
 from app.api.shakespeare import router as shakespeare_router
+from app.api.stuff import router as stuff_router
 from app.utils import get_logger
 
 logger = get_logger(__name__)
