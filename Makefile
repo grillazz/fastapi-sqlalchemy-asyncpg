@@ -42,7 +42,7 @@ py-upgrade:	## Upgrade project py files with pyupgrade library for python versio
 
 .PHONY: lint
 lint:  ## Lint project code.
-	ruff .
+	poetry run ruff .
 
 .PHONY: format
 format:  ## Format project code.
