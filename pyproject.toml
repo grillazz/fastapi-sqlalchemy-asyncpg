@@ -27,6 +27,9 @@ pytest-cov = "*"
 pytest-asyncio = "*"
 ruff = "*"
 
+[tool.poetry.group.dev.dependencies]
+tryceratops = "^1.1.0"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
@@ -51,3 +54,6 @@ extend-immutable-calls = ["fastapi.Depends",]
 addopts = "-v --doctest-modules --doctest-glob=*.md --ignore=alembic"
 asyncio_mode = "strict"
 env_files = [".env"]
+
+[tool.tryceratops]
+exclude = ["alembic",]
