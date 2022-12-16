@@ -20,7 +20,7 @@ async def create_multi_stuff(payload: list[StuffSchema], db_session: AsyncSessio
         await db_session.commit()
     except SQLAlchemyError as ex:
         # logger.exception(ex)
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex))
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)) from ex
     else:
         logger.info(f"{len(stuff_instances)} instances of Stuff inserted into database.")
         return True
