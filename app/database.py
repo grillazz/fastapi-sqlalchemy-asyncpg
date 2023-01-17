@@ -32,19 +32,3 @@ async def get_db() -> AsyncGenerator:
         logger.debug(f"ASYNC Pool: {engine.pool.status()}")
         yield session
 
-
-async def get_async_db() -> AsyncGenerator:
-    try:
-        session: AsyncSession = AsyncSessionFactory()
-        logger.debug(f"ASYNC Pool: {engine.pool.status()}")
-        yield session
-    except SQLAlchemyError as sql_ex:
-        await session.rollback()
-        raise sql_ex
-    except HTTPException as http_ex:
-        await session.rollback()
-        raise http_ex
-    else:
-        await session.commit()
-    finally:
-        await session.close()
