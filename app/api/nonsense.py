@@ -9,7 +9,9 @@ router = APIRouter(prefix="/v1/nonsense")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=NonsenseResponse)
-async def create_nonsense(payload: NonsenseSchema, db_session: AsyncSession = Depends(get_db)):
+async def create_nonsense(
+    payload: NonsenseSchema, db_session: AsyncSession = Depends(get_db)
+):
     nonsense = Nonsense(**payload.dict())
     await nonsense.save(db_session)
     return nonsense

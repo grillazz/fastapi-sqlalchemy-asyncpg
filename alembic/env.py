@@ -14,10 +14,12 @@ target_metadata = app_base.metadata
 
 
 def do_run_migrations(connection):
-    context.configure(connection=connection,
-                      target_metadata=target_metadata,
-                      include_schemas=True,
-                      version_table_schema=target_metadata.schema)
+    context.configure(
+        connection=connection,
+        target_metadata=target_metadata,
+        include_schemas=True,
+        version_table_schema=target_metadata.schema,
+    )
 
     with context.begin_transaction():
         context.run_migrations()
