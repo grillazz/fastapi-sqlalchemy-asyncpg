@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-sqlalchemy-asyncpg"
-version = "0.0.2"
+version = "0.0.3"
 description = ""
 authors = ["Jakub Miazek <the@grillazz.com>"]
 packages = []
