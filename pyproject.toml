@@ -37,7 +37,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.ruff]
 line-length = 120
 
-select = ["E", "F", "U", "N", "C", "B"]
+select = ["E", "F", "UP", "N", "C", "B"]
 
 # Exclude a variety of commonly ignored directories.
 exclude = ["alembic",]

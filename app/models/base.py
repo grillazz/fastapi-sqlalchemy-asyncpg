@@ -37,7 +37,9 @@ class Base:
             db_session.add(self)
             return await db_session.commit()
         except SQLAlchemyError as ex:
-            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)) from ex
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)
+            ) from ex
 
     async def delete(self, db_session: AsyncSession):
         """
@@ -50,7 +52,9 @@ class Base:
             await db_session.commit()
             return True
         except SQLAlchemyError as ex:
-            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)) from ex
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)
+            ) from ex
 
     async def update(self, db_session: AsyncSession, **kwargs):
         """

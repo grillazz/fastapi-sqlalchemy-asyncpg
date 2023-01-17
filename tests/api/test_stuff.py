@@ -75,7 +75,11 @@ async def test_delete_stuff(client: AsyncClient, payload: dict, status_code: int
     ),
 )
 async def test_update_stuff(
-    client: AsyncClient, payload: dict, status_code: int, patch_payload: dict, patch_status_code: int
+    client: AsyncClient,
+    payload: dict,
+    status_code: int,
+    patch_payload: dict,
+    patch_status_code: int,
 ):
     await client.post("/stuff", json=payload)
     name = payload["name"]

@@ -1,8 +1,6 @@
 from collections.abc import AsyncGenerator
-from http.client import HTTPException
 
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -23,7 +21,9 @@ engine = create_async_engine(
 
 # expire_on_commit=False will prevent attributes from being expired
 # after commit.
-AsyncSessionFactory = sessionmaker(engine, autoflush=False, expire_on_commit=False, class_=AsyncSession)
+AsyncSessionFactory = sessionmaker(
+    engine, autoflush=False, expire_on_commit=False, class_=AsyncSession
+)
 
 
 # Dependency
@@ -31,4 +31,3 @@ async def get_db() -> AsyncGenerator:
     async with AsyncSessionFactory() as session:
         logger.debug(f"ASYNC Pool: {engine.pool.status()}")
         yield session
-
