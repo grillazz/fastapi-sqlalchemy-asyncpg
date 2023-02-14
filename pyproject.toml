@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "fastapi-sqlalchemy-asyncpg"
-version = "0.0.3"
+version = "0.0.4"
 description = ""
 authors = ["Jakub Miazek <the@grillazz.com>"]
 packages = []
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 alembic = "*"
 asyncpg = "*"
 httpx = "*"
@@ -42,7 +42,7 @@ select = ["E", "F", "UP", "N", "C", "B"]
 # Exclude a variety of commonly ignored directories.
 exclude = ["alembic",]
 # Assume Python 3.10.
-target-version = "py310"
+target-version = "py311"
 
 [tool.ruff.flake8-quotes]
 docstring-quotes = "double"

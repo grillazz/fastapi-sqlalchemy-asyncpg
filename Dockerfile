@@ -1,4 +1,4 @@
-FROM python:3.10-slim AS base
+FROM python:3.11-slim AS base
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends curl git build-essential \

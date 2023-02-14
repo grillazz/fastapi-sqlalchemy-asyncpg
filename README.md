@@ -55,3 +55,4 @@ Hope you enjoy it.
 - 6 JUN 2022 added initial dataset for shakespeare models
 - 3 OCT 2022 poetry added to project
 - 12 NOV 2022 ruff implemented to project as linting tool
+- 14 FEB 2023 bump project to Python 3.11
