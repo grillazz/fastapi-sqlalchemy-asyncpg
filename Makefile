@@ -24,10 +24,6 @@ migrate-apply: ## apply alembic migrations to database/schema
 migrate-create: ## create new alembic migration
 	docker-compose run --rm app alembic revision --autogenerate
 
-.PHONY: requirements
-requirements:	## Refresh requirements.txt from pipfile.lock
-	pipenv lock --requirements --dev >| requirements.txt
-
 .PHONY: test
 test:	## Run project tests
 	docker-compose -f docker-compose.yml -f docker-compose.test.yml  run --rm app pytest
@@ -38,7 +34,7 @@ safety:	## Check project and dependencies with safety https://github.com/pyupio/
 
 .PHONY: py-upgrade
 py-upgrade:	## Upgrade project py files with pyupgrade library for python version 3.10
-	pyupgrade --py310-plus `find app -name "*.py"`
+	pyupgrade --py311-plus `find app -name "*.py"`
 
 .PHONY: lint
 lint:  ## Lint project code.
@@ -47,7 +43,6 @@ lint:  ## Lint project code.
 .PHONY: format
 format:  ## Format project code.
 	isort app tests
-	autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place app tests --exclude=__init__.py
 	black app tests --line-length=120
 
 .PHONY: slim-build
