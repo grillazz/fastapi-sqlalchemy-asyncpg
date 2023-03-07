@@ -56,3 +56,13 @@ Hope you enjoy it.
 - 3 OCT 2022 poetry added to project
 - 12 NOV 2022 ruff implemented to project as linting tool
 - 14 FEB 2023 bump project to Python 3.11
+
+### Local development with poetry
+
+```shell
+pyenv install 3.11 && pyenv local 3.11
+```
+```shell
+poetry install
+```
+

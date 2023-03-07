@@ -38,7 +38,7 @@ safety:	## Check project and dependencies with safety https://github.com/pyupio/
 
 .PHONY: py-upgrade
 py-upgrade:	## Upgrade project py files with pyupgrade library for python version 3.10
-	pyupgrade --py310-plus `find app -name "*.py"`
+	pyupgrade --py311-plus `find app -name "*.py"`
 
 .PHONY: lint
 lint:  ## Lint project code.
