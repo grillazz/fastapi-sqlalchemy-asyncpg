@@ -7,7 +7,9 @@
 
 ![fastapi-sqlalchemy-asyncpg](/static/fsap_1.jpg)
 
-Example for [FastAPI](https://fastapi.tiangolo.com/) integration with [SQLAlchemy](https://www.sqlalchemy.org/) ORM with PostgreSQL via [asyncpg](https://github.com/MagicStack/asyncpg) a fast Database Client Library for python/asyncio.
+Example of [FastAPI](https://fastapi.tiangolo.com/) integration supported by almighty [Pydantic](https://github.com/pydantic/pydantic)
+with [SQLAlchemy ORM](https://www.sqlalchemy.org/) and PostgreSQL 
+connected via fastest Database Client Library for python/asyncio [asyncpg](https://github.com/MagicStack/asyncpg).
 
 Beside of using latest and greatest version of [SQLAlchemy](https://www.sqlalchemy.org/) with it robustness, powerfulness and speed
 of [asyncpg](https://github.com/MagicStack/asyncpg) there is [FastAPI](https://fastapi.tiangolo.com/) (modern, fast (high-performance), 

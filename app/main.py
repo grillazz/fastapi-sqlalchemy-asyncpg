@@ -7,7 +7,7 @@ from app.utils import get_logger
 
 logger = get_logger(__name__)
 
-app = FastAPI(title="Stuff And Nonsense API", version="0.4")
+app = FastAPI(title="Stuff And Nonsense API", version="0.5")
 
 app.include_router(stuff_router)
 app.include_router(nonsense_router)
