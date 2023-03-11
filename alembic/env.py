@@ -1,23 +1,22 @@
 import asyncio
-import os
-import sys
 
 from alembic import context
 from sqlalchemy.ext.asyncio import create_async_engine
 
-parent_dir = os.path.abspath(os.path.join(os.getcwd()))
-sys.path.append(parent_dir)
+from app.config import settings
+from app.models.base import Base
 
-from app.models.base import Base as app_base
-
-target_metadata = app_base.metadata
+target_metadata = Base.metadata
 
 
 def do_run_migrations(connection):
     context.configure(
+        compare_type=True,
+        dialect_opts={"paramstyle": "named"},
         connection=connection,
         target_metadata=target_metadata,
         include_schemas=True,
+        # literal_binds=True,
         version_table_schema=target_metadata.schema,
     )
 
@@ -32,8 +31,7 @@ async def run_migrations_online():
     and associate a connection with the context.
 
     """
-    url = f"postgresql+asyncpg://user:secret@db:5432/devdb"
-    connectable = create_async_engine(url)
+    connectable = create_async_engine(settings.asyncpg_url, future=True)
 
     async with connectable.connect() as connection:
         await connection.run_sync(do_run_migrations)

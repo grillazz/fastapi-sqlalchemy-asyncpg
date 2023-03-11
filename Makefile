@@ -21,8 +21,9 @@ migrate-apply: ## apply alembic migrations to database/schema
 	docker-compose run --rm app alembic upgrade head
 
 .PHONY: migrate-create
-migrate-create: ## create new alembic migration
-	docker-compose run --rm app alembic revision --autogenerate
+migrate-create:  ## Create new alembic database migration aka database revision.
+	docker-compose up -d db | true
+	docker-compose run --no-deps app alembic revision --autogenerate -m "$(msg)"
 
 .PHONY: test
 test:	## Run project tests

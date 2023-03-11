@@ -29,9 +29,11 @@ RUN apt-get purge -y curl git build-essential \
 
 FROM install as app-image
 
-COPY tests tests
-COPY app app
-COPY alembic alembic
+ENV PYTHONPATH=/home/code/ PYTHONHASHSEED=0
+
+COPY tests/ tests/
+COPY app/ app/
+COPY alembic/ alembic/
 COPY .env alembic.ini ./
 
 # create a non-root user and switch to it, for security.
