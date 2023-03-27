@@ -1,9 +1,13 @@
-name: CI
+name: Continuous Disaster...
 
-on: pull_request
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
-  ci:
+  test:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
