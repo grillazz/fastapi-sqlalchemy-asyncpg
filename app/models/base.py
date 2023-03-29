@@ -1,5 +1,6 @@
 from typing import Any
 
+from asyncpg import UniqueViolationError
 from fastapi import HTTPException, status
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -68,17 +69,16 @@ class Base:
         await self.save(db_session)
 
     async def save_or_update(self, db: AsyncSession):
-        # TODO: this will be successor of update meth
-        _success = False
         try:
             db.add(self)
-            _success = await db.commit()
-            return _success
+            return await db.commit()
         except IntegrityError as exception:
-            if not _success:
-                # TODO: check if exception is instance of class 'asyncpg.exceptions.UniqueViolationError'
+            if isinstance(exception.orig, UniqueViolationError):
                 return await db.merge(self)
             else:
-                raise exception
+                raise HTTPException(
+                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                    detail=repr(exception),
+                ) from exception
         finally:
             await db.close()
