@@ -79,6 +79,6 @@ class Base:
                 raise HTTPException(
                     status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                     detail=repr(exception),
-                )
+                ) from exception
         finally:
             await db.close()
