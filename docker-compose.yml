@@ -8,7 +8,8 @@ services:
       - .env
       - .secrets
     command: bash -c "
-      alembic upgrade head && uvicorn app.main:app
+      uvicorn app.main:app
+      --log-config ./config.ini
       --host 0.0.0.0 --port 8080
       --lifespan=on --use-colors --loop uvloop --http httptools
       --reload --log-level debug
