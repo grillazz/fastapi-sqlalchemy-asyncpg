@@ -58,6 +58,7 @@ Hope you enjoy it.
 - 3 OCT 2022 poetry added to project
 - 12 NOV 2022 ruff implemented to project as linting tool
 - 14 FEB 2023 bump project to Python 3.11
+- 10 APR 2023 implement logging with rich
 
 ### Local development with poetry
 
