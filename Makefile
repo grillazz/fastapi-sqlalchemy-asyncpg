@@ -43,7 +43,6 @@ lint:  ## Lint project code.
 
 .PHONY: format
 format:  ## Format project code.
-	isort app tests
 	black app tests --line-length=120
 
 .PHONY: slim-build
