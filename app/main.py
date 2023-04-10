@@ -3,9 +3,9 @@ from fastapi import FastAPI
 from app.api.nonsense import router as nonsense_router
 from app.api.shakespeare import router as shakespeare_router
 from app.api.stuff import router as stuff_router
-from app.utils import get_logger
+from app.logging import AppLogger
 
-logger = get_logger(__name__)
+logger = AppLogger.__call__().get_logger()
 
 app = FastAPI(title="Stuff And Nonsense API", version="0.5")
 
