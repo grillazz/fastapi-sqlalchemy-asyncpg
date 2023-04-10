@@ -31,9 +31,7 @@ class Character(Base):
     abbrev = Column(String(32))
     description = Column(String(2056))
 
-    work = relationship(
-        "Work", secondary="shakespeare.character_work", back_populates="character"
-    )
+    work = relationship("Work", secondary="shakespeare.character_work", back_populates="character")
     paragraph = relationship("Paragraph", back_populates="character")
 
 
@@ -68,9 +66,7 @@ class Work(Base):
     total_paragraphs = Column(Integer, nullable=False)
     notes = Column(Text)
 
-    character = relationship(
-        "Character", secondary="shakespeare.character_work", back_populates="work"
-    )
+    character = relationship("Character", secondary="shakespeare.character_work", back_populates="work")
     chapter = relationship("Chapter", back_populates="work")
     paragraph = relationship("Paragraph", back_populates="work")
 
@@ -78,9 +74,7 @@ class Work(Base):
 class Chapter(Base):
     __tablename__ = "chapter"
     __table_args__ = (
-        ForeignKeyConstraint(
-            ["work_id"], ["shakespeare.work.id"], name="chapter_work_id_fkey"
-        ),
+        ForeignKeyConstraint(["work_id"], ["shakespeare.work.id"], name="chapter_work_id_fkey"),
         PrimaryKeyConstraint("id", name="chapter_pkey"),
         UniqueConstraint(
             "work_id",
@@ -111,9 +105,7 @@ t_character_work = Table(
         ["shakespeare.character.id"],
         name="character_work_character_id_fkey",
     ),
-    ForeignKeyConstraint(
-        ["work_id"], ["shakespeare.work.id"], name="character_work_work_id_fkey"
-    ),
+    ForeignKeyConstraint(["work_id"], ["shakespeare.work.id"], name="character_work_work_id_fkey"),
     PrimaryKeyConstraint("character_id", "work_id", name="character_work_pkey"),
     schema="shakespeare",
 )
@@ -136,9 +128,7 @@ class Paragraph(Base):
             ],
             name="paragraph_chapter_fkey",
         ),
-        ForeignKeyConstraint(
-            ["work_id"], ["shakespeare.work.id"], name="paragraph_work_id_fkey"
-        ),
+        ForeignKeyConstraint(["work_id"], ["shakespeare.work.id"], name="paragraph_work_id_fkey"),
         PrimaryKeyConstraint("id", name="paragraph_pkey"),
         {"schema": "shakespeare"},
     )
@@ -162,13 +152,7 @@ class Paragraph(Base):
 
     @classmethod
     async def find(cls, db_session: AsyncSession, character: str):
-        stmt = (
-            select(cls)
-            .join(Character)
-            .join(Chapter)
-            .join(Work)
-            .where(Character.name == character)
-        )
+        stmt = select(cls).join(Character).join(Chapter).join(Work).where(Character.name == character)
         result = await db_session.execute(stmt)
         instance = result.scalars().all()
         return instance

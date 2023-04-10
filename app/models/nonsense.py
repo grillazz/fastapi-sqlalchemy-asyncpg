@@ -29,9 +29,7 @@ class Nonsense(Base):
         if instance is None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail={
-                    "Record not found": f"There is no record for requested name value : {name}"
-                },
+                detail={"Record not found": f"There is no record for requested name value : {name}"},
             )
         else:
             return instance

@@ -9,9 +9,7 @@ router = APIRouter(prefix="/v1/nonsense")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=NonsenseResponse)
-async def create_nonsense(
-    payload: NonsenseSchema, db_session: AsyncSession = Depends(get_db)
-):
+async def create_nonsense(payload: NonsenseSchema, db_session: AsyncSession = Depends(get_db)):
     nonsense = Nonsense(**payload.dict())
     await nonsense.save(db_session)
     return nonsense
@@ -39,4 +37,14 @@ async def update_nonsense(
 ):
     nonsense = await Nonsense.find(db_session, name)
     await nonsense.update(db_session, **payload.dict())
+    return nonsense
+
+
+@router.post("/", response_model=NonsenseResponse)
+async def merge_nonsense(
+    payload: NonsenseSchema,
+    db_session: AsyncSession = Depends(get_db),
+):
+    nonsense = Nonsense(**payload.dict())
+    await nonsense.save_or_update(db_session)
     return nonsense
