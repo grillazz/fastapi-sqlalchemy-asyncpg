@@ -80,6 +80,7 @@ Hope you enjoy it.
 - 12 NOV 2022 ruff implemented to project as linting tool
 - 14 FEB 2023 bump project to Python 3.11
 - 10 APR 2023 implement logging with rich
+- 28 APR 2023 Rainbow logs with rich :rainbow:
 
 ### Local development with poetry
 
