@@ -50,6 +50,27 @@ Data set is coming form https://github.com/catherinedevlin/opensourceshakespeare
 Next models were generated with https://github.com/agronholm/sqlacodegen
 And after some tweaking I got desired result
 
+### Rainbow logs with rich :rainbow:
+
+To deliver better user(developer) experience when watching logs with tons of information
+from few emitters (which are really needy on development stage) project is using [rich](https://github.com/Textualize/rich) library.
+Event with [rich](https://github.com/Textualize/rich) superpowers reading logs is not easy.
+Found [rich](https://github.com/Textualize/rich) really nice - 
+but it took time to learn how to integrate it as logger object properly and keep it as singleton.
+
+To address below needs: 
+- it is hard to find what I am looking for even with glasses on.
+- don’t want to hire ELK to be able to use logs. 
+- want to move fast enough with debugging.
+
+Below steps were done to integrate [rich](https://github.com/Textualize/rich) into project.
+1. Configure emitters with [config.ini](https://github.com/grillazz/fastapi-sqlalchemy-asyncpg/blob/main/config.ini)
+2. Eliminate duplicates i.e. sqlalchemy echo by separate handlers
+3. Keep logger as singleton pattern to avoid multiple instances
+4. add uvicorn parameter --log-config config.ini
+
+![sample-logs-with-rich](/static/logz.png)
+
 Hope you enjoy it.
 
 ### Change Log
@@ -59,6 +80,7 @@ Hope you enjoy it.
 - 12 NOV 2022 ruff implemented to project as linting tool
 - 14 FEB 2023 bump project to Python 3.11
 - 10 APR 2023 implement logging with rich
+- 28 APR 2023 Rainbow logs with rich :rainbow:
 
 ### Local development with poetry
 
