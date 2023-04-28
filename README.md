@@ -69,7 +69,7 @@ Below steps were done to integrate [rich](https://github.com/Textualize/rich) in
 3. Keep logger as singleton pattern to avoid multiple instances
 4. add uvicorn parameter --log-config config.ini
 
-![sample-logs-with-rich](/static/logz.jpg)
+![sample-logs-with-rich](/static/logz.png)
 
 Hope you enjoy it.
 
