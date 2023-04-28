@@ -4,7 +4,7 @@ from asyncpg import UniqueViolationError
 from fastapi import HTTPException, status
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.ext.declarative import as_declarative, declared_attr
+from sqlalchemy.orm import as_declarative, declared_attr
 
 
 @as_declarative()
@@ -53,16 +53,19 @@ class Base:
         except SQLAlchemyError as ex:
             raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)) from ex
 
-    async def update(self, db_session: AsyncSession, **kwargs):
+    async def update(self, db: AsyncSession, **kwargs):
         """
 
-        :param db_session:
-        :param kwargs:
+        :param db:
+        :param kwargs
         :return:
         """
-        for k, v in kwargs.items():
-            setattr(self, k, v)
-        await self.save(db_session)
+        try:
+            for k, v in kwargs.items():
+                setattr(self, k, v)
+            return await db.commit()
+        except SQLAlchemyError as ex:
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)) from ex
 
     async def save_or_update(self, db: AsyncSession):
         try:
