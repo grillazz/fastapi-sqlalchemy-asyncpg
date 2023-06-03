@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from app.api.nonsense import router as nonsense_router
 from app.api.shakespeare import router as shakespeare_router
 from app.api.stuff import router as stuff_router
-from app.logging import AppLogger
+from app.utils.logging import AppLogger
 
 logger = AppLogger.__call__().get_logger()
 
