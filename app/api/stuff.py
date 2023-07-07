@@ -54,5 +54,5 @@ async def update_stuff(
     db_session: AsyncSession = Depends(get_db),
 ):
     stuff = await Stuff.find(db_session, name)
-    await stuff.update(db_session, **payload.dict())
+    await stuff.update(db_session, **payload.model_dump())
     return stuff

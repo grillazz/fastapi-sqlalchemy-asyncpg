@@ -10,7 +10,7 @@ global_settings = config.get_settings()
 logger = AppLogger.__call__().get_logger()
 
 engine = create_async_engine(
-    global_settings.asyncpg_url,
+    global_settings.asyncpg_url.unicode_string(),
     future=True,
     echo=True,
 )

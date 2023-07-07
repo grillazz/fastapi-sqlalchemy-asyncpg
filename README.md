@@ -7,7 +7,7 @@
 
 ![fastapi-sqlalchemy-asyncpg](/static/fsap_1.jpg)
 
-Example of [FastAPI](https://fastapi.tiangolo.com/) integration supported by almighty [Pydantic](https://github.com/pydantic/pydantic)
+Example of [FastAPI](https://fastapi.tiangolo.com/) integration supported by almighty [Pydantic 2.0](https://github.com/pydantic/pydantic)
 with [SQLAlchemy ORM](https://www.sqlalchemy.org/) and PostgreSQL 
 connected via fastest Database Client Library for python/asyncio [asyncpg](https://github.com/MagicStack/asyncpg).
 
@@ -81,6 +81,7 @@ Hope you enjoy it.
 - 14 FEB 2023 bump project to Python 3.11
 - 10 APR 2023 implement logging with rich
 - 28 APR 2023 Rainbow logs with rich :rainbow:
+- 7 JUL 2023 migrate to pydantic 2.0
 
 ### Local development with poetry
 
