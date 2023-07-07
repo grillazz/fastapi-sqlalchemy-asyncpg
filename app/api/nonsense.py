@@ -36,7 +36,7 @@ async def update_nonsense(
     db_session: AsyncSession = Depends(get_db),
 ):
     nonsense = await Nonsense.find(db_session, name)
-    await nonsense.update(db_session, **payload.dict())
+    await nonsense.update(db_session, **payload.model_dump())
     return nonsense
 
 
@@ -45,6 +45,6 @@ async def merge_nonsense(
     payload: NonsenseSchema,
     db_session: AsyncSession = Depends(get_db),
 ):
-    nonsense = Nonsense(**payload.dict())
+    nonsense = Nonsense(**payload.model_dump())
     await nonsense.save_or_update(db_session)
     return nonsense
