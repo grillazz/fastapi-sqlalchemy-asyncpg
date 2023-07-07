@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [ "3.11" ]
-        poetry-version: [ "1.4.0" ]
+        poetry-version: [ "1.5.1" ]
 
     env:
       PYTHONDONTWRITEBYTECODE: 1
@@ -23,6 +23,7 @@ jobs:
       SQL_USER: app-user
       POSTGRES_PASSWORD: secret
       PGPASSWORD: secret
+      SQL_URL: postgresql+asyncpg://app-user:secret@localhost:5432/testdb
 
     services:
       sqldb:
