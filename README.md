@@ -95,5 +95,5 @@ Hope you enjoy it.
 - 10 APR 2023 implement logging with rich
 - 28 APR 2023 Rainbow logs with rich :rainbow:
 - 7 JUL 2023 migrate to pydantic 2.0 :fast_forward:
-- 25 JUL 2023 add user authentication with JWT and Redis as token storage :lock: :keyv:
+- 25 JUL 2023 add user authentication with JWT and Redis as token storage :lock: :key:
 
