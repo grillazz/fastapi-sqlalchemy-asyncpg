@@ -73,6 +73,16 @@ Below steps were done to integrate [rich](https://github.com/Textualize/rich) in
 
 ### User authentication with JWT and Redis as token storage :lock: :key:
 
+#### Generate Fernet key for storing password in db
+```python
+In [1]: from cryptography.fernet import Fernet
+
+In [2]: Fernet.generate_key()
+Out[2]: b'Ms1HSn513x0_4WWFBQ3hYPDGAHpKH_pIseC5WwqyO7M='
+
+```
+Save the key in .secrets as FERNET_KEY
+
 
 ### Local development with poetry
 
