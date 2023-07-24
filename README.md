@@ -71,6 +71,29 @@ Below steps were done to integrate [rich](https://github.com/Textualize/rich) in
 
 ![sample-logs-with-rich](/static/logz.png)
 
+### User authentication with JWT and Redis as token storage :lock: :key:
+
+#### Generate Fernet key for storing password in db
+```python
+In [1]: from cryptography.fernet import Fernet
+
+In [2]: Fernet.generate_key()
+Out[2]: b'Ms1HSn513x0_4WWFBQ3hYPDGAHpKH_pIseC5WwqyO7M='
+
+```
+Save the key in .secrets as FERNET_KEY
+
+
+### Local development with poetry
+
+```shell
+pyenv install 3.11 && pyenv local 3.11
+```
+```shell
+poetry install
+```
+
+
 Hope you enjoy it.
 
 ### Change Log
@@ -81,14 +104,6 @@ Hope you enjoy it.
 - 14 FEB 2023 bump project to Python 3.11
 - 10 APR 2023 implement logging with rich
 - 28 APR 2023 Rainbow logs with rich :rainbow:
-- 7 JUL 2023 migrate to pydantic 2.0
-
-### Local development with poetry
-
-```shell
-pyenv install 3.11 && pyenv local 3.11
-```
-```shell
-poetry install
-```
+- 7 JUL 2023 migrate to pydantic 2.0 :fast_forward:
+- 25 JUL 2023 add user authentication with JWT and Redis as token storage :lock: :key:
 

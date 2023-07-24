@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   app:
-    image: fastapi-sqlalchemy-asyncpg_app
+    container_name: fsap_app
     build: .
     env_file:
       - .env
@@ -22,9 +22,10 @@ services:
       - "8080:8080"
     depends_on:
       - db
+      - redis
 
   db:
-    image: fastapi-sqlalchemy-asyncpg_db
+    container_name: fsap_db
     build:
       context: ./db
       dockerfile: Dockerfile
@@ -45,6 +46,15 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  redis:
+    image: redis:latest
+    container_name: fsap_redis
+    ports:
+      - "6379:6379"
+    env_file:
+      - .env
+    entrypoint: redis-server --appendonly yes
 
 volumes:
   fastapi_postgres_data: {}
