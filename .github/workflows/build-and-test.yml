@@ -28,7 +28,7 @@ jobs:
       REDIS_HOST: 127.0.0.1
       REDIS_PORT: 6379
       REDIS_DB: 2
-      REDIS_URL: "redis://${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB}"
+      REDIS_URL: redis://127.0.0.1:6379/2
       JWT_EXPIRE: 3600
       JWT_ALGORITHM: HS256
 
