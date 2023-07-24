@@ -31,4 +31,3 @@ class UserLogin(BaseModel):
     model_config = config
     email: EmailStr = Field(title="User’s email", description="User’s email")
     password: str = Field(title="User’s password", description="User’s password")
-
