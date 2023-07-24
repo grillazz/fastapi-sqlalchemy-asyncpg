@@ -38,7 +38,7 @@ async def create_access_token(user: User, request: Request):
     _payload = {
         "email": user.email,
         "expiry": time.time() + global_settings.jwt_expire,
-        "platform": request.headers.get("User-Agent")
+        "platform": request.headers.get("User-Agent"),
     }
     _token = jwt.encode(_payload, str(user.password), algorithm=global_settings.jwt_algorithm)
 
