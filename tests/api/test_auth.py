@@ -5,14 +5,10 @@ import jwt
 
 pytestmark = pytest.mark.anyio
 
+
 # TODO: parametrize test with diff urls
 async def test_add_user(client: AsyncClient):
-    payload = {
-        "email": "rancher@grassroots.com",
-        "first_name": "Joe",
-        "last_name": "Garcia",
-        "password": "s1lly"
-    }
+    payload = {"email": "rancher@grassroots.com", "first_name": "Joe", "last_name": "Garcia", "password": "s1lly"}
     response = await client.post("/user/", json=payload)
     assert response.status_code == status.HTTP_201_CREATED
     claimset = jwt.decode(response.json()["access_token"], options={"verify_signature": False})
@@ -32,4 +28,5 @@ async def test_get_token(client: AsyncClient):
     assert claimset["platform"] == "python-httpx/0.24.1"
 
 
-# TODO: baerer token test > get token > test endpoint auth with token > expire token on redis > test endpoint auth with token
+# TODO: baerer token test
+# TODO: > get token > test endpoint auth with token > expire token on redis > test endpoint auth with token
