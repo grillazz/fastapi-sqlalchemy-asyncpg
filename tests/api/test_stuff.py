@@ -26,7 +26,7 @@ async def test_add_stuff(client: AsyncClient, payload: dict, status_code: int):
     "payload, status_code",
     (
         (
-            {"name": "motorhead", "description": "we play rock and roll"},
+            {"name": "motorhead-0", "description": "we play rock and roll"},
             status.HTTP_200_OK,
         ),
     ),
@@ -44,13 +44,14 @@ async def test_get_stuff(client: AsyncClient, payload: dict, status_code: int):
     "payload, status_code",
     (
         (
-            {"name": "motorhead", "description": "we play rock and roll"},
+            {"name": "motorhead-1", "description": "we play rock and roll"},
             status.HTTP_200_OK,
         ),
     ),
 )
 async def test_delete_stuff(client: AsyncClient, payload: dict, status_code: int):
     response = await client.post("/stuff", json=payload)
+    print(response.json())
     name = response.json()["name"]
     response = await client.delete(f"/stuff/{name}")
     assert response.status_code == status_code
