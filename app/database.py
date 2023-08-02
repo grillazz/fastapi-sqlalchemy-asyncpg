@@ -1,7 +1,7 @@
 from collections.abc import AsyncGenerator
 
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.asyncio import async_sessionmaker
 
 from app import config
 from app.utils.logging import AppLogger
@@ -17,7 +17,7 @@ engine = create_async_engine(
 
 # expire_on_commit=False will prevent attributes from being expired
 # after commit.
-AsyncSessionFactory = sessionmaker(engine, autoflush=False, expire_on_commit=False, class_=AsyncSession)
+AsyncSessionFactory = async_sessionmaker(engine, autoflush=False, expire_on_commit=False,)
 
 
 # Dependency
