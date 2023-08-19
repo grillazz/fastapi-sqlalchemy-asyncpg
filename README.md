@@ -7,6 +7,36 @@
 
 ![fastapi-sqlalchemy-asyncpg](/static/fsap_1.jpg)
 
+
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
+
+
+## About The Project
+
 Example of [FastAPI](https://fastapi.tiangolo.com/) integration supported by almighty [Pydantic 2.0](https://github.com/pydantic/pydantic)
 with [SQLAlchemy ORM](https://www.sqlalchemy.org/) and PostgreSQL 
 connected via fastest Database Client Library for python/asyncio [asyncpg](https://github.com/MagicStack/asyncpg).
@@ -17,6 +47,20 @@ web framework for building APIs with Python 3.8+ based on standard Python type h
 on [thoughtworks](https://www.thoughtworks.com/radar/languages-and-frameworks?blipid=202104087) and noted in 
 Python Developers [Survey 2021 Results](https://lp.jetbrains.com/python-developers-survey-2021/#FrameworksLibraries)
 as the fifth official annual Python Developers Survey, conducted as a collaborative effort between the Python Software Foundation and JetBrains.
+
+### Built With
+[![FastAPI][fastapi.tiangolo.com]][fastapi-url]
+[![Pydantic][pydantic.tiangolo.com]][pydantic-url]
+[![SQLAlchemy][sqlalchemy.org]][sqlalchemy-url]
+[![Uvicorn][uvicorn.org]][uvicorn-url]
+[![pytest][pytest.org]][pytest-url]
+[![asyncpg][asyncpg.github.io]][asyncpg-url]
+[![alembic][alembic.sqlalchemy.org]][alembic-url]
+[![rich][rich.readthedocs.io]][rich-url]
+
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### How to Setup
 To build , run and test and more ... use magic of make help to play with this project.
@@ -107,3 +151,26 @@ Hope you enjoy it.
 - 7 JUL 2023 migrate to pydantic 2.0 :fast_forward:
 - 25 JUL 2023 add user authentication with JWT and Redis as token storage :lock: :key:
 
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/grillazz/fastapi-sqlalchemy-asyncpg.svg?style=for-the-badge
+[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.101.0-009485?style=for-the-badge&logo=fastapi&logoColor=white
+[fastapi-url]: https://fastapi.tiangolo.com/
+[pydantic.tiangolo.com]: https://img.shields.io/badge/Pydantic-2.0-e92063?style=for-the-badge&logo=pydantic&logoColor=white
+[pydantic-url]: https://docs.pydantic.dev/latest/
+[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0-bb0000?color=bb0000&style=for-the-badge
+[sqlalchemy-url]: https://docs.sqlalchemy.org/en/20/
+[uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.16.12-2094f3?style=for-the-badge&logo=uvicorn&logoColor=white
+[uvicorn-url]: https://www.uvicorn.org/
+[pytest.org]: https://img.shields.io/badge/pytest-6.2.5-0a9edc?style=for-the-badge&logo=pytest&logoColor=white
+[pytest-url]: https://docs.pytest.org/en/6.2.x/
+[asyncpg.github.io]: https://img.shields.io/badge/asyncpg-0.24.0-2e6fce?style=for-the-badge&logo=postgresql&logoColor=white
+[asyncpg-url]: https://magicstack.github.io/asyncpg/current/
+[alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.7.4-0a9edc?style=for-the-badge&logo=alembic&logoColor=white
+[alembic-url]: https://alembic.sqlalchemy.org/en/latest/
+[rich.readthedocs.io]: https://img.shields.io/badge/rich-10.12.0-009485?style=for-the-badge&logo=rich&logoColor=white
+[rich-url]: https://rich.readthedocs.io/en/latest/
+[redis.io]: https://img.shields.io/badge/redis-3.5.3-dc382d?style=for-the-badge&logo=redis&logoColor=white
+[redis-url]: https://redis.io/
