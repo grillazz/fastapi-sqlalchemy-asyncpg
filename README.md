@@ -7,6 +7,7 @@
 
 ![fastapi-sqlalchemy-asyncpg](/static/fsap_1.jpg)
 
+<a name="readme-top"></a>
 
 <details>
   <summary>Table of Contents</summary>
@@ -128,7 +129,7 @@ Out[2]: b'Ms1HSn513x0_4WWFBQ3hYPDGAHpKH_pIseC5WwqyO7M='
 Save the key in .secrets as FERNET_KEY
 
 
-### Local development with poetry
+## Local development with poetry
 
 ```shell
 pyenv install 3.11 && pyenv local 3.11
@@ -136,21 +137,30 @@ pyenv install 3.11 && pyenv local 3.11
 ```shell
 poetry install
 ```
-
-
 Hope you enjoy it.
 
-### Change Log
-- 4 JUN 2022 alembic migrations added to project
-- 6 JUN 2022 added initial dataset for shakespeare models
-- 3 OCT 2022 poetry added to project
-- 12 NOV 2022 ruff implemented to project as linting tool
-- 14 FEB 2023 bump project to Python 3.11
-- 10 APR 2023 implement logging with rich
-- 28 APR 2023 Rainbow logs with rich :rainbow:
-- 7 JUL 2023 migrate to pydantic 2.0 :fast_forward:
-- 25 JUL 2023 add user authentication with JWT and Redis as token storage :lock: :key:
+## Acknowledgments
+Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
+* [Open Source Shakespeare Dataset](https://github.com/catherinedevlin/opensourceshakespeare)
+* [SQL Code Generator](https://github.com/agronholm/sqlacodegen)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## Change Log
+- **[long time ago...]** it was a long time ago in galaxy far far away...
+- **[JUN 4 2022]** alembic migrations added to project
+- **[JUN 6 2022]** initial dataset for shakespeare models
+- **[OCT 3 2022]** poetry added to project
+- **[NOV 12 2022]** ruff implemented to project as linting tool
+- **[FEB 14 2023]** bump project to Python 3.11
+- **[APR 10 2023]** implement logging with rich
+- **[APR 28 2023]** Rainbow logs with rich :rainbow:
+- **[JUL 7 2023]** migrate to pydantic 2.0 :fast_forward:
+- **[JUL 25 2023]** add user authentication with JWT and Redis as token storage :lock: :key:
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
