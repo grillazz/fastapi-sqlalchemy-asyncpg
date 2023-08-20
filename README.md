@@ -156,20 +156,21 @@ Hope you enjoy it.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/grillazz/fastapi-sqlalchemy-asyncpg.svg?style=for-the-badge
-[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.101.0-009485?style=for-the-badge&logo=fastapi&logoColor=white
+[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.101.1-009485?style=for-the-badge&logo=fastapi&logoColor=white
 [fastapi-url]: https://fastapi.tiangolo.com/
-[pydantic.tiangolo.com]: https://img.shields.io/badge/Pydantic-2.0-e92063?style=for-the-badge&logo=pydantic&logoColor=white
+[pydantic.tiangolo.com]: https://img.shields.io/badge/Pydantic-2.2.1-e92063?style=for-the-badge&logo=pydantic&logoColor=white
 [pydantic-url]: https://docs.pydantic.dev/latest/
-[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0-bb0000?color=bb0000&style=for-the-badge
+[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.20-bb0000?color=bb0000&style=for-the-badge
 [sqlalchemy-url]: https://docs.sqlalchemy.org/en/20/
-[uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.16.12-2094f3?style=for-the-badge&logo=uvicorn&logoColor=white
+[uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.23.2-2094f3?style=for-the-badge&logo=uvicorn&logoColor=white
 [uvicorn-url]: https://www.uvicorn.org/
-[pytest.org]: https://img.shields.io/badge/pytest-6.2.5-0a9edc?style=for-the-badge&logo=pytest&logoColor=white
-[pytest-url]: https://docs.pytest.org/en/6.2.x/
-[asyncpg.github.io]: https://img.shields.io/badge/asyncpg-0.24.0-2e6fce?style=for-the-badge&logo=postgresql&logoColor=white
+[asyncpg.github.io]: https://img.shields.io/badge/asyncpg-0.28.0-2e6fce?style=for-the-badge&logo=postgresql&logoColor=white
 [asyncpg-url]: https://magicstack.github.io/asyncpg/current/
-[alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.7.4-0a9edc?style=for-the-badge&logo=alembic&logoColor=white
+[pytest.org]: https://img.shields.io/badge/pytest-6.2.5-fff?style=for-the-badge&logo=pytest&logoColor=white
+[pytest-url]: https://docs.pytest.org/en/6.2.x/
+[alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.11.3-6BA81E?style=for-the-badge&logo=alembic&logoColor=white
 [alembic-url]: https://alembic.sqlalchemy.org/en/latest/
+
 [rich.readthedocs.io]: https://img.shields.io/badge/rich-10.12.0-009485?style=for-the-badge&logo=rich&logoColor=white
 [rich-url]: https://rich.readthedocs.io/en/latest/
 [redis.io]: https://img.shields.io/badge/redis-3.5.3-dc382d?style=for-the-badge&logo=redis&logoColor=white
