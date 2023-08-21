@@ -1,9 +1,10 @@
 # fastapi-sqlalchemy-asyncpg
-[![developer](https://img.shields.io/badge/Dev-grillazz-green?style)](https://github.com/grillazz)
-![language](https://img.shields.io/badge/language-python-blue?style)
-[![CI](https://img.shields.io/github/workflow/status/grillazz/fastapi-sqlalchemy-asyncpg/Unit%20Tests/main)](https://github.com/grillazz/fastapi-sqlalchemy-asyncpg/actions/workflows/build-and-test.yml?query=event%3Apush+branch%3Amain)
-[![license](https://img.shields.io/github/license/grillazz/fastapi-sqlalchemy-asyncpg)](https://github.com/grillazz/fastapi-sqlalchemy-asyncpg/blob/main/LICENSE)
-![visitors](https://visitor-badge.laobi.icu/badge?page_id=grillazz.fastapi-sqlalchemy-asyncpg")
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
 ![fastapi-sqlalchemy-asyncpg](/static/fsap_1.jpg)
 
@@ -181,6 +182,18 @@ Use this space to list resources you find helpful and would like to give credit 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/grillazz/fastapi-sqlalchemy-asyncpg.svg?style=for-the-badge
+[contributors-url]: https://github.com/grillazz/fastapi-sqlalchemy-asyncpg/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/grillazz/fastapi-sqlalchemy-asyncpg.svg?style=for-the-badge
+[forks-url]: https://github.com/grillazz/fastapi-sqlalchemy-asyncpg/network/members
+[stars-shield]: https://img.shields.io/github/stars/grillazz/fastapi-sqlalchemy-asyncpg.svg?style=for-the-badge
+[stars-url]: https://github.com/grillazz/fastapi-sqlalchemy-asyncpg/stargazers
+[issues-shield]: https://img.shields.io/github/issues/grillazz/fastapi-sqlalchemy-asyncpg.svg?style=for-the-badge
+[issues-url]: https://github.com/grillazz/fastapi-sqlalchemy-asyncpg/issues
+[license-shield]: https://img.shields.io/github/license/grillazz/fastapi-sqlalchemy-asyncpg.svg?style=for-the-badge
+[license-url]: https://github.com/grillazz/fastapi-sqlalchemy-asyncpg/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/python-has-powers/
+
 [fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.101.1-009485?style=for-the-badge&logo=fastapi&logoColor=white
 [fastapi-url]: https://fastapi.tiangolo.com/
 [pydantic.tiangolo.com]: https://img.shields.io/badge/Pydantic-2.2.1-e92063?style=for-the-badge&logo=pydantic&logoColor=white
