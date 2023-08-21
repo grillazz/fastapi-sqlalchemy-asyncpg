@@ -21,15 +21,22 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#make-will-help-you">Make will help you</a></li>
+        <li><a href="#how-to-feed-database">How to feed database</a></li>
+        <li><a href="#rainbow-logs-with-rich">Rainbow logs with rich</a></li>
+        <li><a href="#setup-user-auth">Setup user auth</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
+
+[//]: # (    <li><a href="#usage">Usage</a></li>)
+
+[//]: # (    <li><a href="#roadmap">Roadmap</a></li>)
+
+[//]: # (    <li><a href="#contributing">Contributing</a></li>)
+
+[//]: # (    <li><a href="#license">License</a></li>)
+
+[//]: # (    <li><a href="#contact">Contact</a></li>)
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -63,7 +70,9 @@ as the fifth official annual Python Developers Survey, conducted as a collaborat
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### How to Setup
+## Getting Started
+
+### Make will help you
 To build , run and test and more ... use magic of make help to play with this project.
 ```shell
 make help
@@ -86,6 +95,7 @@ test                 Run project tests
 up                   Run project with compose
 ```
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### How to feed database
 
@@ -94,6 +104,8 @@ first part with read only declarative base configuration and all type of funny s
 Data set is coming form https://github.com/catherinedevlin/opensourceshakespeare
 Next models were generated with https://github.com/agronholm/sqlacodegen
 And after some tweaking I got desired result
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Rainbow logs with rich :rainbow:
 
@@ -116,9 +128,12 @@ Below steps were done to integrate [rich](https://github.com/Textualize/rich) in
 
 ![sample-logs-with-rich](/static/logz.png)
 
-### User authentication with JWT and Redis as token storage :lock: :key:
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-#### Generate Fernet key for storing password in db
+### Setup User Auth :lock: :key:
+
+Setup user authentication with JWT and Redis as token storage
+Generate Fernet key for storing password in db
 ```python
 In [1]: from cryptography.fernet import Fernet
 
@@ -129,7 +144,7 @@ Out[2]: b'Ms1HSn513x0_4WWFBQ3hYPDGAHpKH_pIseC5WwqyO7M='
 Save the key in .secrets as FERNET_KEY
 
 
-## Local development with poetry
+### Local development with poetry
 
 ```shell
 pyenv install 3.11 && pyenv local 3.11
