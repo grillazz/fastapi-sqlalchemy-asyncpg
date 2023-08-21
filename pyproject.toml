@@ -8,28 +8,31 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-alembic = "*"
-asyncpg = "*"
+fastapi = "0.101.1"
+pydantic = {version = "2.2.1", extras = ["email"]}
+pydantic-settings = "2.0.3"
+sqlalchemy = "2.0.20"
+uvicorn = { version = "0.23.2", extras = ["standard"]}
+asyncpg = "0.28.0"
+alembic = "1.11.3"
 httpx = "*"
-pydantic = {version = "*", extras = ["email"]}
-sqlalchemy = "*"
-fastapi = "*"
-uvicorn = { extras = ["standard"], version = "*" }
+pytest-cov = "*"
+pytest-asyncio = "*"
 uvloop = "*"
 httptools = "*"
 rich = "*"
+cryptography = "*"
+pyjwt = {version = "*", extras = ["cryptography"]}
+redis = "*"
+
+[tool.poetry.dev-dependencies]
 devtools = { extras = ["pygments"], version = "*" }
 black = "*"
 safety = "*"
 pyupgrade = "*"
 ipython = "*"
-pytest-cov = "*"
-pytest-asyncio = "*"
 ruff = "*"
-pydantic-settings = "*"
-cryptography = "*"
-pyjwt = {version = "*", extras = ["cryptography"]}
-redis = "*"
+
 
 [tool.poetry.group.dev.dependencies]
 tryceratops = "^1.1.0"

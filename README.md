@@ -7,6 +7,44 @@
 
 ![fastapi-sqlalchemy-asyncpg](/static/fsap_1.jpg)
 
+<a name="readme-top"></a>
+
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#make-will-help-you">Make will help you</a></li>
+        <li><a href="#how-to-feed-database">How to feed database</a></li>
+        <li><a href="#rainbow-logs-with-rich">Rainbow logs with rich</a></li>
+        <li><a href="#setup-user-auth">Setup user auth</a></li>
+      </ul>
+    </li>
+
+[//]: # (    <li><a href="#usage">Usage</a></li>)
+
+[//]: # (    <li><a href="#roadmap">Roadmap</a></li>)
+
+[//]: # (    <li><a href="#contributing">Contributing</a></li>)
+
+[//]: # (    <li><a href="#license">License</a></li>)
+
+[//]: # (    <li><a href="#contact">Contact</a></li>)
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
+
+
+## About The Project
+
 Example of [FastAPI](https://fastapi.tiangolo.com/) integration supported by almighty [Pydantic 2.0](https://github.com/pydantic/pydantic)
 with [SQLAlchemy ORM](https://www.sqlalchemy.org/) and PostgreSQL 
 connected via fastest Database Client Library for python/asyncio [asyncpg](https://github.com/MagicStack/asyncpg).
@@ -18,7 +56,23 @@ on [thoughtworks](https://www.thoughtworks.com/radar/languages-and-frameworks?bl
 Python Developers [Survey 2021 Results](https://lp.jetbrains.com/python-developers-survey-2021/#FrameworksLibraries)
 as the fifth official annual Python Developers Survey, conducted as a collaborative effort between the Python Software Foundation and JetBrains.
 
-### How to Setup
+### Built With
+[![FastAPI][fastapi.tiangolo.com]][fastapi-url]
+[![Pydantic][pydantic.tiangolo.com]][pydantic-url]
+[![SQLAlchemy][sqlalchemy.org]][sqlalchemy-url]
+[![Uvicorn][uvicorn.org]][uvicorn-url]
+[![pytest][pytest.org]][pytest-url]
+[![asyncpg][asyncpg.github.io]][asyncpg-url]
+[![alembic][alembic.sqlalchemy.org]][alembic-url]
+[![rich][rich.readthedocs.io]][rich-url]
+
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Getting Started
+
+### Make will help you
 To build , run and test and more ... use magic of make help to play with this project.
 ```shell
 make help
@@ -41,6 +95,7 @@ test                 Run project tests
 up                   Run project with compose
 ```
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### How to feed database
 
@@ -49,6 +104,8 @@ first part with read only declarative base configuration and all type of funny s
 Data set is coming form https://github.com/catherinedevlin/opensourceshakespeare
 Next models were generated with https://github.com/agronholm/sqlacodegen
 And after some tweaking I got desired result
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Rainbow logs with rich :rainbow:
 
@@ -71,9 +128,12 @@ Below steps were done to integrate [rich](https://github.com/Textualize/rich) in
 
 ![sample-logs-with-rich](/static/logz.png)
 
-### User authentication with JWT and Redis as token storage :lock: :key:
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-#### Generate Fernet key for storing password in db
+### Setup User Auth :lock: :key:
+
+Setup user authentication with JWT and Redis as token storage
+Generate Fernet key for storing password in db
 ```python
 In [1]: from cryptography.fernet import Fernet
 
@@ -92,18 +152,51 @@ pyenv install 3.11 && pyenv local 3.11
 ```shell
 poetry install
 ```
-
-
 Hope you enjoy it.
 
-### Change Log
-- 4 JUN 2022 alembic migrations added to project
-- 6 JUN 2022 added initial dataset for shakespeare models
-- 3 OCT 2022 poetry added to project
-- 12 NOV 2022 ruff implemented to project as linting tool
-- 14 FEB 2023 bump project to Python 3.11
-- 10 APR 2023 implement logging with rich
-- 28 APR 2023 Rainbow logs with rich :rainbow:
-- 7 JUL 2023 migrate to pydantic 2.0 :fast_forward:
-- 25 JUL 2023 add user authentication with JWT and Redis as token storage :lock: :key:
+## Acknowledgments
+Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
+* [Open Source Shakespeare Dataset](https://github.com/catherinedevlin/opensourceshakespeare)
+* [SQL Code Generator](https://github.com/agronholm/sqlacodegen)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## Change Log
+- **[long time ago...]** it was a long time ago in galaxy far far away...
+- **[JUN 4 2022]** alembic migrations added to project
+- **[JUN 6 2022]** initial dataset for shakespeare models
+- **[OCT 3 2022]** poetry added to project
+- **[NOV 12 2022]** ruff implemented to project as linting tool
+- **[FEB 14 2023]** bump project to Python 3.11
+- **[APR 10 2023]** implement logging with rich
+- **[APR 28 2023]** Rainbow logs with rich :rainbow:
+- **[JUL 7 2023]** migrate to pydantic 2.0 :fast_forward:
+- **[JUL 25 2023]** add user authentication with JWT and Redis as token storage :lock: :key:
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/grillazz/fastapi-sqlalchemy-asyncpg.svg?style=for-the-badge
+[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.101.1-009485?style=for-the-badge&logo=fastapi&logoColor=white
+[fastapi-url]: https://fastapi.tiangolo.com/
+[pydantic.tiangolo.com]: https://img.shields.io/badge/Pydantic-2.2.1-e92063?style=for-the-badge&logo=pydantic&logoColor=white
+[pydantic-url]: https://docs.pydantic.dev/latest/
+[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.20-bb0000?color=bb0000&style=for-the-badge
+[sqlalchemy-url]: https://docs.sqlalchemy.org/en/20/
+[uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.23.2-2094f3?style=for-the-badge&logo=uvicorn&logoColor=white
+[uvicorn-url]: https://www.uvicorn.org/
+[asyncpg.github.io]: https://img.shields.io/badge/asyncpg-0.28.0-2e6fce?style=for-the-badge&logo=postgresql&logoColor=white
+[asyncpg-url]: https://magicstack.github.io/asyncpg/current/
+[pytest.org]: https://img.shields.io/badge/pytest-6.2.5-fff?style=for-the-badge&logo=pytest&logoColor=white
+[pytest-url]: https://docs.pytest.org/en/6.2.x/
+[alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.11.3-6BA81E?style=for-the-badge&logo=alembic&logoColor=white
+[alembic-url]: https://alembic.sqlalchemy.org/en/latest/
+
+[rich.readthedocs.io]: https://img.shields.io/badge/rich-10.12.0-009485?style=for-the-badge&logo=rich&logoColor=white
+[rich-url]: https://rich.readthedocs.io/en/latest/
+[redis.io]: https://img.shields.io/badge/redis-3.5.3-dc382d?style=for-the-badge&logo=redis&logoColor=white
+[redis-url]: https://redis.io/
