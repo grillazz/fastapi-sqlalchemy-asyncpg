@@ -21,7 +21,6 @@ pytest-asyncio = "*"
 uvloop = "*"
 httptools = "*"
 rich = "*"
-cryptography = "*"
 pyjwt = {version = "*", extras = ["cryptography"]}
 redis = "*"
 passlib = {version = "^1.7.4", extras = ["bcrypt"]}
