@@ -160,6 +160,7 @@ Use this space to list resources you find helpful and would like to give credit 
 
 * [Open Source Shakespeare Dataset](https://github.com/catherinedevlin/opensourceshakespeare)
 * [SQL Code Generator](https://github.com/agronholm/sqlacodegen)
+* [Passlib - password hashing library for Python](https://passlib.readthedocs.io/en/stable/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
