@@ -1,7 +1,8 @@
 import uuid
 from typing import Any
 
-from cryptography.fernet import Fernet
+import bcrypt
+from passlib.context import CryptContext
 from sqlalchemy import Column, String, LargeBinary, select
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -11,7 +12,7 @@ from app.models.base import Base
 
 global_settings = config.get_settings()
 
-cipher_suite = Fernet(global_settings.secret_key)
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 class User(Base):  # type: ignore
@@ -34,14 +35,14 @@ class User(Base):  # type: ignore
 
     @property
     def password(self):
-        return cipher_suite.decrypt(self._password).decode()
+        return self._password.decode("utf-8")
 
     @password.setter
     def password(self, password: str):
-        self._password = cipher_suite.encrypt(password.encode())
+        self._password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
     def check_password(self, password: str):
-        return self.password == password
+        return pwd_context.verify(password, self.password)
 
     @classmethod
     async def find(cls, database_session: AsyncSession, where_conditions: list[Any]):

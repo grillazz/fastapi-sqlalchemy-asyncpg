@@ -24,7 +24,7 @@ rich = "*"
 cryptography = "*"
 pyjwt = {version = "*", extras = ["cryptography"]}
 redis = "*"
-passlib = "^1.7.4"
+passlib = {version = "^1.7.4", extras = ["bcrypt"]}
 
 [tool.poetry.dev-dependencies]
 devtools = { extras = ["pygments"], version = "*" }
