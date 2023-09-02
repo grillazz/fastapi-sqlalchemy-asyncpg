@@ -131,19 +131,9 @@ Below steps were done to integrate [rich](https://github.com/Textualize/rich) in
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Setup User Auth :lock: :key:
+### Setup User Auth
 
-Setup user authentication with JWT and Redis as token storage
-Generate Fernet key for storing password in db
-```python
-In [1]: from cryptography.fernet import Fernet
-
-In [2]: Fernet.generate_key()
-Out[2]: b'Ms1HSn513x0_4WWFBQ3hYPDGAHpKH_pIseC5WwqyO7M='
-
-```
-Save the key in .secrets as FERNET_KEY
-
+Setup user authentication with JWT and Redis as token storage.
 
 ### Local development with poetry
 
@@ -160,6 +150,7 @@ Use this space to list resources you find helpful and would like to give credit 
 
 * [Open Source Shakespeare Dataset](https://github.com/catherinedevlin/opensourceshakespeare)
 * [SQL Code Generator](https://github.com/agronholm/sqlacodegen)
+* [Passlib - password hashing library for Python](https://passlib.readthedocs.io/en/stable/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -175,6 +166,7 @@ Use this space to list resources you find helpful and would like to give credit 
 - **[APR 28 2023]** Rainbow logs with rich :rainbow:
 - **[JUL 7 2023]** migrate to pydantic 2.0 :fast_forward:
 - **[JUL 25 2023]** add user authentication with JWT and Redis as token storage :lock: :key:
+- **[SEP 2 2023]** add passlib and bcrypt for password hashing :lock: :key:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
