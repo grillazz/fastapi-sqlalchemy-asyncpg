@@ -24,7 +24,6 @@ jobs:
       POSTGRES_PASSWORD: secret
       PGPASSWORD: secret
       SQL_URL: postgresql+asyncpg://app-user:secret@localhost:5432/testdb
-      FERNET_KEY: Ms1HSn513x0_4WWFBQ3hYPDGAHpKH_pIseC5WwqyO7M=
       REDIS_HOST: 127.0.0.1
       REDIS_PORT: 6379
       REDIS_DB: 2
