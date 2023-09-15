@@ -59,7 +59,7 @@ as the fifth official annual Python Developers Survey, conducted as a collaborat
 
 ### Built With
 [![FastAPI][fastapi.tiangolo.com]][fastapi-url]
-[![Pydantic][pydantic.tiangolo.com]][pydantic-url]
+[![Pydantic][pydantic.com]][pydantic-url]
 [![SQLAlchemy][sqlalchemy.org]][sqlalchemy-url]
 [![Uvicorn][uvicorn.org]][uvicorn-url]
 [![pytest][pytest.org]][pytest-url]
@@ -186,9 +186,9 @@ Use this space to list resources you find helpful and would like to give credit 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/python-has-powers/
 
-[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.101.1-009485?style=for-the-badge&logo=fastapi&logoColor=white
+[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.103.1-009485?style=for-the-badge&logo=fastapi&logoColor=white
 [fastapi-url]: https://fastapi.tiangolo.com/
-[pydantic.tiangolo.com]: https://img.shields.io/badge/Pydantic-2.2.1-e92063?style=for-the-badge&logo=pydantic&logoColor=white
+[pydantic.com]: https://img.shields.io/badge/Pydantic-2.2.1-e92063?style=for-the-badge&logo=pydantic&logoColor=white
 [pydantic-url]: https://docs.pydantic.dev/latest/
 [sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.20-bb0000?color=bb0000&style=for-the-badge
 [sqlalchemy-url]: https://docs.sqlalchemy.org/en/20/
@@ -198,7 +198,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [asyncpg-url]: https://magicstack.github.io/asyncpg/current/
 [pytest.org]: https://img.shields.io/badge/pytest-6.2.5-fff?style=for-the-badge&logo=pytest&logoColor=white
 [pytest-url]: https://docs.pytest.org/en/6.2.x/
-[alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.11.3-6BA81E?style=for-the-badge&logo=alembic&logoColor=white
+[alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.12.0-6BA81E?style=for-the-badge&logo=alembic&logoColor=white
 [alembic-url]: https://alembic.sqlalchemy.org/en/latest/
 
 [rich.readthedocs.io]: https://img.shields.io/badge/rich-10.12.0-009485?style=for-the-badge&logo=rich&logoColor=white

@@ -14,7 +14,7 @@ async def test_add_user(client: AsyncClient):
     claimset = jwt.decode(response.json()["access_token"], options={"verify_signature": False})
     assert claimset["email"] == payload["email"]
     assert claimset["expiry"] > 0
-    assert claimset["platform"] == "python-httpx/0.24.1"
+    assert claimset["platform"] == "python-httpx/0.25.0"
 
 
 # TODO: parametrize test with diff urls including 404 and 401
@@ -25,7 +25,7 @@ async def test_get_token(client: AsyncClient):
     claimset = jwt.decode(response.json()["access_token"], options={"verify_signature": False})
     assert claimset["email"] == payload["email"]
     assert claimset["expiry"] > 0
-    assert claimset["platform"] == "python-httpx/0.24.1"
+    assert claimset["platform"] == "python-httpx/0.25.0"
 
 
 # TODO: baerer token test
