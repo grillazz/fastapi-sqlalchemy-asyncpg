@@ -6,6 +6,7 @@ from passlib.context import CryptContext
 from sqlalchemy import Column, String, LargeBinary, select
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import mapped_column, Mapped
 
 from app import config
 from app.models.base import Base
@@ -15,23 +16,12 @@ global_settings = config.get_settings()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-class User(Base):  # type: ignore
-    uuid = Column(
-        UUID(as_uuid=True),
-        unique=True,
-        default=uuid.uuid4,
-        primary_key=True,
-    )
-    email = Column(String, nullable=False)
-    first_name = Column(String, nullable=False)
-    last_name = Column(String, nullable=False)
-    _password = Column("password", LargeBinary, nullable=False)
-
-    def __init__(self, email: str, first_name: str, last_name: str, password: str = None):
-        self.email = email
-        self.first_name = first_name
-        self.last_name = last_name
-        self.password = password
+class User(Base):
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), default=uuid.uuid4, primary_key=True)
+    email: Mapped[str] = mapped_column(String, nullable=False, unique=True)
+    first_name: Mapped[str] = mapped_column(String, nullable=False)
+    last_name: Mapped[str] = mapped_column(String, nullable=False)
+    _password: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)
 
     @property
     def password(self):
