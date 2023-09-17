@@ -8,10 +8,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import mapped_column, Mapped
 
-from app import config
 from app.models.base import Base
-
-global_settings = config.get_settings()
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

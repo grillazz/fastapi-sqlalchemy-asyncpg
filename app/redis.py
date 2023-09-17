@@ -1,9 +1,6 @@
 import redis.asyncio as redis
 
-from app import config
-
-
-global_settings = config.get_settings()
+from app.config import settings as global_settings
 
 
 async def get_redis():
