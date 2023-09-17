@@ -3,7 +3,7 @@ from typing import Any
 
 import bcrypt
 from passlib.context import CryptContext
-from sqlalchemy import Column, String, LargeBinary, select
+from sqlalchemy import String, LargeBinary, select
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import mapped_column, Mapped

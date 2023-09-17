@@ -15,9 +15,7 @@ services:
       --reload --log-level debug
       "
     volumes:
-      - ./app:/home/code/app
-      - ./tests:/home/code/tests
-      - ./alembic:/home/code/alembic
+      - .:/home/code
     ports:
       - "8080:8080"
     depends_on:

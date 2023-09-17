@@ -10,7 +10,7 @@ FROM base AS install
 WORKDIR /home/code
 
 # allow controlling the poetry installation of dependencies via external args
-ARG INSTALL_ARGS="--no-root  --only main"
+ARG INSTALL_ARGS="--no-root"
 ENV POETRY_HOME="/opt/poetry"
 ENV PATH="$POETRY_HOME/bin:$PATH"
 COPY pyproject.toml poetry.lock ./
