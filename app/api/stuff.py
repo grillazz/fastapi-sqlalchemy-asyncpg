@@ -15,7 +15,7 @@ router = APIRouter(prefix="/v1/stuff")
 @router.post("/add_many", status_code=status.HTTP_201_CREATED)
 async def create_multi_stuff(payload: list[StuffSchema], db_session: AsyncSession = Depends(get_db)):
     try:
-        stuff_instances = [Stuff(name=stuf.name, description=stuf.description) for stuf in payload]
+        stuff_instances = [Stuff(**stuff.model_dump()) for stuff in payload]
         db_session.add_all(stuff_instances)
         await db_session.commit()
     except SQLAlchemyError as ex:
@@ -28,7 +28,7 @@ async def create_multi_stuff(payload: list[StuffSchema], db_session: AsyncSessio
 
 @router.post("", status_code=status.HTTP_201_CREATED, response_model=StuffResponse)
 async def create_stuff(payload: StuffSchema, db_session: AsyncSession = Depends(get_db)):
-    stuff = Stuff(name=payload.name, description=payload.description)
+    stuff = Stuff(**payload.model_dump())
     await stuff.save(db_session)
     return stuff
 

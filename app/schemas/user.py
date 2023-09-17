@@ -15,7 +15,7 @@ class UserSchema(BaseModel):
 
 
 class UserResponse(BaseModel):
-    uuid: UUID = Field(title="User’s id", description="User’s id")
+    id: UUID = Field(title="User’s id", description="User’s id")
     email: EmailStr = Field(title="User’s email", description="User’s email")
     first_name: str = Field(title="User’s first name", description="User’s first name")
     last_name: str = Field(title="User’s last name", description="User’s last name")
