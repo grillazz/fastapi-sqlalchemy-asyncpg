@@ -1,5 +1,4 @@
 import uuid
-from typing import Optional
 
 from fastapi import HTTPException, status
 from sqlalchemy import String, select
@@ -15,7 +14,7 @@ class Stuff(Base):
     __table_args__ = ({"schema": "happy_hog"},)
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), unique=True, default=uuid.uuid4, autoincrement=True)
     name: Mapped[str] = mapped_column(String, primary_key=True, unique=True)
-    description: Mapped[Optional[str]]
+    description: Mapped[str | None]
 
     @classmethod
     async def find(cls, db_session: AsyncSession, name: str):
