@@ -3,10 +3,9 @@ from collections.abc import AsyncGenerator
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
-from app import config
+from app.config import settings as global_settings
 from app.utils.logging import AppLogger
 
-global_settings = config.get_settings()
 logger = AppLogger.__call__().get_logger()
 
 engine = create_async_engine(

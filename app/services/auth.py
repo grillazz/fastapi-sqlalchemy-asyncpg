@@ -1,13 +1,11 @@
 import time
 import jwt
 
-from app import config
+from app.config import settings as global_settings
 from app.models.user import User
 
 from fastapi import Request, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-
-global_settings = config.get_settings()
 
 
 async def verify_jwt(request: Request, token: str) -> bool:
