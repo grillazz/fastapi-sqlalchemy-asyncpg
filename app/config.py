@@ -1,5 +1,4 @@
 import os
-from functools import lru_cache
 
 from pydantic import PostgresDsn, RedisDsn
 from pydantic_settings import BaseSettings
@@ -12,9 +11,4 @@ class Settings(BaseSettings):
     jwt_expire: int = os.getenv("JWT_EXPIRE")
 
 
-@lru_cache
-def get_settings():
-    return Settings()
-
-
-settings = get_settings()
+settings = Settings()
