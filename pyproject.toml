@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-sqlalchemy-asyncpg"
-version = "0.0.6"
+version = "0.0.7"
 description = ""
 authors = ["Jakub Miazek <the@grillazz.com>"]
 packages = []
@@ -8,10 +8,10 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = "0.103.1"
-pydantic = {version = "2.3.0", extras = ["email"]}
+fastapi = "0.103.2"
+pydantic = {version = "2.4.2", extras = ["email"]}
 pydantic-settings = "2.0.3"
-sqlalchemy = "2.0.20"
+sqlalchemy = "2.0.21"
 uvicorn = { version = "0.23.2", extras = ["standard"]}
 asyncpg = "0.28.0"
 alembic = "1.12.0"
