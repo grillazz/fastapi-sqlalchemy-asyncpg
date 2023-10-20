@@ -76,25 +76,12 @@ as the fifth official annual Python Developers Survey, conducted as a collaborat
 ### Make will help you
 To build , run and test and more ... use magic of make help to play with this project.
 ```shell
-make help
+1. make docker-build
+2. make docker-up
+3. make docker-apply-db-migrations
+4. make docker-feed-db
 ```
-and you receive below list:
-```text
-build                Build project with compose
-clean                Clean Reset project containers and volumes with compose
-feed_db              create database objects and insert data
-format               Format project code.
-help                 Show this help
-lint                 Lint project code.
-migrate-apply        apply alembic migrations to database/schema
-migrate-create       create new alembic migration
-py-upgrade           Upgrade project py files with pyupgrade library for python version 3.10
-requirements         Refresh requirements.txt from pipfile.lock
-safety               Check project and dependencies with safety https://github.com/pyupio/safety
-slim-build           with power of docker-slim build smaller and safer images
-test                 Run project tests
-up                   Run project with compose
-```
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
