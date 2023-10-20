@@ -8,21 +8,21 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = "0.103.2"
+fastapi = "0.104.0"
 pydantic = {version = "2.4.2", extras = ["email"]}
 pydantic-settings = "2.0.3"
-sqlalchemy = "2.0.21"
+sqlalchemy = "2.0.22"
 uvicorn = { version = "0.23.2", extras = ["standard"]}
 asyncpg = "0.28.0"
 alembic = "1.12.0"
-httpx = "*"
-pytest-cov = "*"
-pytest-asyncio = "*"
-uvloop = "*"
-httptools = "*"
-rich = "*"
-pyjwt = {version = "*", extras = ["cryptography"]}
-redis = "*"
+httpx = "0.25.0"
+pytest-cov = "4.1.0"
+pytest-asyncio = "0.21.1"
+uvloop = "0.18.0"
+httptools = "0.6.1"
+rich = "13.6.0"
+pyjwt = {version = "2.8.0", extras = ["cryptography"]}
+redis = "5.0.1"
 passlib = {version = "^1.7.4", extras = ["bcrypt"]}
 
 [tool.poetry.dev-dependencies]
@@ -32,6 +32,7 @@ safety = "*"
 pyupgrade = "*"
 ipython = "*"
 ruff = "*"
+sqlacodegen = "3.0.0rc3"
 
 
 [tool.poetry.group.dev.dependencies]
