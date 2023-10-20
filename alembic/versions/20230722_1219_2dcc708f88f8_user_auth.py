@@ -24,8 +24,8 @@ def upgrade():
     sa.Column('first_name', sa.String(), nullable=False),
     sa.Column('last_name', sa.String(), nullable=False),
     sa.Column('password', sa.LargeBinary(), nullable=False),
-    sa.PrimaryKeyConstraint('uuid'),
-    sa.UniqueConstraint('uuid')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('id')
     )
     op.create_unique_constraint(None, 'nonsense', ['name'], schema='happy_hog')
     op.create_unique_constraint(None, 'stuff', ['name'], schema='happy_hog')
