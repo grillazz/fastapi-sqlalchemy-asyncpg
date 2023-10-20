@@ -76,25 +76,12 @@ as the fifth official annual Python Developers Survey, conducted as a collaborat
 ### Make will help you
 To build , run and test and more ... use magic of make help to play with this project.
 ```shell
-make help
+1. make docker-build
+2. make docker-up
+3. make docker-apply-db-migrations
+4. make docker-feed-db
 ```
-and you receive below list:
-```text
-build                Build project with compose
-clean                Clean Reset project containers and volumes with compose
-feed_db              create database objects and insert data
-format               Format project code.
-help                 Show this help
-lint                 Lint project code.
-migrate-apply        apply alembic migrations to database/schema
-migrate-create       create new alembic migration
-py-upgrade           Upgrade project py files with pyupgrade library for python version 3.10
-requirements         Refresh requirements.txt from pipfile.lock
-safety               Check project and dependencies with safety https://github.com/pyupio/safety
-slim-build           with power of docker-slim build smaller and safer images
-test                 Run project tests
-up                   Run project with compose
-```
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -186,17 +173,17 @@ Use this space to list resources you find helpful and would like to give credit 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/python-has-powers/
 
-[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.103.1-009485?style=for-the-badge&logo=fastapi&logoColor=white
+[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.104.0-009485?style=for-the-badge&logo=fastapi&logoColor=white
 [fastapi-url]: https://fastapi.tiangolo.com/
-[pydantic.com]: https://img.shields.io/badge/Pydantic-2.2.1-e92063?style=for-the-badge&logo=pydantic&logoColor=white
+[pydantic.com]: https://img.shields.io/badge/Pydantic-2.4.2-e92063?style=for-the-badge&logo=pydantic&logoColor=white
 [pydantic-url]: https://docs.pydantic.dev/latest/
-[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.20-bb0000?color=bb0000&style=for-the-badge
+[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.22-bb0000?color=bb0000&style=for-the-badge
 [sqlalchemy-url]: https://docs.sqlalchemy.org/en/20/
 [uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.23.2-2094f3?style=for-the-badge&logo=uvicorn&logoColor=white
 [uvicorn-url]: https://www.uvicorn.org/
 [asyncpg.github.io]: https://img.shields.io/badge/asyncpg-0.28.0-2e6fce?style=for-the-badge&logo=postgresql&logoColor=white
 [asyncpg-url]: https://magicstack.github.io/asyncpg/current/
-[pytest.org]: https://img.shields.io/badge/pytest-6.2.5-fff?style=for-the-badge&logo=pytest&logoColor=white
+[pytest.org]: https://img.shields.io/badge/pytest-7.4.2-fff?style=for-the-badge&logo=pytest&logoColor=white
 [pytest-url]: https://docs.pytest.org/en/6.2.x/
 [alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.12.0-6BA81E?style=for-the-badge&logo=alembic&logoColor=white
 [alembic-url]: https://alembic.sqlalchemy.org/en/latest/
