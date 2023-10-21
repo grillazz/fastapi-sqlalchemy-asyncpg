@@ -17,7 +17,6 @@ class Nonsense(Base):
     description: Mapped[str | None]
     # TODO: apply relation to other tables
 
-
     @classmethod
     async def find(cls, db_session: AsyncSession, name: str):
         """
@@ -36,4 +35,3 @@ class Nonsense(Base):
             )
         else:
             return instance
-
