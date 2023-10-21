@@ -39,7 +39,7 @@ py-upgrade:	## Upgrade project py files with pyupgrade library for python versio
 
 .PHONY: lint
 lint:  ## Lint project code.
-	poetry run ruff .
+	poetry run ruff --fix .
 
 .PHONY: format
 format:  ## Format project code.
@@ -57,3 +57,7 @@ docker-feed-database: ## create database objects and insert data
 	docker-compose exec db psql devdb user -f /home/gx/code/shakespeare_character.sql | true
 	docker-compose exec db psql devdb user -f /home/gx/code/shakespeare_paragraph.sql | true
 	docker-compose exec db psql devdb user -f /home/gx/code/shakespeare_character_work.sql
+
+.PHONY: model-generate
+model-generate: ## generate sqlalchemy models from database
+	poetry run sqlacodegen --generator declarative postgresql://user:secret@0.0.0.0/devdb --outfile models.py --schemas shakespeare
