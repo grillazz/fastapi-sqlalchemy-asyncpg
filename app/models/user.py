@@ -26,7 +26,7 @@ class User(Base):
 
     @password.setter
     def password(self, password: str):
-        self._password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        self._password = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
     def check_password(self, password: str):
         return pwd_context.verify(password, self.password)
