@@ -133,5 +133,4 @@ class Paragraph(Base):
     async def find(cls, db_session: AsyncSession, character: str):
         stmt = select(cls).join(Character).join(Chapter).join(Work).where(Character.name == character)
         result = await db_session.execute(stmt)
-        instance = result.scalars().all()
-        return instance
+        return result.scalars().all()
