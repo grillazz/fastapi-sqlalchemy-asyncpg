@@ -10,10 +10,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 async def verify_jwt(request: Request, token: str) -> bool:
     _payload = await request.app.state.redis.get(token)
-    if _payload:
-        return True
-    else:
-        return False
+    return bool(_payload)
 
 
 class AuthBearer(HTTPBearer):
@@ -22,14 +19,13 @@ class AuthBearer(HTTPBearer):
 
     async def __call__(self, request: Request):
         credentials: HTTPAuthorizationCredentials = await super().__call__(request)
-        if credentials:
-            if not credentials.scheme == "Bearer":
-                raise HTTPException(status_code=403, detail="Invalid authentication scheme.")
-            if not await verify_jwt(request, credentials.credentials):
-                raise HTTPException(status_code=403, detail="Invalid token or expired token.")
-            return credentials.credentials
-        else:
+        if not credentials:
             raise HTTPException(status_code=403, detail="Invalid authorization code.")
+        if credentials.scheme != "Bearer":
+            raise HTTPException(status_code=403, detail="Invalid authentication scheme.")
+        if not await verify_jwt(request, credentials.credentials):
+            raise HTTPException(status_code=403, detail="Invalid token or expired token.")
+        return credentials.credentials
 
 
 async def create_access_token(user: User, request: Request):

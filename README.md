@@ -91,7 +91,6 @@ It took me a while to find nice data set. Hope works of Shakespeare as example w
 first part with read only declarative base configuration and all type of funny selects :)
 Data set is coming form https://github.com/catherinedevlin/opensourceshakespeare
 Next models were generated with https://github.com/agronholm/sqlacodegen
-And after some tweaking I got desired result
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -133,7 +132,8 @@ poetry install
 Hope you enjoy it.
 
 ## Acknowledgments
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+Use this space to list resources you find helpful and would like to give credit to.
+I've included a few of my favorites to kick things off!
 
 * [Open Source Shakespeare Dataset](https://github.com/catherinedevlin/opensourceshakespeare)
 * [SQL Code Generator](https://github.com/agronholm/sqlacodegen)
@@ -154,6 +154,7 @@ Use this space to list resources you find helpful and would like to give credit 
 - **[JUL 7 2023]** migrate to pydantic 2.0 :fast_forward:
 - **[JUL 25 2023]** add user authentication with JWT and Redis as token storage :lock: :key:
 - **[SEP 2 2023]** add passlib and bcrypt for password hashing :lock: :key:
+- **[OCT 21 2023]** refactor shakespeare models to use sqlalchemy 2.0 :fast_forward:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
