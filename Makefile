@@ -41,10 +41,6 @@ py-upgrade:	## Upgrade project py files with pyupgrade library for python versio
 lint:  ## Lint project code.
 	poetry run ruff --fix .
 
-.PHONY: format
-format:  ## Format project code.
-	black app tests --line-length=120
-
 .PHONY: slim-build
 slim-build: ## with power of docker-slim build smaller and safer images
 	docker-slim build --compose-file docker-compose.yml --target-compose-svc app --dep-include-target-compose-svc-deps true --http-probe-exec app fastapi-sqlalchemy-asyncpg_app:latest

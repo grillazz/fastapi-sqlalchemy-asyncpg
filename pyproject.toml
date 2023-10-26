@@ -24,10 +24,10 @@ rich = "13.6.0"
 pyjwt = {version = "2.8.0", extras = ["cryptography"]}
 redis = "5.0.1"
 passlib = {version = "^1.7.4", extras = ["bcrypt"]}
+sourcery = "^1.11.0"
 
 [tool.poetry.dev-dependencies]
 devtools = { extras = ["pygments"], version = "*" }
-black = "*"
 safety = "*"
 pyupgrade = "*"
 ipython = "*"
@@ -45,8 +45,10 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
 line-length = 120
+indent-width = 4
 
 select = ["E", "F", "UP", "N", "C", "B"]
+ignore = ["E501"]
 
 # Exclude a variety of commonly ignored directories.
 exclude = ["alembic",]
@@ -66,3 +68,16 @@ env_files = [".env"]
 
 [tool.tryceratops]
 exclude = ["alembic",]
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
