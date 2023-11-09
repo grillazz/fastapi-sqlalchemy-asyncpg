@@ -18,9 +18,11 @@ logger = AppLogger().get_logger()
 async def lifespan(app: FastAPI):
     # Load the redis connection
     app.state.redis = await get_redis()
-    yield
-    # close redis connection and release the resources
-    app.state.redis.close()
+    try:
+        yield
+    finally:
+        # close redis connection and release the resources
+        app.state.redis.close()
 
 
 app = FastAPI(title="Stuff And Nonsense API", version="0.6", lifespan=lifespan)
