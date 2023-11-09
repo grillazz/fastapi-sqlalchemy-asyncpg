@@ -7,7 +7,7 @@ from app.models.stuff import Stuff
 from app.schemas.stuff import StuffResponse, StuffSchema
 from app.utils.logging import AppLogger
 
-logger = AppLogger.__call__().get_logger()
+logger = AppLogger().get_logger()
 
 router = APIRouter(prefix="/v1/stuff")
 

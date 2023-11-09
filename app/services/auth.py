@@ -8,9 +8,17 @@ from fastapi import Request, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 
+async def get_from_redis(request: Request, key: str):
+    return await request.app.state.redis.get(key)
+
+
+async def set_to_redis(request: Request, key: str, value: str, ex: int):
+    return await request.app.state.redis.set(key, value, ex=ex)
+
+
 async def verify_jwt(request: Request, token: str) -> bool:
-    _payload = await request.app.state.redis.get(token)
-    return bool(_payload)
+    payload = await get_from_redis(request, token)
+    return bool(payload)
 
 
 class AuthBearer(HTTPBearer):
@@ -29,13 +37,14 @@ class AuthBearer(HTTPBearer):
 
 
 async def create_access_token(user: User, request: Request):
-    _payload = {
+    # sourcery skip: avoid-builtin-shadow
+    payload = {
         "email": user.email,
         "expiry": time.time() + global_settings.jwt_expire,
         "platform": request.headers.get("User-Agent"),
     }
-    _token = jwt.encode(_payload, str(user.password), algorithm=global_settings.jwt_algorithm)
+    token = jwt.encode(payload, str(user.password), algorithm=global_settings.jwt_algorithm)
 
-    _bool = await request.app.state.redis.set(_token, str(_payload), ex=global_settings.jwt_expire)
+    _bool = await set_to_redis(request, token, str(payload), ex=global_settings.jwt_expire)
     if _bool:
-        return _token
+        return token
