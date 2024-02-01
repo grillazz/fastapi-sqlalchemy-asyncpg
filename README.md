@@ -124,7 +124,7 @@ Setup user authentication with JWT and Redis as token storage.
 ### Local development with poetry
 
 ```shell
-pyenv install 3.11 && pyenv local 3.11
+pyenv install 3.12 && pyenv local 3.12
 ```
 ```shell
 poetry install
