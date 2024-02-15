@@ -37,7 +37,7 @@ jobs:
         ports:
           - 6379:6379
       sqldb:
-        image: postgres:14
+        image: postgres:16
         env:
           POSTGRES_USER: app-user
           POSTGRES_PASSWORD: secret
