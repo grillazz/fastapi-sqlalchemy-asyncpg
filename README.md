@@ -26,6 +26,8 @@
         <li><a href="#how-to-feed-database">How to feed database</a></li>
         <li><a href="#rainbow-logs-with-rich">Rainbow logs with rich</a></li>
         <li><a href="#setup-user-auth">Setup user auth</a></li>
+        <li><a href="#local-development-with-poetry">Local development with poetry</a></li>
+        <li><a href=""></a>Import xlsx files with polars and calamine</li>
       </ul>
     </li>
 
@@ -47,7 +49,7 @@
 ## About The Project
 
 Example of [FastAPI](https://fastapi.tiangolo.com/) integration supported by almighty [Pydantic 2.0](https://github.com/pydantic/pydantic)
-with [SQLAlchemy ORM](https://www.sqlalchemy.org/) and PostgreSQL 
+with [SQLAlchemy ORM](https://www.sqlalchemy.org/) and PostgreSQL16
 connected via fastest Database Client Library for python/asyncio [asyncpg](https://github.com/MagicStack/asyncpg).
 
 Beside of using latest and greatest version of [SQLAlchemy](https://www.sqlalchemy.org/) with it robustness, powerfulness and speed
@@ -131,6 +133,12 @@ poetry install
 ```
 Hope you enjoy it.
 
+### Import xlsx files with polars and calamine
+Power of Polars Library in data manipulation and analysis.
+https://docs.pola.rs/py-polars/html/reference/api/polars.read_excel.html
+
+
+
 ## Acknowledgments
 Use this space to list resources you find helpful and would like to give credit to.
 I've included a few of my favorites to kick things off!
@@ -138,6 +146,7 @@ I've included a few of my favorites to kick things off!
 * [Open Source Shakespeare Dataset](https://github.com/catherinedevlin/opensourceshakespeare)
 * [SQL Code Generator](https://github.com/agronholm/sqlacodegen)
 * [Passlib - password hashing library for Python](https://passlib.readthedocs.io/en/stable/)
+* [Polars - fast DataFrame library for Rust and Python](https://docs.pola.rs/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
