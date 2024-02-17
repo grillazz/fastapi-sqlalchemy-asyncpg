@@ -63,6 +63,7 @@ class Wordform(Base):
     - `occurrences` (int): The number of occurrences of the word form.
 
     """
+
     __tablename__ = "wordform"
     __table_args__ = (PrimaryKeyConstraint("id", name="wordform_pkey"), {"schema": "shakespeare"})
 
@@ -133,6 +134,7 @@ class Chapter(Base):
     - `paragraph` (list[Paragraph]): The paragraphs associated with the chapter.
 
     """
+
     __tablename__ = "chapter"
     __table_args__ = (
         ForeignKeyConstraint(["work_id"], ["shakespeare.work.id"], name="chapter_work_id_fkey"),
@@ -193,6 +195,7 @@ class Paragraph(Base):
     - `find(cls, db_session: AsyncSession, character: str) -> List[Paragraph]`: A class method that finds paragraphs associated with a specific character. It takes a database session and the name of the character as arguments, and returns a list of matching paragraphs.
 
     """
+
     __tablename__ = "paragraph"
     __table_args__ = (
         ForeignKeyConstraint(["character_id"], ["shakespeare.character.id"], name="paragraph_character_id_fkey"),
