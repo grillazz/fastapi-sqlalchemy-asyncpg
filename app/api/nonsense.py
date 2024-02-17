@@ -75,17 +75,18 @@ async def import_nonsense(
         HTTPException: If an error occurs during the process (either a SQLAlchemy error or an HTTP exception),
                        the function rolls back the session and raises an HTTP exception with a 422 status code.
     """
-    # Read the uploaded file into bytes
-    file_bytes = await xlsx.read()
 
-    # Use the `polars` library to read the Excel data into a DataFrame
-    nonsense_data = pl.read_excel(
-        source=io.BytesIO(file_bytes),
-        sheet_name="New Nonsense",
-        engine="calamine",
-    )
 
     try:
+        # Read the uploaded file into bytes
+        file_bytes = await xlsx.read()
+
+        # Use the `polars` library to read the Excel data into a DataFrame
+        nonsense_data = pl.read_excel(
+            source=io.BytesIO(file_bytes),
+            sheet_name="New Nonsense",
+            engine="calamine",
+        )
         # Iterate over the DataFrame rows and create a list of `Nonsense` objects
         nonsense_records = [
             Nonsense(
@@ -100,7 +101,7 @@ async def import_nonsense(
         await db_session.commit()
         # Return a JSON response containing the filename and the number of imported records
         return {"filename": xlsx.filename, "nonsense_records": len(nonsense_records)}
-    except (SQLAlchemyError, HTTPException) as ex:
+    except (SQLAlchemyError, HTTPException, ValueError) as ex:
         # If an error occurs, roll back the session
         await db_session.rollback()
         # Raise an HTTP exception with a 422 status code
