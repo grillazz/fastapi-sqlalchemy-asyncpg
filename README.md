@@ -162,7 +162,7 @@ I've included a few of my favorites to kick things off!
 - **[SEP 2 2023]** add passlib and bcrypt for password hashing :lock: :key:
 - **[OCT 21 2023]** refactor shakespeare models to use sqlalchemy 2.0 :fast_forward:
 - **[FEB 1 2024]** bump project to Python 3.12 :fast_forward:
-- **[MAR 15 2024]** add polars and calamine to project :features:
+- **[MAR 15 2024]** add polars and calamine to project :heart_eyes_cat:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
