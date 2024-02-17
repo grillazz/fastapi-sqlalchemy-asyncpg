@@ -27,11 +27,7 @@ class Stuff(Base):
         :param name:
         :return:
         """
-        stmt = (
-            select(cls)
-            .options(joinedload(cls.nonsense))
-            .where(cls.name == name)
-        )
+        stmt = select(cls).options(joinedload(cls.nonsense)).where(cls.name == name)
         result = await db_session.execute(stmt)
         instance = result.scalars().first()
         if instance is None:
