@@ -75,8 +75,6 @@ async def import_nonsense(
         HTTPException: If an error occurs during the process (either a SQLAlchemy error or an HTTP exception),
                        the function rolls back the session and raises an HTTP exception with a 422 status code.
     """
-
-
     try:
         # Read the uploaded file into bytes
         file_bytes = await xlsx.read()

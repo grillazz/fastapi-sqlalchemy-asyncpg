@@ -27,22 +27,17 @@
         <li><a href="#rainbow-logs-with-rich">Rainbow logs with rich</a></li>
         <li><a href="#setup-user-auth">Setup user auth</a></li>
         <li><a href="#local-development-with-poetry">Local development with poetry</a></li>
-        <li><a href=""></a>Import xlsx files with polars and calamine</li>
+        <li><a href="#import-xlsx-files-with-polars-and-calamine">Import xlsx files with polars and calamine</a></li>
       </ul>
     </li>
-
-[//]: # (    <li><a href="#usage">Usage</a></li>)
-
-[//]: # (    <li><a href="#roadmap">Roadmap</a></li>)
-
-[//]: # (    <li><a href="#contributing">Contributing</a></li>)
-
-[//]: # (    <li><a href="#license">License</a></li>)
-
-[//]: # (    <li><a href="#contact">Contact</a></li>)
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
+
+[//]: # (TODO: Usage,Roadmap, Contributing, License, Contact)
+
+    
+
 
 
 
@@ -135,9 +130,11 @@ Hope you enjoy it.
 
 ### Import xlsx files with polars and calamine
 Power of Polars Library in data manipulation and analysis.
+It uses the polars library to read the Excel data into a DataFrame by passing the bytes to the `pl.read_excel()` function -
 https://docs.pola.rs/py-polars/html/reference/api/polars.read_excel.html
+In `pl.read_excel()` “calamine” engine can be used for reading all major types of Excel Workbook (.xlsx, .xlsb, .xls) and is dramatically faster than the other options, using the fastexcel module to bind calamine.
 
-
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Acknowledgments
 Use this space to list resources you find helpful and would like to give credit to.
@@ -164,7 +161,8 @@ I've included a few of my favorites to kick things off!
 - **[JUL 25 2023]** add user authentication with JWT and Redis as token storage :lock: :key:
 - **[SEP 2 2023]** add passlib and bcrypt for password hashing :lock: :key:
 - **[OCT 21 2023]** refactor shakespeare models to use sqlalchemy 2.0 :fast_forward:
-- **[FEB 1 2024]** bum project to Python 3.12 :fast_forward:
+- **[FEB 1 2024]** bump project to Python 3.12 :fast_forward:
+- **[MAR 15 2024]** add polars and calamine to project :features:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
