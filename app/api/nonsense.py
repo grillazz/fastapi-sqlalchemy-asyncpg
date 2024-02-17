@@ -61,8 +61,24 @@ async def import_nonsense(
     xlsx: UploadFile,
     db_session: AsyncSession = Depends(get_db),
 ):
+    """
+    This function is a FastAPI route handler that imports data from an Excel file into a database.
+
+    Args:
+        xlsx (UploadFile): The Excel file that will be uploaded by the client.
+        db_session (AsyncSession): A SQLAlchemy session for interacting with the database.
+
+    Returns:
+        dict: A dictionary containing the filename and the number of imported records.
+
+    Raises:
+        HTTPException: If an error occurs during the process (either a SQLAlchemy error or an HTTP exception),
+                       the function rolls back the session and raises an HTTP exception with a 422 status code.
+    """
+    # Read the uploaded file into bytes
     file_bytes = await xlsx.read()
 
+    # Use the `polars` library to read the Excel data into a DataFrame
     nonsense_data = pl.read_excel(
         source=io.BytesIO(file_bytes),
         sheet_name="New Nonsense",
@@ -70,6 +86,7 @@ async def import_nonsense(
     )
 
     try:
+        # Iterate over the DataFrame rows and create a list of `Nonsense` objects
         nonsense_records = [
             Nonsense(
                 name=nonsense.get("name"),
@@ -77,11 +94,17 @@ async def import_nonsense(
             )
             for nonsense in nonsense_data.to_dicts()
         ]
+        # Add all the `Nonsense` objects to the SQLAlchemy session
         db_session.add_all(nonsense_records)
+        # Commit the session to save the objects to the database
         await db_session.commit()
+        # Return a JSON response containing the filename and the number of imported records
         return {"filename": xlsx.filename, "nonsense_records": len(nonsense_records)}
     except (SQLAlchemyError, HTTPException) as ex:
+        # If an error occurs, roll back the session
         await db_session.rollback()
+        # Raise an HTTP exception with a 422 status code
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)) from ex
     finally:
+        # Ensure that the database session is closed, regardless of whether an error occurred or not
         await db_session.close()
