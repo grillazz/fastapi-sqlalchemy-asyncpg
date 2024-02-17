@@ -26,6 +26,7 @@ redis = "5.0.1"
 passlib = {version = "^1.7.4", extras = ["bcrypt"]}
 sourcery = "^1.15.0"
 polars = "^0.20.8"
+python-multipart = "^0.0.9"
 
 [tool.poetry.dev-dependencies]
 devtools = { extras = ["pygments"], version = "*" }
