@@ -24,7 +24,6 @@ rich = "13.7.0"
 pyjwt = {version = "2.8.0", extras = ["cryptography"]}
 redis = "5.0.1"
 passlib = {version = "^1.7.4", extras = ["bcrypt"]}
-sourcery = "^1.15.0"
 polars = "^0.20.9"
 python-multipart = "^0.0.9"
 fastexcel = "^0.9.0"
