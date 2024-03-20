@@ -24,6 +24,9 @@ rich = "13.7.1"
 pyjwt = {version = "2.8.0", extras = ["cryptography"]}
 redis = "5.0.3"
 passlib = {version = "^1.7.4", extras = ["bcrypt"]}
+polars = "^0.20.14"
+python-multipart = "^0.0.9"
+fastexcel = "^0.9.1"
 
 [tool.poetry.dev-dependencies]
 devtools = { extras = ["pygments"], version = "*" }
