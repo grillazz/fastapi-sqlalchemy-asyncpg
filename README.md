@@ -191,7 +191,7 @@ I've included a few of my favorites to kick things off!
 [uvicorn-url]: https://www.uvicorn.org/
 [asyncpg.github.io]: https://img.shields.io/badge/asyncpg-0.29.0-2e6fce?style=for-the-badge&logo=postgresql&logoColor=white
 [asyncpg-url]: https://magicstack.github.io/asyncpg/current/
-[pytest.org]: https://img.shields.io/badge/pytest-7.4.4-fff?style=for-the-badge&logo=pytest&logoColor=white
+[pytest.org]: https://img.shields.io/badge/pytest-8.1.1-fff?style=for-the-badge&logo=pytest&logoColor=white
 [pytest-url]: https://docs.pytest.org/en/6.2.x/
 [alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.13.1-6BA81E?style=for-the-badge&logo=alembic&logoColor=white
 [alembic-url]: https://alembic.sqlalchemy.org/en/latest/
