@@ -18,9 +18,9 @@ jobs:
     env:
       PYTHONDONTWRITEBYTECODE: 1
       PYTHONUNBUFFERED: 1
-      SQL_DB: testdb
-      SQL_HOST: 127.0.0.1
-      SQL_USER: app-user
+      POSTGRES_DB: testdb
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_USER: app-user
       POSTGRES_PASSWORD: secret
       PGPASSWORD: secret
       REDIS_HOST: 127.0.0.1

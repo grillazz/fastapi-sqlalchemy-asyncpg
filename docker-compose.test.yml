@@ -3,9 +3,9 @@ version: '3.8'
 services:
   app:
     environment:
-      - SQL_DB=testdb
+      - POSTGRES_DB=testdb
 
   db:
     environment:
-      - POSTGRES_USER=${SQL_USER}
-      - SQL_DB=testdb
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=testdb
