@@ -1,3 +1,5 @@
+-- DROP DATABASE IF EXISTS devdb;
+-- CREATE DATABASE devdb;
 \connect devdb;
 CREATE SCHEMA shakespeare;
 CREATE SCHEMA happy_hog;

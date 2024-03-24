@@ -1,5 +1,5 @@
 import pytest
-from httpx import AsyncClient
+from httpx import AsyncClient, ASGITransport
 
 from app.database import engine
 from app.main import app
@@ -29,10 +29,16 @@ async def start_db():
 
 @pytest.fixture(scope="session")
 async def client(start_db) -> AsyncClient:
-    async with AsyncClient(
+
+    transport = ASGITransport(
         app=app,
+
+    )
+    async with AsyncClient(
+        # app=app,
         base_url="http://testserver/v1",
         headers={"Content-Type": "application/json"},
+        transport=transport,
     ) as test_client:
         app.state.redis = await get_redis()
         yield test_client
