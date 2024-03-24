@@ -11,7 +11,6 @@ class Settings(BaseSettings):
         env_ignore_empty=True,
         extra="ignore"
     )
-    # asyncpg_url: PostgresDsn = os.getenv("SQL_URL")
     redis_url: RedisDsn = os.getenv("REDIS_URL")
     jwt_algorithm: str = os.getenv("JWT_ALGORITHM")
     jwt_expire: int = os.getenv("JWT_EXPIRE")
