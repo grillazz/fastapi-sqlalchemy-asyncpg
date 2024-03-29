@@ -3,6 +3,7 @@ from typing import Any
 
 import bcrypt
 from passlib.context import CryptContext
+from pydantic import SecretStr
 from sqlalchemy import String, LargeBinary, select
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -25,11 +26,12 @@ class User(Base):
         return self._password.decode("utf-8")
 
     @password.setter
-    def password(self, password: str):
-        self._password = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+    def password(self, password: SecretStr):
+        _password_string = password.get_secret_value()
+        self._password = bcrypt.hashpw(_password_string.encode("utf-8"), bcrypt.gensalt())
 
-    def check_password(self, password: str):
-        return pwd_context.verify(password, self.password)
+    def check_password(self, password: SecretStr):
+        return pwd_context.verify(password.get_secret_value(), self.password)
 
     @classmethod
     async def find(cls, database_session: AsyncSession, where_conditions: list[Any]):
