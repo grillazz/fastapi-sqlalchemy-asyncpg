@@ -49,18 +49,18 @@ build-backend = "poetry.core.masonry.api"
 line-length = 120
 indent-width = 4
 
-select = ["E", "F", "UP", "N", "C", "B"]
-ignore = ["E501"]
+lint.select = ["E", "F", "UP", "N", "C", "B"]
+lint.ignore = ["E501"]
 
 # Exclude a variety of commonly ignored directories.
 exclude = ["alembic",]
 # Assume Python 3.11.
 target-version = "py312"
 
-[tool.ruff.flake8-quotes]
+[tool.ruff.lint.flake8-quotes]
 docstring-quotes = "double"
 
-[tool.ruff.flake8-bugbear]
+[tool.ruff.lint.flake8-bugbear]
 extend-immutable-calls = ["fastapi.Depends",]
 
 [tool.pytest.ini_options]
