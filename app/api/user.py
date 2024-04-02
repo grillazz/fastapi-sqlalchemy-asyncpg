@@ -5,12 +5,16 @@ from app.database import get_db
 from app.models.user import User
 from app.schemas.user import UserSchema, UserResponse, UserLogin, TokenResponse
 from app.services.auth import create_access_token
+from app.utils.logging import AppLogger
+
+logger = AppLogger().get_logger()
 
 router = APIRouter(prefix="/v1/user")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=UserResponse)
 async def create_user(payload: UserSchema, request: Request, db_session: AsyncSession = Depends(get_db)):
+    logger.info(f"Creating user: {payload}")
     _user: User = User(**payload.model_dump())
     await _user.save(db_session)
 

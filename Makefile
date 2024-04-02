@@ -39,7 +39,7 @@ py-upgrade:	## Upgrade project py files with pyupgrade library for python versio
 
 .PHONY: lint
 lint:  ## Lint project code.
-	poetry run ruff --fix .
+	poetry run ruff check --fix .
 
 .PHONY: slim-build
 slim-build: ## with power of docker-slim build smaller and safer images
