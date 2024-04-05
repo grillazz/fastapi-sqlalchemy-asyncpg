@@ -54,7 +54,7 @@ lint.ignore = ["E501"]
 
 # Exclude a variety of commonly ignored directories.
 exclude = ["alembic",]
-# Assume Python 3.11.
+# Assume Python 3.12
 target-version = "py312"
 
 [tool.ruff.lint.flake8-quotes]
