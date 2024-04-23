@@ -1,6 +1,8 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Depends
+from fastapi_cache import FastAPICache
+from fastapi_cache.backends.redis import RedisBackend
 
 from app.api.nonsense import router as nonsense_router
 from app.api.shakespeare import router as shakespeare_router
@@ -8,7 +10,7 @@ from app.api.stuff import router as stuff_router
 from app.utils.logging import AppLogger
 from app.api.user import router as user_router
 from app.api.health import router as health_router
-from app.redis import get_redis
+from app.redis import get_redis, get_cache
 from app.services.auth import AuthBearer
 
 logger = AppLogger().get_logger()
@@ -18,11 +20,18 @@ logger = AppLogger().get_logger()
 async def lifespan(app: FastAPI):
     # Load the redis connection
     app.state.redis = await get_redis()
+
+
+
     try:
+        # Initialize the cache with the redis connection
+        redis_cache = await get_cache()
+        FastAPICache.init(RedisBackend(redis_cache), prefix="fastapi-cache")
+        logger.info(FastAPICache.get_cache_status_header())
         yield
     finally:
         # close redis connection and release the resources
-        app.state.redis.close()
+        await app.state.redis.close()
 
 
 app = FastAPI(title="Stuff And Nonsense API", version="0.6", lifespan=lifespan)

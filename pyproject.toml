@@ -27,6 +27,7 @@ passlib = {version = "^1.7.4", extras = ["bcrypt"]}
 polars = "^0.20.18"
 python-multipart = "^0.0.9"
 fastexcel = "^0.10.2"
+fastapi-cache2 = {git = "https://github.com/yoco-tech/fastapi-cache.git",  rev = "main"}
 
 [tool.poetry.dev-dependencies]
 devtools = { extras = ["pygments"], version = "*" }
@@ -54,7 +55,7 @@ lint.ignore = ["E501"]
 
 # Exclude a variety of commonly ignored directories.
 exclude = ["alembic",]
-# Assume Python 3.11.
+# Assume Python 3.12
 target-version = "py312"
 
 [tool.ruff.lint.flake8-quotes]
