@@ -1,10 +1,9 @@
-from uuid import UUID
 
 import pytest
 from fastapi import status
 from httpx import AsyncClient
 from inline_snapshot import snapshot
-from dirty_equals import IsStr, IsUUID, IsPositiveFloat
+from dirty_equals import IsUUID
 
 
 pytestmark = pytest.mark.anyio
