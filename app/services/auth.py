@@ -30,9 +30,13 @@ class AuthBearer(HTTPBearer):
         if not credentials:
             raise HTTPException(status_code=403, detail="Invalid authorization code.")
         if credentials.scheme != "Bearer":
-            raise HTTPException(status_code=403, detail="Invalid authentication scheme.")
+            raise HTTPException(
+                status_code=403, detail="Invalid authentication scheme."
+            )
         if not await verify_jwt(request, credentials.credentials):
-            raise HTTPException(status_code=403, detail="Invalid token or expired token.")
+            raise HTTPException(
+                status_code=403, detail="Invalid token or expired token."
+            )
         return credentials.credentials
 
 
@@ -43,8 +47,12 @@ async def create_access_token(user: User, request: Request):
         "expiry": time.time() + global_settings.jwt_expire,
         "platform": request.headers.get("User-Agent"),
     }
-    token = jwt.encode(payload, str(user.password), algorithm=global_settings.jwt_algorithm)
+    token = jwt.encode(
+        payload, str(user.password), algorithm=global_settings.jwt_algorithm
+    )
 
-    _bool = await set_to_redis(request, token, str(payload), ex=global_settings.jwt_expire)
+    _bool = await set_to_redis(
+        request, token, str(payload), ex=global_settings.jwt_expire
+    )
     if _bool:
         return token

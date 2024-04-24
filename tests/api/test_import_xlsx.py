@@ -24,4 +24,4 @@ async def test_import_animals(client: AsyncClient):
     )
 
     assert response.status_code == expected_status
-    assert response.json() == {'filename': 'nonsense.xlsx', 'nonsense_records': 10}
+    assert response.json() == {"filename": "nonsense.xlsx", "nonsense_records": 10}

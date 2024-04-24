@@ -7,9 +7,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env",
-        env_ignore_empty=True,
-        extra="ignore"
+        env_file=".env", env_ignore_empty=True, extra="ignore"
     )
     jwt_algorithm: str = os.getenv("JWT_ALGORITHM")
     jwt_expire: int = os.getenv("JWT_EXPIRE")
@@ -46,7 +44,6 @@ class Settings(BaseSettings):
             host=self.REDIS_HOST,
             port=self.REDIS_PORT,
             path=self.REDIS_DB,
-
         )
 
     @computed_field

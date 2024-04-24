@@ -32,7 +32,6 @@ async def client(start_db) -> AsyncClient:
 
     transport = ASGITransport(
         app=app,
-
     )
     async with AsyncClient(
         # app=app,

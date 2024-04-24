@@ -13,21 +13,29 @@ router = APIRouter(prefix="/v1/stuff")
 
 
 @router.post("/add_many", status_code=status.HTTP_201_CREATED)
-async def create_multi_stuff(payload: list[StuffSchema], db_session: AsyncSession = Depends(get_db)):
+async def create_multi_stuff(
+    payload: list[StuffSchema], db_session: AsyncSession = Depends(get_db)
+):
     try:
         stuff_instances = [Stuff(**stuff.model_dump()) for stuff in payload]
         db_session.add_all(stuff_instances)
         await db_session.commit()
     except SQLAlchemyError as ex:
         # logger.exception(ex)
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)) from ex
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)
+        ) from ex
     else:
-        logger.info(f"{len(stuff_instances)} instances of Stuff inserted into database.")
+        logger.info(
+            f"{len(stuff_instances)} instances of Stuff inserted into database."
+        )
         return True
 
 
 @router.post("", status_code=status.HTTP_201_CREATED, response_model=StuffResponse)
-async def create_stuff(payload: StuffSchema, db_session: AsyncSession = Depends(get_db)):
+async def create_stuff(
+    payload: StuffSchema, db_session: AsyncSession = Depends(get_db)
+):
     stuff = Stuff(**payload.model_dump())
     await stuff.save(db_session)
     return stuff
