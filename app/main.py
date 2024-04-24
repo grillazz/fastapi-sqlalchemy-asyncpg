@@ -21,8 +21,6 @@ async def lifespan(app: FastAPI):
     # Load the redis connection
     app.state.redis = await get_redis()
 
-
-
     try:
         # Initialize the cache with the redis connection
         redis_cache = await get_cache()
@@ -43,4 +41,9 @@ app.include_router(user_router)
 
 
 app.include_router(health_router, prefix="/v1/public/health", tags=["Health, Public"])
-app.include_router(health_router, prefix="/v1/health", tags=["Health, Bearer"], dependencies=[Depends(AuthBearer())])
+app.include_router(
+    health_router,
+    prefix="/v1/health",
+    tags=["Health, Bearer"],
+    dependencies=[Depends(AuthBearer())],
+)

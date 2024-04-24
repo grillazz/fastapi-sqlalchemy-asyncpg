@@ -31,7 +31,9 @@ async def run_migrations_online():
     and associate a connection with the context.
 
     """
-    connectable = create_async_engine(settings.asyncpg_url.unicode_string(), future=True)
+    connectable = create_async_engine(
+        settings.asyncpg_url.unicode_string(), future=True
+    )
 
     async with connectable.connect() as connection:
         await connection.run_sync(do_run_migrations)

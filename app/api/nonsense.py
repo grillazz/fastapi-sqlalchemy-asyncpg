@@ -12,7 +12,9 @@ router = APIRouter(prefix="/v1/nonsense")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=NonsenseResponse)
-async def create_nonsense(payload: NonsenseSchema, db_session: AsyncSession = Depends(get_db)):
+async def create_nonsense(
+    payload: NonsenseSchema, db_session: AsyncSession = Depends(get_db)
+):
     nonsense = Nonsense(**payload.model_dump())
     await nonsense.save(db_session)
     return nonsense
@@ -103,7 +105,9 @@ async def import_nonsense(
         # If an error occurs, roll back the session
         await db_session.rollback()
         # Raise an HTTP exception with a 422 status code
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)) from ex
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)
+        ) from ex
     finally:
         # Ensure that the database session is closed, regardless of whether an error occurred or not
         await db_session.close()

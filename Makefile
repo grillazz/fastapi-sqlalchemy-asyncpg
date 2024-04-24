@@ -29,6 +29,10 @@ docker-create-db-migration:  ## Create new alembic database migration aka databa
 docker-test:	## Run project tests
 	docker-compose -f docker-compose.yml -f docker-compose.test.yml  run --rm app pytest
 
+.PHONY: docker-test-snapshot
+docker-test-snapshot:	## Run project tests with inline snapshot
+	docker-compose -f docker-compose.yml -f docker-compose.test.yml  run --rm app pytest --inline-snapshot=create
+
 .PHONY: safety
 safety:	## Check project and dependencies with safety https://github.com/pyupio/safety
 	docker-compose run --rm app safety check

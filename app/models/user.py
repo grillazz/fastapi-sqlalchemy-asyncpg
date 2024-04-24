@@ -15,7 +15,9 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 class User(Base):
-    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), default=uuid.uuid4, primary_key=True)
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), default=uuid.uuid4, primary_key=True
+    )
     email: Mapped[str] = mapped_column(String, nullable=False, unique=True)
     first_name: Mapped[str] = mapped_column(String, nullable=False)
     last_name: Mapped[str] = mapped_column(String, nullable=False)
@@ -28,7 +30,9 @@ class User(Base):
     @password.setter
     def password(self, password: SecretStr):
         _password_string = password.get_secret_value()
-        self._password = bcrypt.hashpw(_password_string.encode("utf-8"), bcrypt.gensalt())
+        self._password = bcrypt.hashpw(
+            _password_string.encode("utf-8"), bcrypt.gensalt()
+        )
 
     def check_password(self, password: SecretStr):
         return pwd_context.verify(password.get_secret_value(), self.password)
