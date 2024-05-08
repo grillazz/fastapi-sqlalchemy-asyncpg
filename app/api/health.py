@@ -7,7 +7,7 @@ router = APIRouter()
 
 @router.get("/redis", status_code=status.HTTP_200_OK)
 async def redis_check(request: Request):
-    _redis = await request.app.state.redis
+    _redis = await request.app.redis
     _info = None
     try:
         _info = await _redis.info()

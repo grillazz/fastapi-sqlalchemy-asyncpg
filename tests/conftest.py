@@ -39,5 +39,5 @@ async def client(start_db) -> AsyncClient:
         headers={"Content-Type": "application/json"},
         transport=transport,
     ) as test_client:
-        app.state.redis = await get_redis()
+        app.redis = await get_redis()
         yield test_client

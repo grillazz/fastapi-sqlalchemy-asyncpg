@@ -17,9 +17,9 @@ logger = AppLogger().get_logger()
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(_app: FastAPI):
     # Load the redis connection
-    app.state.redis = await get_redis()
+    _app.redis = await get_redis()
 
     try:
         # Initialize the cache with the redis connection
@@ -29,7 +29,7 @@ async def lifespan(app: FastAPI):
         yield
     finally:
         # close redis connection and release the resources
-        await app.state.redis.close()
+        await _app.redis.close()
 
 
 app = FastAPI(title="Stuff And Nonsense API", version="0.6", lifespan=lifespan)
