@@ -37,22 +37,27 @@
 [//]: # (TODO: Usage,Roadmap, Contributing, License, Contact)
 
     
-
-
-
-
 ## About The Project
 
-Example of [FastAPI](https://fastapi.tiangolo.com/) integration supported by almighty [Pydantic 2.0](https://github.com/pydantic/pydantic)
-with [SQLAlchemy ORM](https://www.sqlalchemy.org/) and PostgreSQL16
-connected via fastest Database Client Library for python/asyncio [asyncpg](https://github.com/MagicStack/asyncpg).
+This example demonstrates the seamless integration of [FastAPI](https://fastapi.tiangolo.com/), a modern, high-performance web framework,
+with [Pydantic 2.0](https://github.com/pydantic/pydantic), a robust and powerful data validation library.
+The integration is further enhanced by the use of [SQLAlchemy ORM](https://www.sqlalchemy.org/), a popular and feature-rich Object-Relational Mapping tool,
+and [PostgreSQL16](https://www.postgresql.org/about/news/postgresql-16-released-2715/) relational database.
 
-Beside of using latest and greatest version of [SQLAlchemy](https://www.sqlalchemy.org/) with it robustness, powerfulness and speed
-of [asyncpg](https://github.com/MagicStack/asyncpg) there is [FastAPI](https://fastapi.tiangolo.com/) (modern, fast (high-performance), 
-web framework for building APIs with Python 3.8+ based on standard Python type hints.) already reviewed
-on [thoughtworks](https://www.thoughtworks.com/radar/languages-and-frameworks?blipid=202104087) and noted in 
-Python Developers [Survey 2021 Results](https://lp.jetbrains.com/python-developers-survey-2021/#FrameworksLibraries)
-as the fifth official annual Python Developers Survey, conducted as a collaborative effort between the Python Software Foundation and JetBrains.
+The entire stack is connected using the [asyncpg](https://github.com/MagicStack/asyncpg) Database Client Library,
+which provides a robust and efficient way to interact with PostgreSQL databases in Python,
+leveraging the power of asyncio and event loops.
+
+Notably, this example showcases the latest and greatest versions of SQLAlchemy and psycopg,
+which are renowned for their robustness, power, and speed. The inclusion of FastAPI adds a modern, fast, and high-performance web framework to the mix
+allowing for the rapid development of APIs with Python 3.8+.
+
+FastAPI has received significant recognition in the industry, including a review on thoughtworks Technology Radar in April 2021,
+where it was classified as a Trial technology, with comments praising its performance, ease of use,
+and features such as API documentation using OpenAPI. Additionally, FastAPI was recognized in the Python Developers Survey 2022 Results,
+conducted by the Python Software Foundation and JetBrains, where it was reported that 1 in 4 Python developers use FastAPI,
+with a 4 percentage point increase from the previous year.
+
 
 ### Built With
 [![FastAPI][fastapi.tiangolo.com]][fastapi-url]
@@ -181,11 +186,11 @@ I've included a few of my favorites to kick things off!
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/python-has-powers/
 
-[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.110.0-009485?style=for-the-badge&logo=fastapi&logoColor=white
+[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.111.0-009485?style=for-the-badge&logo=fastapi&logoColor=white
 [fastapi-url]: https://fastapi.tiangolo.com/
-[pydantic.com]: https://img.shields.io/badge/Pydantic-2.6.4-e92063?style=for-the-badge&logo=pydantic&logoColor=white
+[pydantic.com]: https://img.shields.io/badge/Pydantic-2.7.1-e92063?style=for-the-badge&logo=pydantic&logoColor=white
 [pydantic-url]: https://docs.pydantic.dev/latest/
-[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.28-bb0000?color=bb0000&style=for-the-badge
+[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.30-bb0000?color=bb0000&style=for-the-badge
 [sqlalchemy-url]: https://docs.sqlalchemy.org/en/20/
 [uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.29.0-2094f3?style=for-the-badge&logo=uvicorn&logoColor=white
 [uvicorn-url]: https://www.uvicorn.org/
@@ -198,5 +203,5 @@ I've included a few of my favorites to kick things off!
 
 [rich.readthedocs.io]: https://img.shields.io/badge/rich-13.7.1-009485?style=for-the-badge&logo=rich&logoColor=white
 [rich-url]: https://rich.readthedocs.io/en/latest/
-[redis.io]: https://img.shields.io/badge/redis-5.0.3-dc382d?style=for-the-badge&logo=redis&logoColor=white
+[redis.io]: https://img.shields.io/badge/redis-5.0.4-dc382d?style=for-the-badge&logo=redis&logoColor=white
 [redis-url]: https://redis.io/
