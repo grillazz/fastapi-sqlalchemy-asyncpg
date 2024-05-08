@@ -149,6 +149,7 @@ I've included a few of my favorites to kick things off!
 * [SQL Code Generator](https://github.com/agronholm/sqlacodegen)
 * [Passlib - password hashing library for Python](https://passlib.readthedocs.io/en/stable/)
 * [Polars - fast DataFrame library for Rust and Python](https://docs.pola.rs/)
+* [Rich - Traceback and logging, made easy](https://rich.readthedocs.io/en/stable/traceback.html)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
