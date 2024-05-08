@@ -9,11 +9,11 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 
 async def get_from_redis(request: Request, key: str):
-    return await request.app.state.redis.get(key)
+    return await request.app.redis.get(key)
 
 
 async def set_to_redis(request: Request, key: str, value: str, ex: int):
-    return await request.app.state.redis.set(key, value, ex=ex)
+    return await request.app.redis.set(key, value, ex=ex)
 
 
 async def verify_jwt(request: Request, token: str) -> bool:
