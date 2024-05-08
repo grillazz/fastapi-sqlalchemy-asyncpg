@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-sqlalchemy-asyncpg"
-version = "0.0.11"
+version = "0.0.12"
 description = ""
 authors = ["Jakub Miazek <the@grillazz.com>"]
 packages = []
@@ -8,10 +8,10 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-fastapi = "0.110.2"
+fastapi = "^0.111.0"
 pydantic = {version = "2.7.1", extras = ["email"]}
 pydantic-settings = "2.2.1"
-sqlalchemy = "2.0.29"
+sqlalchemy = "2.0.30"
 uvicorn = { version = "0.29.0", extras = ["standard"]}
 asyncpg = "0.29.0"
 alembic = "1.13.1"
@@ -28,7 +28,7 @@ polars = "^0.20.22"
 python-multipart = "^0.0.9"
 fastexcel = "^0.10.2"
 fastapi-cache2 = {git = "https://github.com/yoco-tech/fastapi-cache.git",  rev = "main"}
-inline-snapshot = "^0.8.1"
+inline-snapshot = "^0.9.0"
 dirty-equals = "^0.7.1.post0"
 polyfactory = "^2.15.0"
 
@@ -36,8 +36,8 @@ polyfactory = "^2.15.0"
 devtools = { extras = ["pygments"], version = "*" }
 safety = "*"
 pyupgrade = "*"
-ipython = "8.23.0"
-ruff = "0.3.5"
+ipython = "8.24.0"
+ruff = "0.4.3"
 psycopg2-binary = "*"
 sqlacodegen = "3.0.0rc5"
 
