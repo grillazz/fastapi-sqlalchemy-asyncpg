@@ -9,6 +9,20 @@ from sqlalchemy.orm import mapped_column, Mapped, relationship, joinedload
 from app.models.base import Base
 from app.models.nonsense import Nonsense
 
+from functools import wraps
+
+
+def compile_sql_or_scalar(func):
+    @wraps(func)
+    async def wrapper(cls, db_session, name, compile_sql=False, *args, **kwargs):
+        stmt = await func(cls, db_session, name, *args, **kwargs)
+        if compile_sql:
+            return stmt.compile(compile_kwargs={"literal_binds": True})
+        result = await db_session.execute(stmt)
+        return result.scalars().first()
+
+    return wrapper
+
 
 class Stuff(Base):
     __tablename__ = "stuff"
@@ -24,23 +38,10 @@ class Stuff(Base):
     )
 
     @classmethod
-    async def find(cls, db_session: AsyncSession, name: str):
-        """
-
-        :param db_session:
-        :param name:
-        :return:
-        """
+    @compile_sql_or_scalar
+    async def find(cls, db_session: AsyncSession, name: str, compile_sql=False):
         stmt = select(cls).options(joinedload(cls.nonsense)).where(cls.name == name)
-        result = await db_session.execute(stmt)
-        instance = result.scalars().first()
-        if instance is None:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail={"Not found": f"There is no record for name: {name}"},
-            )
-        else:
-            return instance
+        return stmt
 
 
 class StuffFullOfNonsense(Base):
