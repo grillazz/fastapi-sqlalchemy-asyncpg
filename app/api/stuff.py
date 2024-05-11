@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
+from fastapi.exceptions import ResponseValidationError
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -21,7 +22,6 @@ async def create_multi_stuff(
         db_session.add_all(stuff_instances)
         await db_session.commit()
     except SQLAlchemyError as ex:
-        # logger.exception(ex)
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)
         ) from ex
@@ -43,10 +43,29 @@ async def create_stuff(
 
 @router.get("/{name}", response_model=StuffResponse)
 async def find_stuff(
+    request: Request,
     name: str,
+    pool: bool = False,
     db_session: AsyncSession = Depends(get_db),
 ):
-    return await Stuff.find(db_session, name)
+    try:
+        if not pool:
+            result = await Stuff.find(db_session, name)
+        else:
+            # execute the compiled SQL statement
+            stmt = await Stuff.find(db_session, name, compile_sql=True)
+            result = await request.app.postgres_pool.fetchrow(str(stmt))
+            result = dict(result)
+    except SQLAlchemyError as ex:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)
+        ) from ex
+    if not result:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Stuff with name {name} not found.",
+        )
+    return result
 
 
 @router.delete("/{name}")

@@ -24,23 +24,12 @@ class Stuff(Base):
     )
 
     @classmethod
-    async def find(cls, db_session: AsyncSession, name: str):
-        """
-
-        :param db_session:
-        :param name:
-        :return:
-        """
+    async def find(cls, db_session: AsyncSession, name: str, compile_sql: bool = False):
         stmt = select(cls).options(joinedload(cls.nonsense)).where(cls.name == name)
+        if compile_sql:
+            return stmt.compile(compile_kwargs={"literal_binds": True})
         result = await db_session.execute(stmt)
-        instance = result.scalars().first()
-        if instance is None:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail={"Not found": f"There is no record for name: {name}"},
-            )
-        else:
-            return instance
+        return result.scalars().first()
 
 
 class StuffFullOfNonsense(Base):
