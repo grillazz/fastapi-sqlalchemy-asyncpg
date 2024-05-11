@@ -45,7 +45,10 @@ async def create_stuff(
 async def find_stuff(name: str, db_session: AsyncSession = Depends(get_db)):
     result = await Stuff.find(db_session, name)
     if not result:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Stuff with name {name} not found.")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Stuff with name {name} not found.",
+        )
     return result
 
 
@@ -89,7 +92,6 @@ async def find_stuff_pool(
             detail=f"Stuff with name {name} not found.",
         )
     return result
-
 
 
 @router.delete("/{name}")
