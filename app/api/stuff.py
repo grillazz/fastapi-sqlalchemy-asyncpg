@@ -81,7 +81,6 @@ async def find_stuff_pool(
     try:
         stmt = await Stuff.find(db_session, name, compile_sql=True)
         result = await request.app.postgres_pool.fetchrow(str(stmt))
-        result = dict(result)
     except SQLAlchemyError as ex:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)
@@ -91,7 +90,7 @@ async def find_stuff_pool(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Stuff with name {name} not found.",
         )
-    return result
+    return dict(result)
 
 
 @router.delete("/{name}")
