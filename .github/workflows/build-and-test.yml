@@ -60,6 +60,6 @@ jobs:
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
       - name: Test Code
-        run: poetry run pytest
+        run: poetry run pytest tests/
       - name: Lint Code
         run: poetry run ruff .
