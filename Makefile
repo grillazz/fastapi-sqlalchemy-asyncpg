@@ -27,7 +27,7 @@ docker-create-db-migration:  ## Create new alembic database migration aka databa
 
 .PHONY: docker-test
 docker-test:	## Run project tests
-	docker-compose -f docker-compose.yml -f docker-compose.test.yml  run --rm app pytest
+	docker-compose -f docker-compose.yml -f docker-compose.test.yml  run --rm app pytest tests
 
 .PHONY: docker-test-snapshot
 docker-test-snapshot:	## Run project tests with inline snapshot

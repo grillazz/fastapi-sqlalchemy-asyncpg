@@ -1,6 +1,5 @@
 import uuid
 
-from fastapi import HTTPException, status
 from sqlalchemy import String, select, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
