@@ -1,5 +1,6 @@
 import uuid
 
+from sqlalchemy.dialects import postgresql
 from sqlalchemy import String, select, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -16,7 +17,7 @@ def compile_sql_or_scalar(func):
     async def wrapper(cls, db_session, name, compile_sql=False, *args, **kwargs):
         stmt = await func(cls, db_session, name, *args, **kwargs)
         if compile_sql:
-            return stmt.compile(compile_kwargs={"literal_binds": True})
+            return stmt.compile(dialect=postgresql.dialect(), compile_kwargs={"literal_binds": True})
         result = await db_session.execute(stmt)
         return result.scalars().first()
 

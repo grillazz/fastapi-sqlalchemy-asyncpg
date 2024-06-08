@@ -150,6 +150,9 @@ I've included a few of my favorites to kick things off!
 * [Passlib - password hashing library for Python](https://passlib.readthedocs.io/en/stable/)
 * [Polars - fast DataFrame library for Rust and Python](https://docs.pola.rs/)
 * [Rich - Traceback and logging, made easy](https://rich.readthedocs.io/en/stable/traceback.html)
+* [Calamine - Excel reader in Rust](https://github.com/tafia/calamine)
+* [Inline Snapshots - pytest plugin for inline snapshots]()
+* [Connection pool for asyncpg](https://magicstack.github.io/asyncpg/current/usage.html#connection-pools)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -169,6 +172,7 @@ I've included a few of my favorites to kick things off!
 - **[OCT 21 2023]** refactor shakespeare models to use sqlalchemy 2.0 :fast_forward:
 - **[FEB 1 2024]** bump project to Python 3.12 :fast_forward:
 - **[MAR 15 2024]** add polars and calamine to project :heart_eyes_cat:
+- **[JUN 8 2024]** implement asyncpg connection pool :fast_forward:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -189,20 +193,20 @@ I've included a few of my favorites to kick things off!
 
 [fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.111.0-009485?style=for-the-badge&logo=fastapi&logoColor=white
 [fastapi-url]: https://fastapi.tiangolo.com/
-[pydantic.com]: https://img.shields.io/badge/Pydantic-2.7.1-e92063?style=for-the-badge&logo=pydantic&logoColor=white
+[pydantic.com]: https://img.shields.io/badge/Pydantic-2.7.3-e92063?style=for-the-badge&logo=pydantic&logoColor=white
 [pydantic-url]: https://docs.pydantic.dev/latest/
 [sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.30-bb0000?color=bb0000&style=for-the-badge
 [sqlalchemy-url]: https://docs.sqlalchemy.org/en/20/
-[uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.29.0-2094f3?style=for-the-badge&logo=uvicorn&logoColor=white
+[uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.30.1-2094f3?style=for-the-badge&logo=uvicorn&logoColor=white
 [uvicorn-url]: https://www.uvicorn.org/
 [asyncpg.github.io]: https://img.shields.io/badge/asyncpg-0.29.0-2e6fce?style=for-the-badge&logo=postgresql&logoColor=white
 [asyncpg-url]: https://magicstack.github.io/asyncpg/current/
-[pytest.org]: https://img.shields.io/badge/pytest-8.1.1-fff?style=for-the-badge&logo=pytest&logoColor=white
+[pytest.org]: https://img.shields.io/badge/pytest-8.2.2-fff?style=for-the-badge&logo=pytest&logoColor=white
 [pytest-url]: https://docs.pytest.org/en/6.2.x/
 [alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.13.1-6BA81E?style=for-the-badge&logo=alembic&logoColor=white
 [alembic-url]: https://alembic.sqlalchemy.org/en/latest/
 
 [rich.readthedocs.io]: https://img.shields.io/badge/rich-13.7.1-009485?style=for-the-badge&logo=rich&logoColor=white
 [rich-url]: https://rich.readthedocs.io/en/latest/
-[redis.io]: https://img.shields.io/badge/redis-5.0.4-dc382d?style=for-the-badge&logo=redis&logoColor=white
+[redis.io]: https://img.shields.io/badge/redis-5.0.5-dc382d?style=for-the-badge&logo=redis&logoColor=white
 [redis-url]: https://redis.io/
