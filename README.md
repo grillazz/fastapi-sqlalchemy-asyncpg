@@ -81,7 +81,7 @@ To build , run and test and more ... use magic of make help to play with this pr
 1. make docker-build
 2. make docker-up
 3. make docker-apply-db-migrations
-4. make docker-feed-db
+4. make docker-feed-database
 ```
 
 
@@ -193,9 +193,9 @@ I've included a few of my favorites to kick things off!
 
 [fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.111.0-009485?style=for-the-badge&logo=fastapi&logoColor=white
 [fastapi-url]: https://fastapi.tiangolo.com/
-[pydantic.com]: https://img.shields.io/badge/Pydantic-2.7.3-e92063?style=for-the-badge&logo=pydantic&logoColor=white
+[pydantic.com]: https://img.shields.io/badge/Pydantic-2.8.2-e92063?style=for-the-badge&logo=pydantic&logoColor=white
 [pydantic-url]: https://docs.pydantic.dev/latest/
-[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.30-bb0000?color=bb0000&style=for-the-badge
+[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.31-bb0000?color=bb0000&style=for-the-badge
 [sqlalchemy-url]: https://docs.sqlalchemy.org/en/20/
 [uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.30.1-2094f3?style=for-the-badge&logo=uvicorn&logoColor=white
 [uvicorn-url]: https://www.uvicorn.org/
@@ -203,10 +203,9 @@ I've included a few of my favorites to kick things off!
 [asyncpg-url]: https://magicstack.github.io/asyncpg/current/
 [pytest.org]: https://img.shields.io/badge/pytest-8.2.2-fff?style=for-the-badge&logo=pytest&logoColor=white
 [pytest-url]: https://docs.pytest.org/en/6.2.x/
-[alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.13.1-6BA81E?style=for-the-badge&logo=alembic&logoColor=white
+[alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.13.2-6BA81E?style=for-the-badge&logo=alembic&logoColor=white
 [alembic-url]: https://alembic.sqlalchemy.org/en/latest/
-
 [rich.readthedocs.io]: https://img.shields.io/badge/rich-13.7.1-009485?style=for-the-badge&logo=rich&logoColor=white
 [rich-url]: https://rich.readthedocs.io/en/latest/
-[redis.io]: https://img.shields.io/badge/redis-5.0.5-dc382d?style=for-the-badge&logo=redis&logoColor=white
+[redis.io]: https://img.shields.io/badge/redis-5.0.7-dc382d?style=for-the-badge&logo=redis&logoColor=white
 [redis-url]: https://redis.io/
