@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [ "3.12" ]
-        poetry-version: [ "1.7.1" ]
+        poetry-version: [ "1.8.3" ]
 
     env:
       PYTHONDONTWRITEBYTECODE: 1
@@ -46,14 +46,14 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Create database schema
         run: PGPASSWORD=secret psql -h 127.0.0.1 -d testdb -U app-user -c "CREATE SCHEMA shakespeare; CREATE SCHEMA happy_hog;"
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install Poetry
-        uses: abatilo/actions-poetry@v2
+        uses: abatilo/actions-poetry@v3
         with:
           poetry-version: ${{ matrix.poetry-version }}
       - name: Install dependencies
