@@ -8,7 +8,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-fastapi = "^0.111.0"
+fastapi = {version = "^0.111.1", extras = ["all"]}
 pydantic = {version = "^2.8.2", extras = ["email"]}
 pydantic-settings = "^2.3.4"
 sqlalchemy = "^2.0.31"
@@ -24,7 +24,7 @@ rich = "^13.7.1"
 pyjwt = {version = "^2.8.0", extras = ["cryptography"]}
 redis = "^5.0.7"
 passlib = {version = "^1.7.4", extras = ["bcrypt"]}
-polars = "^1.1.0"
+polars = "^1.2.0"
 python-multipart = "^0.0.9"
 fastexcel = "^0.10.2"
 fastapi-cache2 = {git = "https://github.com/yoco-tech/fastapi-cache.git",  rev = "main"}

@@ -1,0 +1,51 @@
+services:
+  app:
+    container_name: fsap_app
+    build: .
+    env_file:
+      - .env
+      - .secrets
+    command: granian --interface asgi --host 0.0.0.0 --port 8080 --loop uvloop app.main:app
+    volumes:
+      - .:/home/code
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - redis
+
+  db:
+    container_name: fsap_db
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    volumes:
+      - fastapi_postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
+      - POSTGRES_USER=${POSTGRES_USER?Variable not set}
+      - POSTGRES_DB=${POSTGRES_DB?Variable not set}
+    healthcheck:
+      test:
+        [
+            "CMD-SHELL", "pg_isready -d $POSTGRES_DB -U $POSTGRES_USER"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:latest
+    container_name: fsap_redis
+    ports:
+      - "6379:6379"
+    env_file:
+      - .env
+    entrypoint: redis-server --appendonly yes
+
+volumes:
+  fastapi_postgres_data: {}

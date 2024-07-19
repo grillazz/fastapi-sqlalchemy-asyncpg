@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   app:
     container_name: fsap_app
