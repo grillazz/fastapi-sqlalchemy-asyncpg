@@ -1,0 +1,55 @@
+{
+    "version": 1,
+    "disable_existing_loggers": false,
+    "formatters": {
+        "default": {
+            "format": "[%(process)d|%(name)-12s] %(message)s",
+            "class": "logging.Formatter"
+        }
+    },
+    "handlers": {
+        "console": {
+            "class": "app.utils.logging.RichConsoleHandler",
+            "level": "DEBUG",
+            "formatter": "default",
+            "stream": "ext://sys.stdout",
+            "kwargs": {"omit_repeated_times": "True", "show_time": "False", "enable_link_path": "False", "tracebacks_show_locals": "True", "rich_tracebacks": "True"},
+            "args": "(100, 'white')"
+
+        },
+        "sqlalchemy": {
+//            "class": "logging.handlers.TimedRotatingFileHandler",
+//            "level": "DEBUG",
+//            "formatter": "verbose",
+//            "when": "D",
+//            "backupCount": 0,
+//            "filename": "./logs/training-stats.log"
+        },
+        "granian": {
+//            "class": "logging.handlers.TimedRotatingFileHandler",
+//            "level": "DEBUG",
+//            "formatter": "verbose",
+//            "when": "D",
+//            "backupCount": 0,
+//            "filename": "./logs/uvicorn.log"
+        }
+    },
+    "loggers": {
+        "root": {
+//            "level": "DEBUG",
+//            "handlers": ["console"]
+        },
+        "sqlalchemy.engine.Engine": {
+//            "level": "DEBUG",
+//            "handlers": ["file"],
+//            "propagate": true,
+//            "qualname": "app"
+        },
+        "granian.access": {
+//            "level": "DEBUG",
+//            "handlers": ["uvicorn"],
+//            "propagate": true,
+//            "qualname": "uvicorn"
+        }
+    }
+}
