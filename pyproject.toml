@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-sqlalchemy-asyncpg"
-version = "0.0.14"
+version = "0.0.15"
 description = ""
 authors = ["Jakub Miazek <the@grillazz.com>"]
 packages = []
@@ -35,14 +35,14 @@ granian = "^1.5.2"
 transformers = "^4.44.0"
 
 [tool.poetry.group.dev.dependencies]
-devtools = { extras = ["pygments"], version = "*" }
+devtools = { extras = ["pygments"], version = "^0.12.2" }
 safety = "*"
 pyupgrade = "*"
-ipython = "^8.24.0"
-ruff = "^0.4.3"
+ipython = "^8.26.0"
+ruff = "^0.6.1"
 sqlacodegen = "^3.0.0rc5"
-tryceratops = "^2.3.2"
-locust = "^2.27.0"
+tryceratops = "^2.3.3"
+locust = "^2.31.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

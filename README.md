@@ -130,7 +130,7 @@ Setup user authentication with JWT and Redis as token storage.
 pyenv install 3.12 && pyenv local 3.12
 ```
 ```shell
-poetry install
+poetry install --with dev
 ```
 Hope you enjoy it.
 
