@@ -1,45 +1,41 @@
+
+
 {
   "version": 1,
   "disable_existing_loggers": false,
   "formatters": {
-    "generic": {
+    "default": {
       "()": "logging.Formatter",
-      "fmt": "[%(process)d|%(name)-12s] %(message)s",
-      "datefmt": "[%Y-%m-%d %H:%M:%S %z]"
-    },
-    "access": {
-      "()": "logging.Formatter",
-      "fmt": "[%(process)d|%(name)-12s] %(message)s",
-      "datefmt": "[%Y-%m-%d %H:%M:%S %z]"
+      "fmt": "[%(process)d|%(name)-12s] %(message)s"
     }
   },
   "handlers": {
-    "console": {
-      "formatter": "generic",
-      "class": "logging.StreamHandler",
+    "stream": {
+      "formatter": "default",
+      "class": "app.utils.logging.RichConsoleHandler",
       "stream": "ext://sys.stdout"
     },
-    "access": {
-      "formatter": "access",
-      "class": "logging.StreamHandler",
+    "uvicorn": {
+      "formatter": "default",
+      "class": "app.utils.logging.RichConsoleHandler",
       "stream": "ext://sys.stdout"
     },
     "sqlalchemy": {
-      "class": "app.utils.logging.RichConsoleHandler",
-      "formatter": "generic"
+      "formatter": "default",
+      "class": "app.utils.logging.RichConsoleHandler"
     }
   },
   "loggers": {
-    "_granian": {
+    "root": {
       "handlers": [
-        "console"
+        "stream"
       ],
       "level": "INFO",
       "propagate": false
     },
-    "granian.access": {
+    "uvicorn.access": {
       "handlers": [
-        "access"
+        "uvicorn"
       ],
       "level": "INFO",
       "propagate": false
