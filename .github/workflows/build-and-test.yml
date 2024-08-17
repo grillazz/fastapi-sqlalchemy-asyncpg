@@ -62,4 +62,4 @@ jobs:
       - name: Test Code
         run: poetry run pytest tests/
       - name: Lint Code
-        run: poetry run ruff .
+        run: poetry run ruff check .
