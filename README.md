@@ -79,7 +79,7 @@ with a 4 percentage point increase from the previous year.
 To build , run and test and more ... use magic of make help to play with this project.
 ```shell
 1. make docker-build
-2. make docker-up
+2. make docker-up > alternatively > make docker-up-granian
 3. make docker-apply-db-migrations
 4. make docker-feed-database
 ```
@@ -98,22 +98,23 @@ Next models were generated with https://github.com/agronholm/sqlacodegen
 
 ### Rainbow logs with rich :rainbow:
 
-To deliver better user(developer) experience when watching logs with tons of information
-from few emitters (which are really needy on development stage) project is using [rich](https://github.com/Textualize/rich) library.
-Event with [rich](https://github.com/Textualize/rich) superpowers reading logs is not easy.
-Found [rich](https://github.com/Textualize/rich) really nice - 
-but it took time to learn how to integrate it as logger object properly and keep it as singleton.
+To enhance the developer experience when viewing logs with extensive information from multiple emitters 
+(which are particularly useful during development), this project uses the [rich](https://github.com/Textualize/rich) library.
+Event with the superpowers of [rich](https://github.com/Textualize/rich), reading logs can be challenging.
+The [rich](https://github.com/Textualize/rich) library is highly beneficial, but integrating it properly as a logger object
+and maintaining it as a singleton took some effort.
 
-To address below needs: 
-- it is hard to find what I am looking for even with glasses on.
-- don’t want to hire ELK to be able to use logs. 
-- want to move fast enough with debugging.
+To address the following needs:
+- Difficulty in finding specific information in logs.
+- Avoiding the complexity of setting up an ELK stack for log management.
+- Speeding up the debugging process.
 
-Below steps were done to integrate [rich](https://github.com/Textualize/rich) into project.
-1. Configure emitters with [config.ini](https://github.com/grillazz/fastapi-sqlalchemy-asyncpg/blob/main/config.ini)
-2. Eliminate duplicates i.e. sqlalchemy echo by separate handlers
-3. Keep logger as singleton pattern to avoid multiple instances
-4. add uvicorn parameter --log-config config.ini
+he following steps were taken to integrate [rich](https://github.com/Textualize/rich) into the project:
+1. Configure emitters using the [logging-uvicorn.json](https://github.com/grillazz/fastapi-sqlalchemy-asyncpg/blob/main/logging-uvicorn.json)
+   or use [logging-granian.json](https://github.com/grillazz/fastapi-sqlalchemy-asyncpg/blob/main/logging-granian.json) for granian
+2. Eliminate duplicates, such as SQLAlchemy echo, by using separate handlers.
+3. Maintain the logger as a singleton to prevent multiple instances.
+4. Add the --log-config ./logging-uvicorn.json parameter to Uvicorn or --log-config ./logging-granian.json to Granian.
 
 ![sample-logs-with-rich](/static/logz.png)
 
@@ -153,6 +154,7 @@ I've included a few of my favorites to kick things off!
 * [Calamine - Excel reader in Rust](https://github.com/tafia/calamine)
 * [Inline Snapshots - pytest plugin for inline snapshots]()
 * [Connection pool for asyncpg](https://magicstack.github.io/asyncpg/current/usage.html#connection-pools)
+* [Granian - A Rust HTTP server for Python applications](https://github.com/emmett-framework/granian)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -173,6 +175,8 @@ I've included a few of my favorites to kick things off!
 - **[FEB 1 2024]** bump project to Python 3.12 :fast_forward:
 - **[MAR 15 2024]** add polars and calamine to project :heart_eyes_cat:
 - **[JUN 8 2024]** implement asyncpg connection pool :fast_forward:
+- **[AUG 17 2024]** granian use case implemented with docker compose and rich logger :fast_forward:
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -191,21 +195,21 @@ I've included a few of my favorites to kick things off!
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/python-has-powers/
 
-[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.111.0-009485?style=for-the-badge&logo=fastapi&logoColor=white
+[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.112.1-009485?style=for-the-badge&logo=fastapi&logoColor=white
 [fastapi-url]: https://fastapi.tiangolo.com/
 [pydantic.com]: https://img.shields.io/badge/Pydantic-2.8.2-e92063?style=for-the-badge&logo=pydantic&logoColor=white
 [pydantic-url]: https://docs.pydantic.dev/latest/
-[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.31-bb0000?color=bb0000&style=for-the-badge
+[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.32-bb0000?color=bb0000&style=for-the-badge
 [sqlalchemy-url]: https://docs.sqlalchemy.org/en/20/
-[uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.30.1-2094f3?style=for-the-badge&logo=uvicorn&logoColor=white
+[uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.30.6-2094f3?style=for-the-badge&logo=uvicorn&logoColor=white
 [uvicorn-url]: https://www.uvicorn.org/
 [asyncpg.github.io]: https://img.shields.io/badge/asyncpg-0.29.0-2e6fce?style=for-the-badge&logo=postgresql&logoColor=white
 [asyncpg-url]: https://magicstack.github.io/asyncpg/current/
-[pytest.org]: https://img.shields.io/badge/pytest-8.2.2-fff?style=for-the-badge&logo=pytest&logoColor=white
+[pytest.org]: https://img.shields.io/badge/pytest-8.3.2-fff?style=for-the-badge&logo=pytest&logoColor=white
 [pytest-url]: https://docs.pytest.org/en/6.2.x/
 [alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.13.2-6BA81E?style=for-the-badge&logo=alembic&logoColor=white
 [alembic-url]: https://alembic.sqlalchemy.org/en/latest/
 [rich.readthedocs.io]: https://img.shields.io/badge/rich-13.7.1-009485?style=for-the-badge&logo=rich&logoColor=white
 [rich-url]: https://rich.readthedocs.io/en/latest/
-[redis.io]: https://img.shields.io/badge/redis-5.0.7-dc382d?style=for-the-badge&logo=redis&logoColor=white
+[redis.io]: https://img.shields.io/badge/redis-5.0.8-dc382d?style=for-the-badge&logo=redis&logoColor=white
 [redis-url]: https://redis.io/
