@@ -27,7 +27,7 @@ RUN apt-get purge -y curl git build-essential \
     && rm -rf /var/apt/lists/* \
     && rm -rf /var/cache/apt/*
 
-FROM install as app-image
+FROM install AS app-image
 
 ENV PYTHONPATH=/home/code/ PYTHONHASHSEED=0
 

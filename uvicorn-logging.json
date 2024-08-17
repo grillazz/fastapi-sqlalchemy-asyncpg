@@ -29,15 +29,34 @@
       "formatter": "default",
       "width": 140,
       "style": "magenta"
+    },
+    "stream": {
+      "class": "app.utils.logging.RichConsoleHandler",
+      "omit_repeated_times": true,
+      "show_time": false,
+      "enable_link_path": false,
+      "tracebacks_show_locals": true,
+      "rich_tracebacks": true,
+      "formatter": "default",
+      "width": 140,
+      "style": "white"
     }
   },
   "loggers": {
     "root": {
       "handlers": [
-        "uvicorn"
+        "stream"
       ],
       "propagate": false,
       "level": "TRACE"
+    },
+    "uvicorn.access": {
+      "handlers": [
+        "uvicorn"
+      ],
+      "propagate": false,
+      "level": "TRACE",
+      "qualname": "uvicorn.access"
     },
     "sqlalchemy.engine.Engine": {
       "handlers": [
