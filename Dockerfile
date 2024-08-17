@@ -34,7 +34,7 @@ ENV PYTHONPATH=/home/code/ PYTHONHASHSEED=0
 COPY tests/ tests/
 COPY app/ app/
 COPY alembic/ alembic/
-COPY .env alembic.ini config.ini ./
+COPY .env alembic.ini ./
 
 # create a non-root user and switch to it, for security.
 RUN addgroup --system --gid 1001 "app-user"
