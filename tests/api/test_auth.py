@@ -32,7 +32,7 @@ async def test_add_user(client: AsyncClient):
         response.json()["access_token"], options={"verify_signature": False}
     )
     assert claimset["expiry"] == IsPositiveFloat()
-    assert claimset["platform"] == "python-httpx/0.27.0"
+    assert claimset["platform"] == "python-httpx/0.27.2"
 
 
 # TODO: parametrize test with diff urls including 404 and 401
@@ -45,7 +45,7 @@ async def test_get_token(client: AsyncClient):
     )
     assert claimset["email"] == payload["email"]
     assert claimset["expiry"] == IsPositiveFloat()
-    assert claimset["platform"] == "python-httpx/0.27.0"
+    assert claimset["platform"] == "python-httpx/0.27.2"
 
 
 # TODO: baerer token test
