@@ -23,7 +23,7 @@ httptools = "^0.6.1"
 rich = "^13.8.0"
 pyjwt = {version = "^2.9.0", extras = ["cryptography"]}
 redis = "^5.0.8"
-passlib = {version = "^1.7.4", extras = ["bcrypt"]}
+bcrypt = "^4.2.0"
 polars = "^1.6.0"
 python-multipart = "^0.0.9"
 fastexcel = "^0.11.6"
