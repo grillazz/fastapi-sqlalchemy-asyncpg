@@ -33,6 +33,7 @@ dirty-equals = "^0.8.0"
 polyfactory = "^2.16.2"
 granian = "^1.5.2"
 transformers = "^4.44.2"
+apscheduler = {version = "^4.0.0a5", extras = ["redis,sqlalchemy"]}
 
 [tool.poetry.group.dev.dependencies]
 devtools = { extras = ["pygments"], version = "^0.12.2" }

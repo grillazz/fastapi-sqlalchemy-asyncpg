@@ -27,12 +27,12 @@ class User(Base):
     @password.setter
     def password(self, password: SecretStr):
         _password_string = password.get_secret_value().encode("utf-8")
-        self._password = bcrypt.hashpw(
-            _password_string, bcrypt.gensalt()
-        )
+        self._password = bcrypt.hashpw(_password_string, bcrypt.gensalt())
 
     def check_password(self, password: SecretStr):
-        return bcrypt.checkpw(password.get_secret_value().encode("utf-8"), self._password)
+        return bcrypt.checkpw(
+            password.get_secret_value().encode("utf-8"), self._password
+        )
 
     @classmethod
     async def find(cls, database_session: AsyncSession, where_conditions: list[Any]):
