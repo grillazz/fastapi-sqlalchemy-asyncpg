@@ -176,6 +176,7 @@ I've included a few of my favorites to kick things off!
 - **[MAR 15 2024]** add polars and calamine to project :heart_eyes_cat:
 - **[JUN 8 2024]** implement asyncpg connection pool :fast_forward:
 - **[AUG 17 2024]** granian use case implemented with docker compose and rich logger :fast_forward:
+- **[OCT 16 2024]** apscheduler added to project :fast_forward:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
