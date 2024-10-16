@@ -143,7 +143,7 @@ In `pl.read_excel()` “calamine” engine can be used for reading all major typ
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Worker aware async scheduler
+### Worker aware async scheduler :clock1:
 The project uses the APScheduler library to schedule tasks in the background.
 The APScheduler library is a powerful and flexible in-process task scheduler with Cron-like capabilities.
 It allows you to schedule jobs to run at specific times or intervals, and it supports multiple job stores, triggers, and executors.
