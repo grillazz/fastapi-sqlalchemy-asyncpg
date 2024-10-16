@@ -1,6 +1,6 @@
 import asyncpg
-from contextlib import asynccontextmanager
-
+from apscheduler.eventbrokers.redis import RedisEventBroker
+from apscheduler.datastores.sqlalchemy import SQLAlchemyDataStore
 from fastapi import FastAPI, Depends
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
@@ -9,11 +9,17 @@ from app.api.nonsense import router as nonsense_router
 from app.api.shakespeare import router as shakespeare_router
 from app.api.stuff import router as stuff_router
 from app.config import settings as global_settings
+from app.database import engine
 from app.utils.logging import AppLogger
 from app.api.user import router as user_router
 from app.api.health import router as health_router
 from app.redis import get_redis, get_cache
 from app.services.auth import AuthBearer
+from app.services.scheduler import SchedulerMiddleware
+
+from contextlib import asynccontextmanager
+
+from apscheduler import AsyncScheduler
 
 logger = AppLogger().get_logger()
 
@@ -60,3 +66,16 @@ app.include_router(
     tags=["Health, Bearer"],
     dependencies=[Depends(AuthBearer())],
 )
+
+_scheduler_data_store = SQLAlchemyDataStore(engine)
+_scheduler_event_broker = RedisEventBroker(
+    client_or_url=global_settings.redis_url.unicode_string()
+)
+_scheduler_himself = AsyncScheduler(_scheduler_data_store, _scheduler_event_broker)
+
+app.add_middleware(SchedulerMiddleware, scheduler=_scheduler_himself)
+
+
+# TODO: every not GET meth should reset cache
+# TODO: every scheduler task which needs to act on database should have access to connection pool via request - maybe ?
+# TODO: https://stackoverflow.com/questions/16053364/make-sure-only-one-worker-launches-the-apscheduler-event-in-a-pyramid-web-app-ru
