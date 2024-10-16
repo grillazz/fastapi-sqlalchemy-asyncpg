@@ -77,5 +77,5 @@ app.add_middleware(SchedulerMiddleware, scheduler=_scheduler_himself)
 
 
 # TODO: every not GET meth should reset cache
-# TODO: every scheduler task which needs to act on database hsould have access to connection pool via request
+# TODO: every scheduler task which needs to act on database should have access to connection pool via request - maybe ?
 # TODO: https://stackoverflow.com/questions/16053364/make-sure-only-one-worker-launches-the-apscheduler-event-in-a-pyramid-web-app-ru
