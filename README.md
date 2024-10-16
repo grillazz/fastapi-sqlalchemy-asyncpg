@@ -150,6 +150,8 @@ It allows you to schedule jobs to run at specific times or intervals, and it sup
 The library is designed to be easy to use and highly configurable, making it suitable for a wide range of use cases.
 It was added to project in version 4.0.0a5 with Redis as event broker and SQLAlchemy as data store.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Acknowledgments
 Use this space to list resources you find helpful and would like to give credit to.
 I've included a few of my favorites to kick things off!
