@@ -1,5 +1,4 @@
 from sqlalchemy.dialects import postgresql
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from functools import wraps
 
