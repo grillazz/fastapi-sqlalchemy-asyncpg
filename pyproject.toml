@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-sqlalchemy-asyncpg"
-version = "0.0.15"
+version = "0.0.16"
 description = ""
 authors = ["Jakub Miazek <the@grillazz.com>"]
 packages = []
@@ -10,7 +10,7 @@ license = "MIT"
 python = "^3.12"
 fastapi = {version = "^0.115.2", extras = ["all"]}
 pydantic = {version = "^2.9.2", extras = ["email"]}
-pydantic-settings = "^2.5.2"
+pydantic-settings = "^2.6.0"
 sqlalchemy = "^2.0.36"
 uvicorn = { version = "^0.32.0", extras = ["standard"]}
 asyncpg = "^0.29.0"
@@ -19,7 +19,7 @@ httpx = "^0.27.2"
 pytest = "^8.3.3"
 pytest-cov = "^5.0.0"
 uvloop = "^0.21.0"
-httptools = "^0.6.2"
+httptools = "^0.6.4"
 rich = "^13.9.2"
 pyjwt = {version = "^2.9.0", extras = ["cryptography"]}
 redis = "^5.1.1"
