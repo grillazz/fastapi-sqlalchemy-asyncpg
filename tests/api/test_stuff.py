@@ -4,27 +4,32 @@ from httpx import AsyncClient
 from inline_snapshot import snapshot
 from dirty_equals import IsUUID
 
+from polyfactory.factories.pydantic_factory import ModelFactory
+from polyfactory.pytest_plugin import register_fixture
+
+from app.schemas.stuff import StuffSchema
+
 
 pytestmark = pytest.mark.anyio
 
+class StuffFactory(ModelFactory[StuffSchema]):
+    __model__ = StuffSchema
 
-@pytest.mark.parametrize(
-    "payload, status_code",
-    (
-        (
-            {"name": "motorhead", "description": "we play rock and roll"},
-            status.HTTP_201_CREATED,
-        ),
-    ),
-)
-async def test_add_stuff(client: AsyncClient, payload: dict, status_code: int):
-    response = await client.post("/stuff", json=payload)
-    assert response.status_code == status_code
+
+async def test_add_stuff(client: AsyncClient):
+
+    _stuff = StuffFactory.build(factory_use_constructors=True).model_dump(mode="json")[0],
+
+    response = await client.post("/stuff", json=_stuff)
+    print(response.json())
+    assert response.status_code == status.HTTP_201_CREATED
+
+
     assert response.json() == snapshot(
         {
             "id": IsUUID(4),
-            "name": "motorhead",
-            "description": "we play rock and roll",
+            "name": _stuff["name"],
+            "description": _stuff["description"],
         }
     )
 
@@ -50,6 +55,9 @@ async def test_get_stuff(client: AsyncClient, payload: dict, status_code: int):
             "description": "we play rock and roll",
         }
     )
+
+
+
 
 
 @pytest.mark.parametrize(
