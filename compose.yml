@@ -44,9 +44,9 @@ services:
       timeout: 5s
       retries: 5
 
-  redis:
+  inmemory:
     image: redis:latest
-    container_name: fsap_redis
+    container_name: fsap_inmemory
     ports:
       - "6379:6379"
     env_file:
