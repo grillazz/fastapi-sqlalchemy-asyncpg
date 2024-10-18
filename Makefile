@@ -65,3 +65,7 @@ model-generate: ## generate sqlalchemy models from database
 .PHONY: docker-up-granian
 docker-up-granian: ## Run project with compose and granian
 	docker compose -f granian-compose.yml up --remove-orphans
+
+.PHONY: docker-up-valkey
+docker-up-valkey: ## Run project with compose and valkey
+	docker compose -f valkey-compose.yml up --remove-orphans

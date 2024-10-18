@@ -166,6 +166,7 @@ I've included a few of my favorites to kick things off!
 * [Connection pool for asyncpg](https://magicstack.github.io/asyncpg/current/usage.html#connection-pools)
 * [Granian - A Rust HTTP server for Python applications](https://github.com/emmett-framework/granian)
 * [APScheduler - In-process task scheduler with Cron-like capabilities](https://apscheduler.readthedocs.io/en/master/)
+* [Valkey - A simple and fast key-value store](https://github.com/valkey-io/valkey)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
