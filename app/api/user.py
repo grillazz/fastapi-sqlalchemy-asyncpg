@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends, status, Request, HTTPException
+from typing import Annotated
+
+from fastapi import APIRouter, Depends, status, Request, HTTPException, Form
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
@@ -29,7 +31,9 @@ async def create_user(
     "/token", status_code=status.HTTP_201_CREATED, response_model=TokenResponse
 )
 async def get_token_for_user(
-    user: UserLogin, request: Request, db_session: AsyncSession = Depends(get_db)
+    user: Annotated[UserLogin, Form()],
+    request: Request,
+    db_session: AsyncSession = Depends(get_db),
 ):
     _user: User = await User.find(db_session, [User.email == user.email])
 

@@ -67,7 +67,7 @@ app.include_router(
     dependencies=[Depends(AuthBearer())],
 )
 
-_scheduler_data_store = SQLAlchemyDataStore(engine)
+_scheduler_data_store = SQLAlchemyDataStore(engine, schema="scheduler")
 _scheduler_event_broker = RedisEventBroker(
     client_or_url=global_settings.redis_url.unicode_string()
 )

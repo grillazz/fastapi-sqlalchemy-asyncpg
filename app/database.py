@@ -27,4 +27,8 @@ AsyncSessionFactory = async_sessionmaker(
 async def get_db() -> AsyncGenerator:
     async with AsyncSessionFactory() as session:
         # logger.debug(f"ASYNC Pool: {engine.pool.status()}")
-        yield session
+        try:
+            yield session
+        except Exception as e:
+            logger.error(f"Error getting database session: {e}")
+            raise

@@ -38,7 +38,11 @@ async def test_add_user(client: AsyncClient):
 # TODO: parametrize test with diff urls including 404 and 401
 async def test_get_token(client: AsyncClient):
     payload = {"email": "joe@grillazz.com", "password": "s1lly"}
-    response = await client.post("/user/token", json=payload)
+    response = await client.post(
+        "/user/token",
+        data=payload,
+        headers={"Content-Type": "application/x-www-form-urlencoded"},
+    )
     assert response.status_code == status.HTTP_201_CREATED
     claimset = jwt.decode(
         response.json()["access_token"], options={"verify_signature": False}

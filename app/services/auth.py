@@ -6,6 +6,9 @@ from app.models.user import User
 
 from fastapi import Request, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from app.utils.logging import AppLogger
+
+logger = AppLogger().get_logger()
 
 
 async def get_from_redis(request: Request, key: str):
@@ -37,6 +40,7 @@ class AuthBearer(HTTPBearer):
             raise HTTPException(
                 status_code=403, detail="Invalid token or expired token."
             )
+        logger.info(f"Token verified: {credentials.credentials}")
         return credentials.credentials
 
 
