@@ -29,7 +29,7 @@ RUN apt-get purge -y curl git build-essential \
 
 FROM install AS app-image
 
-ENV PYTHONPATH=/home/code/ PYTHONHASHSEED=0
+ENV PYTHONPATH=/home/code/ PYTHONHASHSEED=0 PYTHONASYNCIODEBUG=1
 
 COPY tests/ tests/
 COPY app/ app/
