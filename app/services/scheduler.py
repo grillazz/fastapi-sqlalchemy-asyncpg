@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from attrs import define
+
 from sqlalchemy import text
 from starlette.types import ASGIApp, Receive, Scope, Send
 from apscheduler import AsyncScheduler
@@ -20,16 +22,20 @@ async def tick():
         return True
 
 
+@define
 class SchedulerMiddleware:
-    def __init__(
-        self,
-        app: ASGIApp,
-        scheduler: AsyncScheduler,
-    ) -> None:
-        self.app = app
-        self.scheduler = scheduler
+    app: ASGIApp
+    scheduler: AsyncScheduler
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        """
+        Handles the incoming request and schedules tasks if the scope type is 'lifespan'.
+
+        Args:
+            scope (Scope): The ASGI scope dictionary containing request information.
+            receive (Receive): The ASGI receive callable.
+            send (Send): The ASGI send callable.
+        """
         if scope["type"] == "lifespan":
             async with self.scheduler:
                 await self.scheduler.add_schedule(
@@ -39,3 +45,4 @@ class SchedulerMiddleware:
                 await self.app(scope, receive, send)
         else:
             await self.app(scope, receive, send)
+
