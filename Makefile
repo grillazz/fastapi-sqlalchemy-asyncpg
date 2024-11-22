@@ -27,7 +27,7 @@ docker-create-db-migration:  ## Create new alembic database migration aka databa
 
 .PHONY: docker-test
 docker-test:	## Run project tests
-	docker compose -f compose.yml -f test-compose.yml  run --rm app pytest tests --durations=0
+	docker compose -f compose.yml -f test-compose.yml  run --rm app pytest tests --durations=0 -vv
 
 .PHONY: docker-test-snapshot
 docker-test-snapshot:	## Run project tests with inline snapshot
@@ -51,16 +51,16 @@ slim-build: ## with power of docker-slim build smaller and safer images
 
 .PHONY: docker-feed-database
 docker-feed-database: ## create database objects and insert data
-	docker compose exec db psql devdb user -f /home/gx/code/shakespeare_work.sql | true
-	docker compose exec db psql devdb user -f /home/gx/code/shakespeare_chapter.sql | true
-	docker compose exec db psql devdb user -f /home/gx/code/shakespeare_wordform.sql | true
-	docker compose exec db psql devdb user -f /home/gx/code/shakespeare_character.sql | true
-	docker compose exec db psql devdb user -f /home/gx/code/shakespeare_paragraph.sql | true
-	docker compose exec db psql devdb user -f /home/gx/code/shakespeare_character_work.sql
+	docker compose exec db psql devdb devdb -f /home/gx/code/shakespeare_work.sql | true
+	docker compose exec db psql devdb devdb -f /home/gx/code/shakespeare_chapter.sql | true
+	docker compose exec db psql devdb devdb -f /home/gx/code/shakespeare_wordform.sql | true
+	docker compose exec db psql devdb devdb -f /home/gx/code/shakespeare_character.sql | true
+	docker compose exec db psql devdb devdb -f /home/gx/code/shakespeare_paragraph.sql | true
+	docker compose exec db psql devdb devdb -f /home/gx/code/shakespeare_character_work.sql
 
 .PHONY: model-generate
 model-generate: ## generate sqlalchemy models from database
-	poetry run sqlacodegen --generator declarative postgresql://user:secret@0.0.0.0/devdb --outfile models.py --schemas shakespeare
+	poetry run sqlacodegen --generator declarative postgresql://devdb:secret@0.0.0.0/devdb --outfile models.py --schemas shakespeare --options nobidi
 
 .PHONY: docker-up-granian
 docker-up-granian: ## Run project with compose and granian
