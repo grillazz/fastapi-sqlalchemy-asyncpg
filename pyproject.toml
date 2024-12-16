@@ -35,7 +35,7 @@ polyfactory = "^2.17.0"
 granian = "^1.6.1"
 transformers = "^4.45.2"
 apscheduler = {version = "^4.0.0a5", extras = ["redis,sqlalchemy"]}
-pendulum = {version = "^3.0.0"}
+pendulum = {git = "https://github.com/sdispater/pendulum.git", rev="develop"}
 
 [tool.poetry.group.dev.dependencies]
 devtools = { extras = ["pygments"], version = "^0.12.2" }
