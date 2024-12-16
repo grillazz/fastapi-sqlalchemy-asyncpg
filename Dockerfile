@@ -1,4 +1,4 @@
-FROM python:3.12-slim-bookworm AS base
+FROM python:3.13-slim-bookworm AS base
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends curl git build-essential \
@@ -10,7 +10,7 @@ FROM base AS install
 WORKDIR /home/code
 
 # allow controlling the poetry installation of dependencies via external args
-ARG INSTALL_ARGS="--no-root"
+ARG INSTALL_ARGS="--no-root --no-interaction --no-ansi"
 ENV POETRY_HOME="/opt/poetry"
 ENV PATH="$POETRY_HOME/bin:$PATH"
 COPY pyproject.toml poetry.lock ./
