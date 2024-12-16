@@ -128,7 +128,7 @@ Setup user authentication with JWT and Redis as token storage.
 ### Local development with poetry
 
 ```shell
-pyenv install 3.12 && pyenv local 3.12
+pyenv install 3.13 && pyenv local 3.13
 ```
 ```shell
 poetry install --with dev
@@ -189,6 +189,7 @@ I've included a few of my favorites to kick things off!
 - **[JUN 8 2024]** implement asyncpg connection pool :fast_forward:
 - **[AUG 17 2024]** granian use case implemented with docker compose and rich logger :fast_forward:
 - **[OCT 16 2024]** apscheduler added to project :fast_forward:
+- **[DEC 16 2024]** bump project to Python 3.13 :fast_forward:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
