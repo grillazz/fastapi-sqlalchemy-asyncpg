@@ -35,7 +35,7 @@ async def lifespan(_app: FastAPI):
         # Initialize the cache with the redis connection
         redis_cache = await get_cache()
         FastAPICache.init(RedisBackend(redis_cache), prefix="fastapi-cache")
-        logger.info(FastAPICache.get_cache_status_header())
+        # logger.info(FastAPICache.get_cache_status_header())
         # Initialize the postgres connection pool
         _app.postgres_pool = await asyncpg.create_pool(
             dsn=_postgres_dsn,
