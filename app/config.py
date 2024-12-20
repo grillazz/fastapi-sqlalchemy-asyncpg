@@ -1,8 +1,15 @@
 import os
 
-from pydantic import PostgresDsn, RedisDsn, computed_field
+from pydantic import PostgresDsn, RedisDsn, computed_field, BaseModel
 from pydantic_core import MultiHostUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class SMTPConfig(BaseModel):
+    server: str = os.getenv("EMAIL_HOST", "smtp_server")
+    port: int = os.getenv("EMAIL_PORT", 587)
+    username: str = os.getenv("EMAIL_HOST_USER", "smtp_user")
+    password: str = os.getenv("EMAIL_HOST_PASSWORD", "smtp_password")
 
 
 class Settings(BaseSettings):
@@ -11,6 +18,8 @@ class Settings(BaseSettings):
     )
     jwt_algorithm: str = os.getenv("JWT_ALGORITHM")
     jwt_expire: int = os.getenv("JWT_EXPIRE")
+
+    smtp: SMTPConfig = SMTPConfig()
 
     REDIS_HOST: str
     REDIS_PORT: int
