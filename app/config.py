@@ -10,6 +10,7 @@ class SMTPConfig(BaseModel):
     port: int = os.getenv("EMAIL_PORT", 587)
     username: str = os.getenv("EMAIL_HOST_USER", "smtp_user")
     password: str = os.getenv("EMAIL_HOST_PASSWORD", "smtp_password")
+    template_path: str = os.getenv("EMAIL_TEMPLATE_PATH", "templates")
 
 
 class Settings(BaseSettings):
