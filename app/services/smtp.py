@@ -56,9 +56,11 @@ class SMTPEmailService(metaclass=SingletonMetaNoArgs):
         and logs in using the provided credentials.
         """
         self.server = smtplib.SMTP(self.server_host, self.server_port)
-        self.server.starttls() # Upgrade the connection to secure TLS
+        self.server.starttls()  # Upgrade the connection to secure TLS
         self.server.login(self.username, self.password)
-        logger.info("SMTPEmailService initialized successfully and connected to SMTP server.")
+        logger.info(
+            "SMTPEmailService initialized successfully and connected to SMTP server."
+        )
 
     def _prepare_email(
         self,
@@ -141,7 +143,7 @@ class SMTPEmailService(metaclass=SingletonMetaNoArgs):
         Args:
             recipients (list[EmailStr]): A list of recipient email addresses.
             subject (str): The subject line of the email.
-            template (str): The name of the template file in the templates directory.
+            template (str): The name of the template file in the templates' directory.
             context (dict): A dictionary of values to render the template with.
             sender (EmailStr): The email address of the sender.
 
@@ -151,9 +153,13 @@ class SMTPEmailService(metaclass=SingletonMetaNoArgs):
         """
         try:
             template_str = self.templates.get_template(template)
-            body_html = template_str.render(context)  # Render the HTML using context variables
+            body_html = template_str.render(
+                context
+            )  # Render the HTML using context variables
             self.send_email(sender, recipients, subject, body_html=body_html)
-            logger.info(f"Template email sent successfully to {recipients} using template {template}.")
+            logger.info(
+                f"Template email sent successfully to {recipients} using template {template}."
+            )
         except Exception as e:
             logger.error("Failed to send template email", exc_info=e)
             raise
