@@ -144,7 +144,7 @@ In `pl.read_excel()` “calamine” engine can be used for reading all major typ
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Worker aware async scheduler :clock1:
+### Worker aware async scheduler
 The project uses the APScheduler library to schedule tasks in the background.
 The APScheduler library is a powerful and flexible in-process task scheduler with Cron-like capabilities.
 It allows you to schedule jobs to run at specific times or intervals, and it supports multiple job stores, triggers, and executors.
@@ -153,7 +153,7 @@ It was added to project in version 4.0.0a5 with Redis as event broker and SQLAlc
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### SMTP setup :email:
+### SMTP setup
 The project uses the `smtplib` library to send emails.
 The `smtplib` library is a built-in Python library that provides a simple interface for sending emails using the Simple Mail Transfer Protocol (SMTP).
 It allows you to connect to an SMTP server, send an email message, and disconnect from the server.
@@ -203,7 +203,7 @@ I've included a few of my favorites to kick things off!
 - **[MAR 15 2024]** add polars and calamine to project :heart_eyes_cat:
 - **[JUN 8 2024]** implement asyncpg connection pool :fast_forward:
 - **[AUG 17 2024]** granian use case implemented with docker compose and rich logger :fast_forward:
-- **[OCT 16 2024]** apscheduler added to project :fast_forward:
+- **[OCT 16 2024]** apscheduler added to project :clock1:
 - **[DEC 16 2024]** bump project to Python 3.13 :fast_forward:
 - **[JAN 28 2025]** add SMTP setup :email:
 
