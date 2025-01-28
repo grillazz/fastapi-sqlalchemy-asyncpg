@@ -29,6 +29,7 @@
         <li><a href="#local-development-with-poetry">Local development with poetry</a></li>
         <li><a href="#import-xlsx-files-with-polars-and-calamine">Import xlsx files with polars and calamine</a></li>
         <li><a href="#worker-aware-async-scheduler">Schedule jobs</a></li>
+        <li><a href="#smtp-setup">Email Configuration</a></li>
       </ul>
     </li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -152,6 +153,20 @@ It was added to project in version 4.0.0a5 with Redis as event broker and SQLAlc
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### SMTP setup :email:
+The project uses the `smtplib` library to send emails.
+The `smtplib` library is a built-in Python library that provides a simple interface for sending emails using the Simple Mail Transfer Protocol (SMTP).
+It allows you to connect to an SMTP server, send an email message, and disconnect from the server.
+The library is easy to use and provides a flexible and powerful way to send emails from your Python applications.
+
+SMTPEmailService provides a reusable interface to send emails via an SMTP server.
+This service supports plaintext and HTML emails, and also allows sending template-based emails using the Jinja2 template engine.
+It is implemented as a singleton to ensure that only one SMTP connection is maintained
+throughout the application lifecycle, optimizing resource usage.
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Acknowledgments
 Use this space to list resources you find helpful and would like to give credit to.
 I've included a few of my favorites to kick things off!
@@ -190,6 +205,7 @@ I've included a few of my favorites to kick things off!
 - **[AUG 17 2024]** granian use case implemented with docker compose and rich logger :fast_forward:
 - **[OCT 16 2024]** apscheduler added to project :fast_forward:
 - **[DEC 16 2024]** bump project to Python 3.13 :fast_forward:
+- **[JAN 28 2025]** add SMTP setup :email:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
