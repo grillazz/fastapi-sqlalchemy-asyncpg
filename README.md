@@ -26,10 +26,11 @@
         <li><a href="#how-to-feed-database">How to feed database</a></li>
         <li><a href="#rainbow-logs-with-rich">Rainbow logs with rich</a></li>
         <li><a href="#setup-user-auth">Setup user auth</a></li>
-        <li><a href="#local-development-with-poetry">Local development with poetry</a></li>
+        <li><a href="#setup-local-env-with-uv">Setup local development with uv</a></li>
         <li><a href="#import-xlsx-files-with-polars-and-calamine">Import xlsx files with polars and calamine</a></li>
         <li><a href="#worker-aware-async-scheduler">Schedule jobs</a></li>
         <li><a href="#smtp-setup">Email Configuration</a></li>
+        <li><a href="#uv-knowledge-and-inspirations">UV knowledge and inspirations</a></li> 
       </ul>
     </li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -44,7 +45,7 @@
 This example demonstrates the seamless integration of [FastAPI](https://fastapi.tiangolo.com/), a modern, high-performance web framework,
 with [Pydantic 2.0](https://github.com/pydantic/pydantic), a robust and powerful data validation library.
 The integration is further enhanced by the use of [SQLAlchemy ORM](https://www.sqlalchemy.org/), a popular and feature-rich Object-Relational Mapping tool,
-and [PostgreSQL16](https://www.postgresql.org/about/news/postgresql-16-released-2715/) relational database.
+and [PostgreSQL17](https://www.postgresql.org/docs/17/release.html) relational database.
 
 The entire stack is connected using the [asyncpg](https://github.com/MagicStack/asyncpg) Database Client Library,
 which provides a robust and efficient way to interact with PostgreSQL databases in Python,
@@ -56,7 +57,7 @@ allowing for the rapid development of APIs with Python 3.8+.
 
 FastAPI has received significant recognition in the industry, including a review on thoughtworks Technology Radar in April 2021,
 where it was classified as a Trial technology, with comments praising its performance, ease of use,
-and features such as API documentation using OpenAPI. Additionally, FastAPI was recognized in the Python Developers Survey 2022 Results,
+and features such as API documentation using OpenAPI. Additionally, FastAPI was recognized in the Python Developers Survey 2023 Results,
 conducted by the Python Software Foundation and JetBrains, where it was reported that 1 in 4 Python developers use FastAPI,
 with a 4 percentage point increase from the previous year.
 
@@ -86,7 +87,8 @@ To build , run and test and more ... use magic of make help to play with this pr
 4. make docker-feed-database
 ```
 
-
+### Adjust make with just
+[//]: # (TODO: switch form make to just)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### How to feed database
@@ -126,15 +128,11 @@ he following steps were taken to integrate [rich](https://github.com/Textualize/
 
 Setup user authentication with JWT and Redis as token storage.
 
-### Local development with poetry
-
+### Setup local env with uv
 ```shell
-pyenv install 3.13 && pyenv local 3.13
+uv sync
+source .venv/bin/activate
 ```
-```shell
-poetry install --with dev
-```
-Hope you enjoy it.
 
 ### Import xlsx files with polars and calamine
 Power of Polars Library in data manipulation and analysis.
@@ -163,6 +161,16 @@ SMTPEmailService provides a reusable interface to send emails via an SMTP server
 This service supports plaintext and HTML emails, and also allows sending template-based emails using the Jinja2 template engine.
 It is implemented as a singleton to ensure that only one SMTP connection is maintained
 throughout the application lifecycle, optimizing resource usage.
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### UV knowledge and inspirations
+- https://docs.astral.sh/uv/
+- https://hynek.me/articles/docker-uv/
+- https://thedataquarry.com/posts/towards-a-unified-python-toolchain/
+- https://www.youtube.com/watch?v=ifj-izwXKRA&t=760s > UV and Ruff: Next-gen Python Tooling
+- https://www.youtube.com/watch?v=8UuW8o4bHbw&t=1s > uv IS the Future of Python Packaging! 🐍📦
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -206,6 +214,7 @@ I've included a few of my favorites to kick things off!
 - **[OCT 16 2024]** apscheduler added to project :clock1:
 - **[DEC 16 2024]** bump project to Python 3.13 :fast_forward:
 - **[JAN 28 2025]** add SMTP setup :email:
+- **[MAR 8 2025]** switch from poetry to uv :fast_forward:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -225,19 +234,19 @@ I've included a few of my favorites to kick things off!
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/python-has-powers/
 
-[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.115.6-009485?style=for-the-badge&logo=fastapi&logoColor=white
+[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.115.11-009485?style=for-the-badge&logo=fastapi&logoColor=white
 [fastapi-url]: https://fastapi.tiangolo.com/
-[pydantic.com]: https://img.shields.io/badge/Pydantic-2.10.3-e92063?style=for-the-badge&logo=pydantic&logoColor=white
+[pydantic.com]: https://img.shields.io/badge/Pydantic-2.10.6-e92063?style=for-the-badge&logo=pydantic&logoColor=white
 [pydantic-url]: https://docs.pydantic.dev/latest/
-[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.36-bb0000?color=bb0000&style=for-the-badge
+[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.38-bb0000?color=bb0000&style=for-the-badge
 [sqlalchemy-url]: https://docs.sqlalchemy.org/en/20/
 [uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.34.0-2094f3?style=for-the-badge&logo=uvicorn&logoColor=white
 [uvicorn-url]: https://www.uvicorn.org/
 [asyncpg.github.io]: https://img.shields.io/badge/asyncpg-0.30.0-2e6fce?style=for-the-badge&logo=postgresql&logoColor=white
 [asyncpg-url]: https://magicstack.github.io/asyncpg/current/
-[pytest.org]: https://img.shields.io/badge/pytest-8.3.4-fff?style=for-the-badge&logo=pytest&logoColor=white
+[pytest.org]: https://img.shields.io/badge/pytest-8.3.5-fff?style=for-the-badge&logo=pytest&logoColor=white
 [pytest-url]: https://docs.pytest.org/en/6.2.x/
-[alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.14.0-6BA81E?style=for-the-badge&logo=alembic&logoColor=white
+[alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.15.1-6BA81E?style=for-the-badge&logo=alembic&logoColor=white
 [alembic-url]: https://alembic.sqlalchemy.org/en/latest/
 [rich.readthedocs.io]: https://img.shields.io/badge/rich-13.9.4-009485?style=for-the-badge&logo=rich&logoColor=white
 [rich-url]: https://rich.readthedocs.io/en/latest/
