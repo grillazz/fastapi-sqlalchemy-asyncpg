@@ -1,6 +1,6 @@
-from sqlalchemy.dialects import postgresql
-
 from functools import wraps
+
+from sqlalchemy.dialects import postgresql
 
 
 def compile_sql_or_scalar(func):

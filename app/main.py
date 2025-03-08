@@ -1,25 +1,24 @@
+from contextlib import asynccontextmanager
+
 import asyncpg
-from apscheduler.eventbrokers.redis import RedisEventBroker
+from apscheduler import AsyncScheduler
 from apscheduler.datastores.sqlalchemy import SQLAlchemyDataStore
-from fastapi import FastAPI, Depends
+from apscheduler.eventbrokers.redis import RedisEventBroker
+from fastapi import Depends, FastAPI
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 
+from app.api.health import router as health_router
 from app.api.nonsense import router as nonsense_router
 from app.api.shakespeare import router as shakespeare_router
 from app.api.stuff import router as stuff_router
+from app.api.user import router as user_router
 from app.config import settings as global_settings
 from app.database import engine
-from app.utils.logging import AppLogger
-from app.api.user import router as user_router
-from app.api.health import router as health_router
-from app.redis import get_redis, get_cache
+from app.redis import get_cache, get_redis
 from app.services.auth import AuthBearer
 from app.services.scheduler import SchedulerMiddleware
-
-from contextlib import asynccontextmanager
-
-from apscheduler import AsyncScheduler
+from app.utils.logging import AppLogger
 
 logger = AppLogger().get_logger()
 

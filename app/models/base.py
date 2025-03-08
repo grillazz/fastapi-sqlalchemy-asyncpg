@@ -2,9 +2,10 @@ from typing import Any
 
 from asyncpg import UniqueViolationError
 from fastapi import HTTPException, status
-from sqlalchemy.exc import SQLAlchemyError, IntegrityError
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import declared_attr, DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, declared_attr
+
 from app.utils.logging import AppLogger
 
 logger = AppLogger().get_logger()
