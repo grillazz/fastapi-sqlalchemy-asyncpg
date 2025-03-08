@@ -1,9 +1,9 @@
-import pytest
-from httpx import AsyncClient
-from starlette import status
 import jwt
+import pytest
+from dirty_equals import IsPositiveFloat, IsStr, IsUUID
+from httpx import AsyncClient
 from inline_snapshot import snapshot
-from dirty_equals import IsStr, IsUUID, IsPositiveFloat
+from starlette import status
 
 pytestmark = pytest.mark.anyio
 

@@ -1,6 +1,5 @@
-from anyio import Path
-
 import pytest
+from anyio import Path
 from fastapi import status
 from httpx import AsyncClient
 

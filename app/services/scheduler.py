@@ -1,11 +1,10 @@
 from datetime import datetime
 
-from attrs import define
-
-from sqlalchemy import text
-from starlette.types import ASGIApp, Receive, Scope, Send
 from apscheduler import AsyncScheduler
 from apscheduler.triggers.interval import IntervalTrigger
+from attrs import define
+from sqlalchemy import text
+from starlette.types import ASGIApp, Receive, Scope, Send
 
 from app.database import AsyncSessionFactory
 from app.utils.logging import AppLogger

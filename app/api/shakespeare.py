@@ -1,9 +1,8 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from fastapi_cache.decorator import cache
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
 from app.models.shakespeare import Paragraph

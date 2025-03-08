@@ -29,7 +29,6 @@ async def start_db():
 
 @pytest.fixture(scope="session")
 async def client(start_db) -> AsyncClient:
-
     transport = ASGITransport(
         app=app,
     )

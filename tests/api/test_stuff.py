@@ -1,9 +1,8 @@
 import pytest
+from dirty_equals import IsUUID
 from fastapi import status
 from httpx import AsyncClient
 from inline_snapshot import snapshot
-from dirty_equals import IsUUID
-
 from polyfactory.factories.pydantic_factory import ModelFactory
 
 from app.schemas.stuff import StuffSchema
