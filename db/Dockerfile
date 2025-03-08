@@ -1,5 +1,5 @@
 # pull official base image
-FROM postgres:16-alpine
+FROM postgres:17.4-alpine
 
 # run create.sql on init
 ADD create.sql /docker-entrypoint-initdb.d
