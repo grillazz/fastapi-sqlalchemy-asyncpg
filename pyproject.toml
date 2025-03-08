@@ -5,30 +5,71 @@ description = "A modern FastAPI application with SQLAlchemy 2.0 and AsyncPG for 
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "fastapi[all]>=0.115.6",
-    "pydantic[email]>=2.10.3",
-    "pydantic-settings>=2.7.0",
-    "sqlalchemy>=2.0.36",
+    "fastapi[all]>=0.115.11",
+    "pydantic[email]>=2.10.6",
+    "pydantic-settings>=2.8.1",
+    "sqlalchemy>=2.0.38",
     "uvicorn[standard]>=0.34.0",
     "asyncpg>=0.30.0",
-    "alembic>=1.14.0",
+    "alembic>=1.15.1",
     "httpx>=0.28.1",
-    "pytest>=8.3.4",
+    "pytest>=8.3.5",
     "pytest-cov>=6.0.0",
     "uvloop>=0.21.0",
     "httptools>=0.6.4",
     "rich>=13.9.4",
-    "pyjwt[cryptography]>=2.10.1",
+    "pyjwt>=2.10.1",
     "redis>=5.2.1",
-    "bcrypt>=4.2.1",
-    "polars>=1.17.1",
+    "bcrypt>=4.3.0",
+    "polars>=1.24.0",
     "python-multipart>=0.0.20",
-    "fastexcel>=0.12.0",
-    "fastapi-cache2>=0.2.1",
+    "fastexcel>=0.13.0",
     "inline-snapshot>=0.17.0",
     "dirty-equals>=0.8.0",
     "polyfactory>=2.18.1",
     "granian>=1.7.0",
     "apscheduler[redis,sqlalchemy]>=4.0.0a5",
-    "pendulum @ git+https://github.com/sdispater/pendulum.git@develop"
 ]
+
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.9.10",
+    "devtools[pygments]>=0.12.2",
+    "pyupgrade>=3.19.1",
+    "ipython>=9.0.2",
+    "sqlacodegen>=3.0.0",
+    "tryceratops>=2.4.1",
+    "locust>=2.33.0"
+
+]
+
+
+[tool.mypy]
+strict = true
+exclude = ["venv", ".venv", "alembic"]
+
+[tool.ruff]
+target-version = "py313"
+exclude = ["alembic"]
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "ARG001", # unused arguments in functions
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "W191",  # indentation contains tabs
+    "B904",  # Allow raising exceptions without from e, for HTTPException
+]
+
+[tool.ruff.lint.pyupgrade]
+# Preserve types, even if a file imports `from __future__ import annotations`.
+keep-runtime-typing = true

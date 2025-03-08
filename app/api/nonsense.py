@@ -1,7 +1,8 @@
 import io
-from fastapi import APIRouter, Depends, status, UploadFile, HTTPException
-from sqlalchemy.exc import SQLAlchemyError
+
 import polars as pl
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, status
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db

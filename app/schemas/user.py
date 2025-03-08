@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from pydantic import BaseModel, Field, EmailStr, ConfigDict, SecretStr
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, SecretStr
 
 config = ConfigDict(from_attributes=True)
 

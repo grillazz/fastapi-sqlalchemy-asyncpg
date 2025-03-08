@@ -54,6 +54,10 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Lint with ruff
+        run: uv run --frozen ruff check .
+
       - name: Test with python ${{ matrix.python-version }}
         run: uv run --frozen pytest
+
 

@@ -1,25 +1,22 @@
-import asyncpg
-from apscheduler.eventbrokers.redis import RedisEventBroker
-from apscheduler.datastores.sqlalchemy import SQLAlchemyDataStore
-from fastapi import FastAPI, Depends
-from fastapi_cache import FastAPICache
-from fastapi_cache.backends.redis import RedisBackend
+from contextlib import asynccontextmanager
 
+import asyncpg
+from apscheduler import AsyncScheduler
+from apscheduler.datastores.sqlalchemy import SQLAlchemyDataStore
+from apscheduler.eventbrokers.redis import RedisEventBroker
+from fastapi import Depends, FastAPI
+
+from app.api.health import router as health_router
 from app.api.nonsense import router as nonsense_router
 from app.api.shakespeare import router as shakespeare_router
 from app.api.stuff import router as stuff_router
+from app.api.user import router as user_router
 from app.config import settings as global_settings
 from app.database import engine
-from app.utils.logging import AppLogger
-from app.api.user import router as user_router
-from app.api.health import router as health_router
-from app.redis import get_redis, get_cache
+from app.redis import get_redis
 from app.services.auth import AuthBearer
 from app.services.scheduler import SchedulerMiddleware
-
-from contextlib import asynccontextmanager
-
-from apscheduler import AsyncScheduler
+from app.utils.logging import AppLogger
 
 logger = AppLogger().get_logger()
 
@@ -32,10 +29,7 @@ async def lifespan(_app: FastAPI):
     _postgres_dsn = global_settings.postgres_url.unicode_string()
 
     try:
-        # Initialize the cache with the redis connection
-        redis_cache = await get_cache()
-        FastAPICache.init(RedisBackend(redis_cache), prefix="fastapi-cache")
-        # logger.info(FastAPICache.get_cache_status_header())
+        # TODO: cache with the redis connection
         # Initialize the postgres connection pool
         _app.postgres_pool = await asyncpg.create_pool(
             dsn=_postgres_dsn,

@@ -1,17 +1,14 @@
-from attrs import define, field
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from app.config import settings as global_settings
-
+from attrs import define, field
 from fastapi.templating import Jinja2Templates
-
 from pydantic import EmailStr
 
+from app.config import settings as global_settings
 from app.utils.logging import AppLogger
 from app.utils.singleton import SingletonMetaNoArgs
-
 
 logger = AppLogger().get_logger()
 

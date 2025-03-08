@@ -1,9 +1,9 @@
 import uuid
 
-from sqlalchemy import String, select, ForeignKey
+from sqlalchemy import ForeignKey, String, select
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import mapped_column, Mapped, relationship, joinedload
+from sqlalchemy.orm import Mapped, joinedload, mapped_column, relationship
 
 from app.models.base import Base
 from app.models.nonsense import Nonsense

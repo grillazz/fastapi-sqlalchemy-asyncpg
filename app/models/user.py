@@ -3,10 +3,10 @@ from typing import Any
 
 import bcrypt
 from pydantic import SecretStr
-from sqlalchemy import String, LargeBinary, select, Column
+from sqlalchemy import Column, LargeBinary, String, select
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import mapped_column, Mapped
+from sqlalchemy.orm import Mapped, mapped_column
 
 from app.models.base import Base
 

@@ -1,11 +1,11 @@
 import time
+
 import jwt
+from fastapi import HTTPException, Request
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from app.config import settings as global_settings
 from app.models.user import User
-
-from fastapi import Request, HTTPException
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from app.utils.logging import AppLogger
 
 logger = AppLogger().get_logger()

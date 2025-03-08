@@ -1,12 +1,11 @@
 import logging
 from typing import Annotated
 
-from fastapi import APIRouter, status, Request, Depends, Query
+from fastapi import APIRouter, Depends, Query, Request, status
 from pydantic import EmailStr
 from starlette.concurrency import run_in_threadpool
 
 from app.services.smtp import SMTPEmailService
-
 from app.utils.logging import AppLogger
 
 logger = AppLogger().get_logger()
