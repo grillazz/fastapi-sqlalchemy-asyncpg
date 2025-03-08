@@ -7,20 +7,19 @@ on:
       - main
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         python-version: [ "3.13" ]
-        poetry-version: [ "1.8.5" ]
 
     env:
       PYTHONDONTWRITEBYTECODE: 1
       PYTHONUNBUFFERED: 1
       POSTGRES_DB: testdb
       POSTGRES_HOST: 127.0.0.1
-      POSTGRES_USER: app-user
+      POSTGRES_USER: panettone
       POSTGRES_PASSWORD: secret
       PGPASSWORD: secret
       REDIS_HOST: 127.0.0.1
@@ -37,7 +36,7 @@ jobs:
       sqldb:
         image: postgres:16
         env:
-          POSTGRES_USER: app-user
+          POSTGRES_USER: panettone
           POSTGRES_PASSWORD: secret
           POSTGRES_DB: testdb
         ports:
@@ -48,18 +47,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Create database schema
-        run: PGPASSWORD=secret psql -h 127.0.0.1 -d testdb -U app-user -c "CREATE SCHEMA shakespeare; CREATE SCHEMA happy_hog;"
-      - uses: actions/setup-python@v5
+        run: PGPASSWORD=secret psql -h 127.0.0.1 -d testdb -U panettone -c "CREATE SCHEMA shakespeare; CREATE SCHEMA happy_hog;"
+
+      - name: Install the latest version of uv and set the python version
+        uses: astral-sh/setup-uv@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install Poetry
-        uses: abatilo/actions-poetry@v3
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
-      - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
-      - name: Test Code
-        run: poetry run pytest tests/
-      - name: Lint Code
-        run: poetry run ruff check .
+
+      - name: Test with python ${{ matrix.python-version }}
+        run: uv run --frozen pytest
+
