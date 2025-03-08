@@ -1,3 +1,6 @@
+from collections.abc import AsyncGenerator
+from typing import Any
+
 import pytest
 from httpx import ASGITransport, AsyncClient
 
@@ -28,12 +31,11 @@ async def start_db():
 
 
 @pytest.fixture(scope="session")
-async def client(start_db) -> AsyncClient:
+async def client(start_db) -> AsyncGenerator[AsyncClient, Any]:  # noqa: ARG001
     transport = ASGITransport(
         app=app,
     )
     async with AsyncClient(
-        # app=app,
         base_url="http://testserver/v1",
         headers={"Content-Type": "application/json"},
         transport=transport,
