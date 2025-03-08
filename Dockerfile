@@ -1,43 +1,62 @@
-FROM python:3.13-slim-bookworm AS base
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y --no-install-recommends curl git build-essential \
-    && apt-get autoremove -y
-ENV POETRY_HOME="/opt/poetry"
-RUN curl -sSL https://install.python-poetry.org | python3 -
+FROM ubuntu:oracular AS build
 
-FROM base AS install
-WORKDIR /home/code
+RUN apt-get update -qy && apt-get install -qyy \
+    -o APT::Install-Recommends=false \
+    -o APT::Install-Suggests=false \
+    build-essential \
+    ca-certificates \
+    python3-setuptools \
+    python3.13-dev \
+    git
 
-# allow controlling the poetry installation of dependencies via external args
-ARG INSTALL_ARGS="--no-root --no-interaction --no-ansi"
-ENV POETRY_HOME="/opt/poetry"
-ENV PATH="$POETRY_HOME/bin:$PATH"
-COPY pyproject.toml poetry.lock ./
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-# install without virtualenv, since we are inside a container
-RUN poetry config virtualenvs.create false \
-    && poetry install $INSTALL_ARGS
+ENV UV_LINK_MODE=copy \
+    UV_COMPILE_BYTECODE=1 \
+    UV_PYTHON_DOWNLOADS=never \
+    UV_PYTHON=python3.13 \
+    UV_PROJECT_ENVIRONMENT=/panettone
 
-# cleanup
-RUN curl -sSL https://install.python-poetry.org | python3 - --uninstall
-RUN apt-get purge -y curl git build-essential \
-    && apt-get clean -y \
-    && rm -rf /root/.cache \
-    && rm -rf /var/apt/lists/* \
-    && rm -rf /var/cache/apt/*
+COPY pyproject.toml /_lock/
+COPY uv.lock /_lock/
 
-FROM install AS app-image
+RUN --mount=type=cache,target=/root/.cache
+RUN cd /_lock  && uv sync \
+    --locked \
+    --no-dev \
+    --no-install-project
+##########################################################################
+FROM ubuntu:oracular
 
-ENV PYTHONPATH=/home/code/ PYTHONHASHSEED=0 PYTHONASYNCIODEBUG=1
+ENV PATH=/panettone/bin:$PATH
 
-COPY tests/ tests/
-COPY app/ app/
-COPY alembic/ alembic/
-COPY .env alembic.ini ./
+RUN groupadd -r panettone
+RUN useradd -r -d /panettone -g panettone -N panettone
 
-# create a non-root user and switch to it, for security.
-RUN addgroup --system --gid 1001 "app-user"
-RUN adduser --system --uid 1001 "app-user"
-USER "app-user"
+STOPSIGNAL SIGINT
 
+RUN apt-get update -qy && apt-get install -qyy \
+    -o APT::Install-Recommends=false \
+    -o APT::Install-Suggests=false \
+    python3.13 \
+    libpython3.13 \
+    libpcre3 \
+    libxml2
+
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+COPY --from=build --chown=panettone:panettone /panettone /panettone
+
+USER panettone
+WORKDIR /panettone
+COPY /app/ app/
+COPY /tests/ tests/
+COPY .env app/
+COPY alembic.ini app/
+COPY alembic/ app/alembic/
+COPY logging-uvicorn.json /panettone/logging-uvicorn.json
+
+RUN python -V
+RUN python -Im site
+RUN python -Ic 'import uvicorn'
