@@ -214,27 +214,47 @@ I've included a few of my favorites to kick things off!
 
 
 ## Change Log
-- **[long time ago...]** it was a long time ago in galaxy far far away...
-- **[JUN 4 2022]** alembic migrations added to project
-- **[JUN 6 2022]** initial dataset for shakespeare models
-- **[OCT 3 2022]** poetry added to project
-- **[NOV 12 2022]** ruff implemented to project as linting tool
-- **[FEB 14 2023]** bump project to Python 3.11
-- **[APR 10 2023]** implement logging with rich
-- **[APR 28 2023]** Rainbow logs with rich :rainbow:
-- **[JUL 7 2023]** migrate to pydantic 2.0 :fast_forward:
-- **[JUL 25 2023]** add user authentication with JWT and Redis as token storage :lock: :key:
-- **[SEP 2 2023]** add passlib and bcrypt for password hashing :lock: :key:
-- **[OCT 21 2023]** refactor shakespeare models to use sqlalchemy 2.0 :fast_forward:
-- **[FEB 1 2024]** bump project to Python 3.12 :fast_forward:
-- **[MAR 15 2024]** add polars and calamine to project :heart_eyes_cat:
-- **[JUN 8 2024]** implement asyncpg connection pool :fast_forward:
-- **[AUG 17 2024]** granian use case implemented with docker compose and rich logger :fast_forward:
-- **[OCT 16 2024]** apscheduler added to project :clock1:
-- **[DEC 16 2024]** bump project to Python 3.13 :fast_forward:
-- **[JAN 28 2025]** add SMTP setup :email:
-- **[MAR 8 2025]** switch from poetry to uv :fast_forward:
-- **[MAY 3 2025]** add large language model integration :robot:
+<details>
+  <summary>2025 (3 changes)</summary>
+      <ul>
+         <li>[MAY 3 2025] add large language model integration :robot:</li>
+         <li>[MAR 8 2025] switch from poetry to uv :fast_forward:</li>
+         <li>[JAN 28 2025] add SMTP setup :email:</li>
+      </ul>
+</details>
+<details>
+  <summary>2024 (6 changes)</summary>
+      <ul>
+         <li>[DEC 16 2024] bump project to Python 3.13 :fast_forward:</li>
+         <li>[OCT 16 2024] apscheduler added to project :clock1:</li>
+         <li>[AUG 17 2024] granian use case implemented with docker compose and rich logger :fast_forward:</li>
+         <li>[JUN 8 2024] implement asyncpg connection pool :fast_forward:</li>
+         <li>[MAR 15 2024] add polars and calamine to project :heart_eyes_cat:</li>
+         <li>[FEB 1 2024] bump project to Python 3.12 :fast_forward:</li>
+      </ul>
+</details>
+<details>
+  <summary>2023 (7 changes)</summary>
+      <ul>
+         <li>[OCT 21 2023] refactor shakespeare models to use sqlalchemy 2.0 :fast_forward:</li>
+         <li>[SEP 2 2023] add passlib and bcrypt for password hashing :lock: :key:</li>
+         <li>[JUL 25 2023] add user authentication with JWT and Redis as token storage :lock: :key:</li>
+         <li>[JUL 7 2023] migrate to pydantic 2.0 :fast_forward:</li>
+         <li>[APR 28 2023] Rainbow logs with rich :rainbow:</li>
+         <li>[APR 10 2023] implement logging with rich</li>
+         <li>[FEB 14 2023] bump project to Python 3.11</li>
+      </ul>
+</details>
+<details>
+  <summary>2022 (5 changes)</summary>
+      <ul>
+         <li>[NOV 12 2022] ruff implemented to project as linting tool</li>
+         <li>[OCT 3 2022] poetry added to project</li>
+         <li>[JUN 6 2022] initial dataset for shakespeare models</li>
+         <li>[JUN 4 2022] alembic migrations added to project</li>
+         <li>[long time ago...] it was a long time ago in galaxy far far away...</li>
+      </ul>
+</details>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
