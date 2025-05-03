@@ -7,11 +7,11 @@ from apscheduler.eventbrokers.redis import RedisEventBroker
 from fastapi import Depends, FastAPI
 
 from app.api.health import router as health_router
+from app.api.ml import router as ml_router
 from app.api.nonsense import router as nonsense_router
 from app.api.shakespeare import router as shakespeare_router
 from app.api.stuff import router as stuff_router
 from app.api.user import router as user_router
-from app.api.ml import router as ml_router
 from app.config import settings as global_settings
 from app.database import engine
 from app.redis import get_redis

@@ -1,6 +1,7 @@
+from collections.abc import AsyncGenerator
+
 import httpx
 import orjson
-from typing import AsyncGenerator, Optional
 
 
 class StreamLLMService:
@@ -8,7 +9,7 @@ class StreamLLMService:
         self.base_url = base_url
         self.model = "llama3.2"
 
-    async def stream_chat(self, prompt: str) -> AsyncGenerator[bytes, None]:
+    async def stream_chat(self, prompt: str) -> AsyncGenerator[bytes]:
         """Stream chat completion responses from LLM."""
         # Send the user a message first
         user_msg = {
@@ -47,5 +48,5 @@ class StreamLLMService:
 
 
 # FastAPI dependency
-def get_llm_service(base_url: Optional[str] = None) -> StreamLLMService:
+def get_llm_service(base_url: str | None = None) -> StreamLLMService:
     return StreamLLMService(base_url=base_url or "http://localhost:11434/v1")
