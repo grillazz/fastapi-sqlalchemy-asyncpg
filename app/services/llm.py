@@ -10,7 +10,7 @@ class StreamLLMService:
 
     async def stream_chat(self, prompt: str) -> AsyncGenerator[bytes, None]:
         """Stream chat completion responses from LLM."""
-        # Send user message first
+        # Send the user a message first
         user_msg = {
             "role": "user",
             "content": prompt,

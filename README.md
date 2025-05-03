@@ -31,6 +31,7 @@
         <li><a href="#worker-aware-async-scheduler">Schedule jobs</a></li>
         <li><a href="#smtp-setup">Email Configuration</a></li>
         <li><a href="#uv-knowledge-and-inspirations">UV knowledge and inspirations</a></li> 
+        <li><a href="#large-language-model">Integration with local LLM</a></li>  
       </ul>
     </li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -162,6 +163,24 @@ This service supports plaintext and HTML emails, and also allows sending templat
 It is implemented as a singleton to ensure that only one SMTP connection is maintained
 throughout the application lifecycle, optimizing resource usage.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Large Language Model
+The `/v1/ml/chat/` endpoint is designed to handle chat-based interactions with the LLM model.
+It accepts a user prompt and streams responses back in real-time.
+The endpoint leverages FastAPI's asynchronous capabilities to efficiently manage multiple simultaneous requests,
+ensuring low latency and high throughput.
+
+FastAPI's async support is particularly beneficial for reducing I/O bottlenecks when connecting to the LLM model.
+By using asynchronous HTTP clients like `httpx`,
+the application can handle multiple I/O-bound tasks concurrently,
+such as sending requests to the LLM server and streaming responses back to the client.
+This approach minimizes idle time and optimizes resource utilization, making it ideal for high-performance applications.
+
+Install ollama and run the server
+```shell
+ollama run llama3.2
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -215,6 +234,7 @@ I've included a few of my favorites to kick things off!
 - **[DEC 16 2024]** bump project to Python 3.13 :fast_forward:
 - **[JAN 28 2025]** add SMTP setup :email:
 - **[MAR 8 2025]** switch from poetry to uv :fast_forward:
+- **[MAY 3 2025]** add large language model integration :robot:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

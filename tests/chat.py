@@ -1,53 +1,30 @@
-from typing import Optional, AsyncGenerator
-
+import anyio
 import httpx
 import orjson
 
+async def chat_with_endpoint():
+    async with httpx.AsyncClient() as client:
+        while True:
+            # Get user input
+            prompt = input("\nYou: ")
+            if prompt.lower() == "exit":
+                break
 
-class StreamLLMService:
-    def __init__(self, base_url: str = "http://localhost:11434/v1"):
-        self.base_url = base_url
-        self.model = "llama3.2"
-
-    async def stream_chat(self, prompt: str) -> AsyncGenerator[bytes, None]:
-        """Stream chat completion responses from LLM."""
-        # Send user message first
-        user_msg = {
-            "role": "user",
-            "content": prompt,
-        }
-        yield orjson.dumps(user_msg) + b"\n"
-
-        # Open client as context manager and stream responses
-        async with httpx.AsyncClient(base_url=self.base_url) as client:
+            # Send request to the API
+            print("\nModel: ", end="", flush=True)
             async with client.stream(
                 "POST",
-                "/chat/completions",
-                json={
-                    "model": self.model,
-                    "messages": [{"role": "user", "content": prompt}],
-                    "stream": True,
-                },
-                timeout=60.0,
+                "http://localhost:8000/chat/",
+                data={"prompt": prompt},
+                timeout=60
             ) as response:
-                async for line in response.aiter_lines():
-                    print(line)
-                    if line.startswith("data: ") and line != "data: [DONE]":
+                async for chunk in response.aiter_lines():
+                    if chunk:
                         try:
-                            json_line = line[6:]  # Remove "data: " prefix
-                            data = orjson.loads(json_line)
-                            content = (
-                                data.get("choices", [{}])[0]
-                                .get("delta", {})
-                                .get("content", "")
-                            )
-                            if content:
-                                model_msg = {"role": "model", "content": content}
-                                yield orjson.dumps(model_msg) + b"\n"
-                        except Exception:
-                            pass
+                            data = orjson.loads(chunk)
+                            print(data["content"], end="", flush=True)
+                        except Exception as e:
+                            print(f"\nError parsing chunk: {e}")
 
-
-# FastAPI dependency
-def get_llm_service(base_url: Optional[str] = None) -> StreamLLMService:
-    return StreamLLMService(base_url=base_url or "http://localhost:11434/v1")
+if __name__ == "__main__":
+    anyio.run(chat_with_endpoint)
