@@ -1,33 +1,53 @@
-import anyio
+from typing import Optional, AsyncGenerator
+
 import httpx
 import orjson
 
-API_URL = "http://localhost:8000/chat/"
 
+class StreamLLMService:
+    def __init__(self, base_url: str = "http://localhost:11434/v1"):
+        self.base_url = base_url
+        self.model = "llama3.2"
 
-async def chat_with_endpoint():
-    async with httpx.AsyncClient() as client:
-        while True:
-            prompt = input("\nYou: ")
-            if prompt.lower() == "exit":
-                break
+    async def stream_chat(self, prompt: str) -> AsyncGenerator[bytes, None]:
+        """Stream chat completion responses from LLM."""
+        # Send user message first
+        user_msg = {
+            "role": "user",
+            "content": prompt,
+        }
+        yield orjson.dumps(user_msg) + b"\n"
 
-            print("\nModel: ", end="", flush=True)
-            try:
-                async with client.stream(
-                    "POST", API_URL, data={"prompt": prompt}, timeout=60
-                ) as response:
-                    async for chunk in response.aiter_lines():
-                        if not chunk:
-                            continue
-
+        # Open client as context manager and stream responses
+        async with httpx.AsyncClient(base_url=self.base_url) as client:
+            async with client.stream(
+                "POST",
+                "/chat/completions",
+                json={
+                    "model": self.model,
+                    "messages": [{"role": "user", "content": prompt}],
+                    "stream": True,
+                },
+                timeout=60.0,
+            ) as response:
+                async for line in response.aiter_lines():
+                    print(line)
+                    if line.startswith("data: ") and line != "data: [DONE]":
                         try:
-                            print(orjson.loads(chunk)["content"], end="", flush=True)
-                        except Exception as e:
-                            print(f"\nError parsing chunk: {e}")
-            except httpx.RequestError as e:
-                print(f"\nConnection error: {e}")
+                            json_line = line[6:]  # Remove "data: " prefix
+                            data = orjson.loads(json_line)
+                            content = (
+                                data.get("choices", [{}])[0]
+                                .get("delta", {})
+                                .get("content", "")
+                            )
+                            if content:
+                                model_msg = {"role": "model", "content": content}
+                                yield orjson.dumps(model_msg) + b"\n"
+                        except Exception:
+                            pass
 
 
-if __name__ == "__main__":
-    anyio.run(chat_with_endpoint)
+# FastAPI dependency
+def get_llm_service(base_url: Optional[str] = None) -> StreamLLMService:
+    return StreamLLMService(base_url=base_url or "http://localhost:11434/v1")

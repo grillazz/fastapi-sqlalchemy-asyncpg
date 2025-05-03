@@ -1,6 +1,7 @@
 services:
   app:
     container_name: fsap_app
+    network_mode: host
     build: .
     env_file:
       - .env
@@ -22,6 +23,7 @@ services:
 
   db:
     container_name: fsap_db
+    network_mode: host
     build:
       context: ./db
       dockerfile: Dockerfile
@@ -46,6 +48,7 @@ services:
 
   inmemory:
     image: redis:latest
+    network_mode: host
     container_name: fsap_inmemory
     ports:
       - "6379:6379"
