@@ -1,34 +1,34 @@
 [project]
 name = "fastapi-sqlalchemy-asyncpg"
-version = "0.1.0"
+version = "0.18.0"
 description = "A modern FastAPI application with SQLAlchemy 2.0 and AsyncPG for high-performance async database operations. Features include JWT authentication with Redis token storage, password hashing, connection pooling, data processing with Polars, Rich logging, task scheduling with APScheduler, and Shakespeare datasets integration."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "fastapi[all]>=0.115.11",
-    "pydantic[email]>=2.10.6",
-    "pydantic-settings>=2.8.1",
-    "sqlalchemy>=2.0.38",
-    "uvicorn[standard]>=0.34.0",
+    "fastapi[all]>=0.115.12",
+    "pydantic[email]>=2.11.4",
+    "pydantic-settings>=2.9.1",
+    "sqlalchemy>=2.0.40",
+    "uvicorn[standard]>=0.34.2",
     "asyncpg>=0.30.0",
-    "alembic>=1.15.1",
+    "alembic>=1.15.2",
     "httpx>=0.28.1",
     "pytest>=8.3.5",
-    "pytest-cov>=6.0.0",
+    "pytest-cov>=6.1.1",
     "uvloop>=0.21.0",
     "httptools>=0.6.4",
-    "rich>=13.9.4",
+    "rich>=14.0.0",
     "pyjwt>=2.10.1",
-    "redis>=5.2.1",
+    "redis>=6.0.0",
     "bcrypt>=4.3.0",
-    "polars>=1.24.0",
+    "polars>=1.29.0",
     "python-multipart>=0.0.20",
-    "fastexcel>=0.13.0",
-    "inline-snapshot>=0.17.0",
-    "dirty-equals>=0.8.0",
-    "polyfactory>=2.18.1",
-    "granian>=1.7.0",
-    "apscheduler[redis,sqlalchemy]>=4.0.0a5",
+    "fastexcel>=0.14.0",
+    "inline-snapshot>=0.23.0",
+    "dirty-equals>=0.9.0",
+    "polyfactory>=2.21.0",
+    "granian>=2.2.5",
+    "apscheduler[redis,sqlalchemy]>=4.0.0a6",
 ]
 
 [tool.uv]

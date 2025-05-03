@@ -45,7 +45,7 @@ async def lifespan(_app: FastAPI):
         await _app.postgres_pool.close()
 
 
-app = FastAPI(title="Stuff And Nonsense API", version="0.17", lifespan=lifespan)
+app = FastAPI(title="Stuff And Nonsense API", version="0.18.0", lifespan=lifespan)
 
 app.include_router(stuff_router)
 app.include_router(nonsense_router)
