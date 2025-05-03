@@ -10,42 +10,36 @@ class StreamLLMService:
 
     async def stream_chat(self, prompt: str) -> AsyncGenerator[bytes, None]:
         """Stream chat completion responses from LLM."""
-        # Send user message first
-        user_msg = {
-            'role': 'user',
-            'content': prompt,
-        }
-        yield orjson.dumps(user_msg) + b'\n'
+        # Send initial user message
+        yield orjson.dumps({"role": "user", "content": prompt}) + b"\n"
 
-        # Open client as context manager and stream responses
         async with httpx.AsyncClient(base_url=self.base_url) as client:
+            request_data = {
+                "model": self.model,
+                "messages": [{"role": "user", "content": prompt}],
+                "stream": True,
+            }
+
             async with client.stream(
-                    "POST",
-                    "/chat/completions",
-                    json={
-                        "model": self.model,
-                        "messages": [{"role": "user", "content": prompt}],
-                        "stream": True
-                    },
-                    timeout=60.0
+                "POST", "/chat/completions", json=request_data, timeout=60.0
             ) as response:
                 async for line in response.aiter_lines():
-                    print(line)
-                    if line.startswith("data: ") and line != "data: [DONE]":
-                        try:
-                            json_line = line[6:]  # Remove "data: " prefix
-                            data = orjson.loads(json_line)
-                            content = data.get("choices", [{}])[0].get("delta", {}).get("content", "")
-                            if content:
-                                model_msg = {
-                                    'role': 'model',
-                                    'content': content
-                                }
-                                yield orjson.dumps(model_msg) + b'\n'
-                        except Exception:
-                            pass
+                    if not (line.startswith("data: ") and line != "data: [DONE]"):
+                        continue
+                    try:
+                        data = orjson.loads(line[6:])  # Skip "data: " prefix
+                        if (
+                            content := data.get("choices", [{}])[0]
+                            .get("delta", {})
+                            .get("content", "")
+                        ):
+                            yield (
+                                orjson.dumps({"role": "model", "content": content})
+                                + b"\n"
+                            )
+                    except Exception:
+                        pass
 
 
-# FastAPI dependency
 def get_llm_service(base_url: Optional[str] = None) -> StreamLLMService:
     return StreamLLMService(base_url=base_url)
