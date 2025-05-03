@@ -33,13 +33,13 @@ dependencies = [
 
 [tool.uv]
 dev-dependencies = [
-    "ruff>=0.9.10",
+    "ruff>=0.11.8",
     "devtools[pygments]>=0.12.2",
     "pyupgrade>=3.19.1",
-    "ipython>=9.0.2",
+    "ipython>=9.2.0",
     "sqlacodegen>=3.0.0",
     "tryceratops>=2.4.1",
-    "locust>=2.33.0"
+    "locust>=2.36.2"
 
 ]
 
