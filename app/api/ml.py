@@ -11,9 +11,6 @@ logger = AppLogger().get_logger()
 router = APIRouter()
 
 
-@router.post('/chat/')
-async def chat(
-    prompt: Annotated[str, Form()],
-    llm_service = Depends(get_llm_service)
-):
+@router.post("/chat/")
+async def chat(prompt: Annotated[str, Form()], llm_service=Depends(get_llm_service)):
     return StreamingResponse(llm_service.stream_chat(prompt), media_type="text/plain")

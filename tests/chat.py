@@ -14,7 +14,9 @@ async def chat_with_endpoint():
 
             print("\nModel: ", end="", flush=True)
             try:
-                async with client.stream("POST", API_URL, data={"prompt": prompt}, timeout=60) as response:
+                async with client.stream(
+                    "POST", API_URL, data={"prompt": prompt}, timeout=60
+                ) as response:
                     async for chunk in response.aiter_lines():
                         if not chunk:
                             continue
