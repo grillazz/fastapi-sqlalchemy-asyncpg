@@ -52,10 +52,12 @@ USER panettone
 WORKDIR /panettone
 COPY /app/ app/
 COPY /tests/ tests/
+COPY /templates/ templates/
 COPY .env app/
 COPY alembic.ini app/
 COPY alembic/ app/alembic/
 COPY logging-uvicorn.json /panettone/logging-uvicorn.json
+COPY pyproject.toml /panettone/pyproject.toml
 
 RUN python -V
 RUN python -Im site

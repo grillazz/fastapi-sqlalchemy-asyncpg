@@ -14,7 +14,9 @@ services:
       --reload --log-level debug
       "
     volumes:
-      - .:/home/code
+      - ./app:/panettone/app
+      - ./tests:/panettone/tests
+      - ./templates:/panettone/templates
     ports:
       - "8080:8080"
     depends_on:

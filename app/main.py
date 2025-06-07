@@ -4,7 +4,9 @@ import asyncpg
 from apscheduler import AsyncScheduler
 from apscheduler.datastores.sqlalchemy import SQLAlchemyDataStore
 from apscheduler.eventbrokers.redis import RedisEventBroker
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 from app.api.health import router as health_router
 from app.api.ml import router as ml_router
@@ -20,6 +22,8 @@ from app.services.scheduler import SchedulerMiddleware
 from app.utils.logging import AppLogger
 
 logger = AppLogger().get_logger()
+
+templates = Jinja2Templates(directory="templates")
 
 
 @asynccontextmanager
@@ -46,7 +50,7 @@ async def lifespan(_app: FastAPI):
         await _app.postgres_pool.close()
 
 
-app = FastAPI(title="Stuff And Nonsense API", version="0.18.0", lifespan=lifespan)
+app = FastAPI(title="Stuff And Nonsense API", version="0.19.0", lifespan=lifespan)
 
 app.include_router(stuff_router)
 app.include_router(nonsense_router)
@@ -63,13 +67,19 @@ app.include_router(
     dependencies=[Depends(AuthBearer())],
 )
 
-_scheduler_data_store = SQLAlchemyDataStore(engine, schema="scheduler")
-_scheduler_event_broker = RedisEventBroker(
-    client_or_url=global_settings.redis_url.unicode_string()
-)
-_scheduler_himself = AsyncScheduler(_scheduler_data_store, _scheduler_event_broker)
 
-app.add_middleware(SchedulerMiddleware, scheduler=_scheduler_himself)
+@app.get("/index", response_class=HTMLResponse)
+def get_index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
+# _scheduler_data_store = SQLAlchemyDataStore(engine, schema="scheduler")
+# _scheduler_event_broker = RedisEventBroker(
+#     client_or_url=global_settings.redis_url.unicode_string()
+# )
+# _scheduler_himself = AsyncScheduler(_scheduler_data_store, _scheduler_event_broker)
+#
+# app.add_middleware(SchedulerMiddleware, scheduler=_scheduler_himself)
 
 
 # TODO: every not GET meth should reset cache
