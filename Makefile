@@ -31,7 +31,7 @@ docker-test:	## Run project tests
 
 .PHONY: docker-test-snapshot
 docker-test-snapshot:	## Run project tests with inline snapshot
-	docker compose -f compose.yml -f test-compose.yml  run --rm app pytest --inline-snapshot=create
+	docker compose -f compose.yml -f test-compose.yml  run --rm app pytest tests --inline-snapshot=fix
 
 .PHONY: safety
 safety:	## Check project and dependencies with safety https://github.com/pyupio/safety

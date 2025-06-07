@@ -1,45 +1,45 @@
 [project]
 name = "fastapi-sqlalchemy-asyncpg"
-version = "0.18.0"
+version = "0.19.0"
 description = "A modern FastAPI application with SQLAlchemy 2.0 and AsyncPG for high-performance async database operations. Features include JWT authentication with Redis token storage, password hashing, connection pooling, data processing with Polars, Rich logging, task scheduling with APScheduler, and Shakespeare datasets integration."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi[all]>=0.115.12",
-    "pydantic[email]>=2.11.4",
+    "pydantic[email]>=2.11.5",
     "pydantic-settings>=2.9.1",
-    "sqlalchemy>=2.0.40",
-    "uvicorn[standard]>=0.34.2",
+    "sqlalchemy>=2.0.41",
+    "uvicorn[standard]>=0.34.3",
     "asyncpg>=0.30.0",
-    "alembic>=1.15.2",
+    "alembic>=1.16.1",
     "httpx>=0.28.1",
-    "pytest>=8.3.5",
+    "pytest>=8.4.0",
     "pytest-cov>=6.1.1",
     "uvloop>=0.21.0",
     "httptools>=0.6.4",
     "rich>=14.0.0",
     "pyjwt>=2.10.1",
-    "redis>=6.0.0",
+    "redis>=6.2.0",
     "bcrypt>=4.3.0",
-    "polars>=1.29.0",
+    "polars>=1.30.0",
     "python-multipart>=0.0.20",
     "fastexcel>=0.14.0",
-    "inline-snapshot>=0.23.0",
+    "inline-snapshot>=0.23.2",
     "dirty-equals>=0.9.0",
     "polyfactory>=2.21.0",
-    "granian>=2.2.5",
+    "granian>=2.3.2",
     "apscheduler[redis,sqlalchemy]>=4.0.0a6",
 ]
 
 [tool.uv]
 dev-dependencies = [
-    "ruff>=0.11.8",
+    "ruff>=0.11.13",
     "devtools[pygments]>=0.12.2",
-    "pyupgrade>=3.19.1",
-    "ipython>=9.2.0",
+    "pyupgrade>=3.20.0",
+    "ipython>=9.3.0",
     "sqlacodegen>=3.0.0",
     "tryceratops>=2.4.1",
-    "locust>=2.36.2"
+    "locust>=2.37.9"
 
 ]
 
@@ -73,3 +73,14 @@ ignore = [
 [tool.ruff.lint.pyupgrade]
 # Preserve types, even if a file imports `from __future__ import annotations`.
 keep-runtime-typing = true
+
+[tool.inline-snapshot]
+hash-length=15
+default-flags=["report"]
+default-flags-tui=["create", "review"]
+show-updates=false
+format-command="ruff format --stdin-filename {filename}"
+
+[tool.inline-snapshot.shortcuts]
+review=["review"]
+fix=["create","fix"]
