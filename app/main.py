@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 import asyncpg
 
@@ -26,7 +27,7 @@ from app.utils.logging import AppLogger
 
 logger = AppLogger().get_logger()
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")
 
 
 @asynccontextmanager
