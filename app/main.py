@@ -1,9 +1,10 @@
 from contextlib import asynccontextmanager
 
 import asyncpg
-from apscheduler import AsyncScheduler
-from apscheduler.datastores.sqlalchemy import SQLAlchemyDataStore
-from apscheduler.eventbrokers.redis import RedisEventBroker
+
+# from apscheduler import AsyncScheduler
+# from apscheduler.datastores.sqlalchemy import SQLAlchemyDataStore
+# from apscheduler.eventbrokers.redis import RedisEventBroker
 from fastapi import Depends, FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -15,10 +16,12 @@ from app.api.shakespeare import router as shakespeare_router
 from app.api.stuff import router as stuff_router
 from app.api.user import router as user_router
 from app.config import settings as global_settings
-from app.database import engine
+
+# from app.database import engine
 from app.redis import get_redis
 from app.services.auth import AuthBearer
-from app.services.scheduler import SchedulerMiddleware
+
+# from app.services.scheduler import SchedulerMiddleware
 from app.utils.logging import AppLogger
 
 logger = AppLogger().get_logger()
