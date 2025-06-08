@@ -1,21 +1,32 @@
 services:
   app:
     container_name: fsap_app
+    network_mode: host
     build: .
+    environment:
+      - PYTHONPATH=/panettone
     env_file:
       - .env
       - .secrets
-    command: granian --interface asgi --host 0.0.0.0 --port 8080 --loop uvloop app.main:app --access-log --log-level debug --log-config ./logging-granian.json
+    command: bash -c "
+      granian --interface asgi
+      --host 0.0.0.0 --port 8080
+      app.main:app --access-log --log-level debug
+      --log-config ./logging-granian.json
+     "
     volumes:
-      - .:/home/code
+      - ./app:/panettone/app
+      - ./tests:/panettone/tests
+      - ./templates:/panettone/templates
     ports:
       - "8080:8080"
     depends_on:
       - db
-      - redis
+      - inmemory
 
   db:
     container_name: fsap_db
+    network_mode: host
     build:
       context: ./db
       dockerfile: Dockerfile
@@ -41,6 +52,7 @@ services:
   inmemory:
     image: redis:latest
     container_name: fsap_inmemory
+    network_mode: host
     ports:
       - "6379:6379"
     env_file:

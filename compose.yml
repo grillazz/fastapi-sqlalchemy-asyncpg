@@ -3,6 +3,8 @@ services:
     container_name: fsap_app
     network_mode: host
     build: .
+    environment:
+      - PYTHONPATH=/panettone
     env_file:
       - .env
       - .secrets
