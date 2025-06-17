@@ -1,7 +1,11 @@
+import logging
+import os
 from contextlib import asynccontextmanager
+from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 import asyncpg
+import orjson
 
 # from apscheduler import AsyncScheduler
 # from apscheduler.datastores.sqlalchemy import SQLAlchemyDataStore
@@ -9,6 +13,7 @@ import asyncpg
 from fastapi import Depends, FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from whenever._whenever import Instant
 
 from app.api.health import router as health_router
 from app.api.ml import router as ml_router
@@ -23,9 +28,27 @@ from app.redis import get_redis
 from app.services.auth import AuthBearer
 
 # from app.services.scheduler import SchedulerMiddleware
-from app.utils.logging import AppLogger
+import structlog
 
-logger = AppLogger().get_logger()
+log_date = Instant.now().py_datetime().strftime("%Y%m%d")
+
+structlog.configure(
+    cache_logger_on_first_use=True,
+    wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),
+    processors=[
+        structlog.contextvars.merge_contextvars,
+        structlog.processors.add_log_level,
+        structlog.processors.format_exc_info,
+        structlog.processors.TimeStamper(fmt="iso", utc=True),
+        structlog.processors.JSONRenderer(serializer=orjson.dumps),
+    ],
+    # log per day and per process?
+    logger_factory=structlog.BytesLoggerFactory(
+        file=Path(f"cuul_{log_date}_{str(os.getpid())}").with_suffix(".log").open("wb")
+    )
+)
+
+logger =  structlog.get_logger()
 
 templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")
 
@@ -45,7 +68,7 @@ async def lifespan(_app: FastAPI):
             min_size=5,
             max_size=20,
         )
-        logger.info(f"Postgres pool created: {_app.postgres_pool.get_idle_size()=}")
+        logger.info("Postgres pool created", _app.postgres_pool.get_idle_size())
         yield
     finally:
         # close redis connection and release the resources
