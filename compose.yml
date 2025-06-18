@@ -10,7 +10,6 @@ services:
       - .secrets
     command: bash -c "
       uvicorn app.main:app
-      --log-config ./logging-uvicorn.json
       --host 0.0.0.0 --port 8080
       --lifespan=on --use-colors --loop uvloop --http httptools
       --reload --log-level debug

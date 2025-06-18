@@ -3,9 +3,8 @@ from collections.abc import AsyncGenerator
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
 from app.config import settings as global_settings
-from app.utils.logging import AppLogger
-
-logger = AppLogger().get_logger()
+from app.utils.logging import setup_structlog
+logger = setup_structlog()
 
 engine = create_async_engine(
     global_settings.asyncpg_url.unicode_string(),

@@ -1,19 +1,14 @@
 import logging
 import os
 from contextlib import asynccontextmanager
-from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 import asyncpg
 import orjson
-
-# from apscheduler import AsyncScheduler
-# from apscheduler.datastores.sqlalchemy import SQLAlchemyDataStore
-# from apscheduler.eventbrokers.redis import RedisEventBroker
+import structlog
 from fastapi import Depends, FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from whenever._whenever import Instant
 
 from app.api.health import router as health_router
 from app.api.ml import router as ml_router
@@ -22,93 +17,68 @@ from app.api.shakespeare import router as shakespeare_router
 from app.api.stuff import router as stuff_router
 from app.api.user import router as user_router
 from app.config import settings as global_settings
-
-# from app.database import engine
 from app.redis import get_redis
 from app.services.auth import AuthBearer
+from whenever._whenever import Instant
+from app.utils.logging import setup_structlog
 
-# from app.services.scheduler import SchedulerMiddleware
-import structlog
 
-log_date = Instant.now().py_datetime().strftime("%Y%m%d")
-
-structlog.configure(
-    cache_logger_on_first_use=True,
-    wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),
-    processors=[
-        structlog.contextvars.merge_contextvars,
-        structlog.processors.add_log_level,
-        structlog.processors.format_exc_info,
-        structlog.processors.TimeStamper(fmt="iso", utc=True),
-        structlog.processors.JSONRenderer(serializer=orjson.dumps),
-    ],
-    # log per day and per process?
-    logger_factory=structlog.BytesLoggerFactory(
-        file=Path(f"cuul_{log_date}_{str(os.getpid())}").with_suffix(".log").open("wb")
-    )
-)
-
-logger =  structlog.get_logger()
-
+logger = setup_structlog()
 templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")
 
-
 @asynccontextmanager
-async def lifespan(_app: FastAPI):
-    # Load the redis connection
-    _app.redis = await get_redis()
-
-    _postgres_dsn = global_settings.postgres_url.unicode_string()
-
+async def lifespan(app: FastAPI):
+    app.redis = await get_redis()
+    postgres_dsn = global_settings.postgres_url.unicode_string()
     try:
-        # TODO: cache with the redis connection
-        # Initialize the postgres connection pool
-        _app.postgres_pool = await asyncpg.create_pool(
-            dsn=_postgres_dsn,
+        app.postgres_pool = await asyncpg.create_pool(
+            dsn=postgres_dsn,
             min_size=5,
             max_size=20,
         )
-        logger.info("Postgres pool created", _app.postgres_pool.get_idle_size())
+        logger.info("Postgres pool created", idle_size=app.postgres_pool.get_idle_size())
         yield
     finally:
-        # close redis connection and release the resources
-        await _app.redis.close()
-        # close postgres connection pool and release the resources
-        await _app.postgres_pool.close()
+        await app.redis.close()
+        await app.postgres_pool.close()
 
+def create_app() -> FastAPI:
+    app = FastAPI(
+        title="Stuff And Nonsense API",
+        version="0.19.0",
+        lifespan=lifespan,
+    )
+    app.include_router(stuff_router)
+    app.include_router(nonsense_router)
+    app.include_router(shakespeare_router)
+    app.include_router(user_router)
+    app.include_router(ml_router, prefix="/v1/ml", tags=["ML"])
+    app.include_router(health_router, prefix="/v1/public/health", tags=["Health, Public"])
+    app.include_router(
+        health_router,
+        prefix="/v1/health",
+        tags=["Health, Bearer"],
+        dependencies=[Depends(AuthBearer())],
+    )
 
-app = FastAPI(title="Stuff And Nonsense API", version="0.19.0", lifespan=lifespan)
+    @app.get("/index", response_class=HTMLResponse)
+    def get_index(request: Request):
+        return templates.TemplateResponse("index.html", {"request": request})
 
-app.include_router(stuff_router)
-app.include_router(nonsense_router)
-app.include_router(shakespeare_router)
-app.include_router(user_router)
-app.include_router(ml_router, prefix="/v1/ml", tags=["ML"])
+    return app
 
+app = create_app()
 
-app.include_router(health_router, prefix="/v1/public/health", tags=["Health, Public"])
-app.include_router(
-    health_router,
-    prefix="/v1/health",
-    tags=["Health, Bearer"],
-    dependencies=[Depends(AuthBearer())],
-)
-
-
-@app.get("/index", response_class=HTMLResponse)
-def get_index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
-
-
+# --- Unused/experimental code and TODOs ---
+# from apscheduler import AsyncScheduler
+# from apscheduler.datastores.sqlalchemy import SQLAlchemyDataStore
+# from apscheduler.eventbrokers.redis import RedisEventBroker
+# from app.database import engine
+# from app.services.scheduler import SchedulerMiddleware
 # _scheduler_data_store = SQLAlchemyDataStore(engine, schema="scheduler")
-# _scheduler_event_broker = RedisEventBroker(
-#     client_or_url=global_settings.redis_url.unicode_string()
-# )
+# _scheduler_event_broker = RedisEventBroker(client_or_url=global_settings.redis_url.unicode_string())
 # _scheduler_himself = AsyncScheduler(_scheduler_data_store, _scheduler_event_broker)
-#
 # app.add_middleware(SchedulerMiddleware, scheduler=_scheduler_himself)
-
-
-# TODO: every not GET meth should reset cache
-# TODO: every scheduler task which needs to act on database should have access to connection pool via request - maybe ?
+# TODO: every non-GET method should reset cache
+# TODO: scheduler tasks needing DB should access connection pool via request
 # TODO: https://stackoverflow.com/questions/16053364/make-sure-only-one-worker-launches-the-apscheduler-event-in-a-pyramid-web-app-ru
