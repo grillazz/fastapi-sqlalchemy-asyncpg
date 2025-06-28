@@ -1,4 +1,4 @@
-import logging
+from logging.handlers import RotatingFileHandler
 
 from rich.console import Console
 from rich.logging import RichHandler
@@ -29,9 +29,37 @@ class RichConsoleHandler(RichHandler):
             **kwargs,
         )
 
+
+class BytesToTextIOWrapper:
+    def __init__(self, handler, encoding="utf-8"):
+        self.handler = handler
+        self.encoding = encoding
+
+    def write(self, b):
+        if isinstance(b, bytes):
+            self.handler.stream.write(b.decode(self.encoding))
+        else:
+            self.handler.stream.write(b)
+        self.handler.flush()
+
+    def flush(self):
+        self.handler.flush()
+
+    def close(self):
+        self.handler.close()
+
+
 def setup_structlog() -> structlog.BoundLogger:
     log_date = Instant.now().py_datetime().strftime("%Y%m%d")
-    log_path = Path(f"cuul_{log_date}_{os.getpid()}.log")
+    log_path = Path(f"{log_date}_{os.getpid()}.log")
+    handler = RotatingFileHandler(
+        filename=log_path,
+        mode="a",  # text mode
+        maxBytes=10 * 1024 * 1024,
+        backupCount=5,
+        encoding="utf-8"
+    )
+    file_like = BytesToTextIOWrapper(handler)
     structlog.configure(
         cache_logger_on_first_use=True,
         wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),
@@ -43,7 +71,7 @@ def setup_structlog() -> structlog.BoundLogger:
             structlog.processors.JSONRenderer(serializer=orjson.dumps),
         ],
         logger_factory=structlog.BytesLoggerFactory(
-            file=log_path.open("wb")
+            file=file_like
         )
     )
     return structlog.get_logger()
