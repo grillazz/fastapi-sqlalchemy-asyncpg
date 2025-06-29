@@ -1,11 +1,7 @@
-import logging
-import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 
 import asyncpg
-import orjson
-import structlog
 from fastapi import Depends, FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -19,9 +15,7 @@ from app.api.user import router as user_router
 from app.config import settings as global_settings
 from app.redis import get_redis
 from app.services.auth import AuthBearer
-from whenever._whenever import Instant
 from app.utils.logging import setup_structlog
-
 
 logger = setup_structlog()
 templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")

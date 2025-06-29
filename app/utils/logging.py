@@ -1,16 +1,16 @@
+import logging
+import os
 from logging.handlers import RotatingFileHandler
+from pathlib import Path
 
+import orjson
+import structlog
 from rich.console import Console
 from rich.logging import RichHandler
+from whenever._whenever import Instant
 
 from app.utils.singleton import SingletonMeta
 
-import logging
-import os
-import orjson
-import structlog
-from whenever._whenever import Instant
-from pathlib import Path
 
 class AppLogger(metaclass=SingletonMeta):
     _logger = None
@@ -30,6 +30,8 @@ class RichConsoleHandler(RichHandler):
         )
 
 
+
+# TODO: merge this wrapper with the one in structlog under one hood of AppLogger
 class BytesToTextIOWrapper:
     def __init__(self, handler, encoding="utf-8"):
         self.handler = handler
