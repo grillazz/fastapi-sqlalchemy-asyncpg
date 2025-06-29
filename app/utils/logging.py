@@ -5,6 +5,7 @@ from pathlib import Path
 
 import orjson
 import structlog
+from attrs import define, field
 from whenever._whenever import Instant
 
 from app.utils.singleton import SingletonMetaNoArgs
@@ -29,16 +30,17 @@ class BytesToTextIOWrapper:
     def close(self):
         self.handler.close()
 
-# @define
-class AppStructLogger(metaclass=SingletonMetaNoArgs):
-    _logger = None
 
-    def __init__(self):
+@define(slots=True)
+class AppStructLogger(metaclass=SingletonMetaNoArgs):
+    _logger: structlog.BoundLogger = field(init=False)
+
+    def __attrs_post_init__(self):
         _log_date = Instant.now().py_datetime().strftime("%Y%m%d")
         _log_path = Path(f"{_log_date}_{os.getpid()}.log")
         _handler = RotatingFileHandler(
             filename=_log_path,
-            mode="a",  # text mode
+            mode="a",
             maxBytes=10 * 1024 * 1024,
             backupCount=5,
             encoding="utf-8"
@@ -60,8 +62,4 @@ class AppStructLogger(metaclass=SingletonMetaNoArgs):
         self._logger = structlog.get_logger()
 
     def get_logger(self) -> structlog.BoundLogger:
-        """
-        Returns:
-            structlog.BoundLogger: The configured logger instance.
-        """
         return self._logger
