@@ -6,9 +6,9 @@ from pydantic import EmailStr
 from starlette.concurrency import run_in_threadpool
 
 from app.services.smtp import SMTPEmailService
-from app.utils.logging import AppLogger
+from app.utils.logging import AppStructLogger
 
-logger = AppLogger().get_logger()
+logger = AppStructLogger().get_logger()
 
 router = APIRouter()
 

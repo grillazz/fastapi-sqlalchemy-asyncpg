@@ -6,9 +6,9 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from app.config import settings as global_settings
 from app.models.user import User
-from app.utils.logging import AppLogger
+from app.utils.logging import AppStructLogger
 
-logger = AppLogger().get_logger()
+logger = AppStructLogger().get_logger()
 
 
 async def get_from_redis(request: Request, key: str):

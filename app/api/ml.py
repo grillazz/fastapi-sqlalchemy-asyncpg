@@ -4,9 +4,9 @@ from fastapi import APIRouter, Depends, Form
 from fastapi.responses import StreamingResponse
 
 from app.services.llm import get_llm_service
-from app.utils.logging import AppLogger
+from app.utils.logging import AppStructLogger
 
-logger = AppLogger().get_logger()
+logger = AppStructLogger().get_logger()
 
 router = APIRouter()
 

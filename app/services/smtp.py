@@ -7,10 +7,10 @@ from fastapi.templating import Jinja2Templates
 from pydantic import EmailStr
 
 from app.config import settings as global_settings
-from app.utils.logging import AppLogger
+from app.utils.logging import AppStructLogger
 from app.utils.singleton import SingletonMetaNoArgs
 
-logger = AppLogger().get_logger()
+logger = AppStructLogger().get_logger()
 
 
 @define

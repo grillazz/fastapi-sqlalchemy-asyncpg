@@ -7,9 +7,9 @@ from app.database import get_db
 from app.models.user import User
 from app.schemas.user import TokenResponse, UserLogin, UserResponse, UserSchema
 from app.services.auth import create_access_token
-from app.utils.logging import AppLogger
+from app.utils.logging import AppStructLogger
 
-logger = AppLogger().get_logger()
+logger = AppStructLogger().get_logger()
 
 router = APIRouter(prefix="/v1/user")
 

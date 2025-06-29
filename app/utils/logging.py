@@ -5,30 +5,9 @@ from pathlib import Path
 
 import orjson
 import structlog
-from rich.console import Console
-from rich.logging import RichHandler
 from whenever._whenever import Instant
 
-from app.utils.singleton import SingletonMeta
-
-
-class AppLogger(metaclass=SingletonMeta):
-    _logger = None
-
-    def __init__(self):
-        self._logger = logging.getLogger(__name__)
-
-    def get_logger(self):
-        return self._logger
-
-
-class RichConsoleHandler(RichHandler):
-    def __init__(self, width=200, style=None, **kwargs):
-        super().__init__(
-            console=Console(color_system="256", width=width, style=style, stderr=True),
-            **kwargs,
-        )
-
+from app.utils.singleton import SingletonMetaNoArgs
 
 
 # TODO: merge this wrapper with the one in structlog under one hood of AppLogger
@@ -50,30 +29,39 @@ class BytesToTextIOWrapper:
     def close(self):
         self.handler.close()
 
+# @define
+class AppStructLogger(metaclass=SingletonMetaNoArgs):
+    _logger = None
 
-def setup_structlog() -> structlog.BoundLogger:
-    log_date = Instant.now().py_datetime().strftime("%Y%m%d")
-    log_path = Path(f"{log_date}_{os.getpid()}.log")
-    handler = RotatingFileHandler(
-        filename=log_path,
-        mode="a",  # text mode
-        maxBytes=10 * 1024 * 1024,
-        backupCount=5,
-        encoding="utf-8"
-    )
-    file_like = BytesToTextIOWrapper(handler)
-    structlog.configure(
-        cache_logger_on_first_use=True,
-        wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),
-        processors=[
-            structlog.contextvars.merge_contextvars,
-            structlog.processors.add_log_level,
-            structlog.processors.format_exc_info,
-            structlog.processors.TimeStamper(fmt="iso", utc=True),
-            structlog.processors.JSONRenderer(serializer=orjson.dumps),
-        ],
-        logger_factory=structlog.BytesLoggerFactory(
-            file=file_like
+    def __init__(self):
+        _log_date = Instant.now().py_datetime().strftime("%Y%m%d")
+        _log_path = Path(f"{_log_date}_{os.getpid()}.log")
+        _handler = RotatingFileHandler(
+            filename=_log_path,
+            mode="a",  # text mode
+            maxBytes=10 * 1024 * 1024,
+            backupCount=5,
+            encoding="utf-8"
         )
-    )
-    return structlog.get_logger()
+        structlog.configure(
+            cache_logger_on_first_use=True,
+            wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),
+            processors=[
+                structlog.contextvars.merge_contextvars,
+                structlog.processors.add_log_level,
+                structlog.processors.format_exc_info,
+                structlog.processors.TimeStamper(fmt="iso", utc=True),
+                structlog.processors.JSONRenderer(serializer=orjson.dumps),
+            ],
+            logger_factory=structlog.BytesLoggerFactory(
+                file=BytesToTextIOWrapper(_handler)
+            )
+        )
+        self._logger = structlog.get_logger()
+
+    def get_logger(self) -> structlog.BoundLogger:
+        """
+        Returns:
+            structlog.BoundLogger: The configured logger instance.
+        """
+        return self._logger
