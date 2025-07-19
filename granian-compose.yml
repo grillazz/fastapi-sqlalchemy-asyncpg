@@ -12,7 +12,6 @@ services:
       granian --interface asgi
       --host 0.0.0.0 --port 8080
       app.main:app --access-log --log-level debug
-      --log-config ./logging-granian.json
      "
     volumes:
       - ./app:/panettone/app
