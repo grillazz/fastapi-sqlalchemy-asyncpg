@@ -29,5 +29,5 @@ async def get_db() -> AsyncGenerator:
         try:
             yield session
         except Exception as e:
-            logger.error(f"Error getting database session: {e}")
+            await logger.aerror(f"Error getting database session: {e}")
             raise

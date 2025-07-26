@@ -40,7 +40,7 @@ class AuthBearer(HTTPBearer):
             raise HTTPException(
                 status_code=403, detail="Invalid token or expired token."
             )
-        logger.info(f"Token verified: {credentials.credentials}")
+        await logger.ainfo(f"Token verified: {credentials.credentials}")
         return credentials.credentials
 
 

@@ -18,7 +18,7 @@ router = APIRouter(prefix="/v1/user")
 async def create_user(
     payload: UserSchema, request: Request, db_session: AsyncSession = Depends(get_db)
 ):
-    logger.info(f"Creating user: {payload}")
+    await logger.ainfo(f"Creating user: {payload}")
     _user: User = User(**payload.model_dump())
     await _user.save(db_session)
 

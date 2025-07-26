@@ -66,7 +66,7 @@ class RotatingBytesLoggerFactory:
         return RotatingBytesLogger(self.handler)
 
 
-@define(slots=True)
+@define
 class AppStructLogger(metaclass=SingletonMetaNoArgs):
     _logger: structlog.BoundLogger = field(init=False)
 

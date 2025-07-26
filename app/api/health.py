@@ -87,7 +87,7 @@ async def smtp_check(
         "subject": subject,
     }
 
-    await logger.info("Sending email.", email_data=email_data)
+    await logger.ainfo("Sending email.", email_data=email_data)
 
     await run_in_threadpool(
         smtp.send_email,
