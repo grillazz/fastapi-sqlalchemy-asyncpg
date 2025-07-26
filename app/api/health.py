@@ -1,4 +1,3 @@
-import logging
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query, Request, status
@@ -34,7 +33,7 @@ async def redis_check(request: Request):
     try:
         redis_info = await redis_client.info()
     except Exception as e:
-        logging.error(f"Redis error: {e}")
+        await logger.aerror(f"Redis error: {e}")
     return redis_info
 
 
@@ -88,7 +87,7 @@ async def smtp_check(
         "subject": subject,
     }
 
-    logger.info("Sending email with data: %s", email_data)
+    await logger.ainfo("Sending email.", email_data=email_data)
 
     await run_in_threadpool(
         smtp.send_email,

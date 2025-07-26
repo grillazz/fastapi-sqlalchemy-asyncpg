@@ -30,7 +30,7 @@ async def lifespan(app: FastAPI):
             min_size=5,
             max_size=20,
         )
-        logger.info("Postgres pool created", idle_size=app.postgres_pool.get_idle_size())
+        await logger.ainfo("Postgres pool created", idle_size=app.postgres_pool.get_idle_size())
         yield
     finally:
         await app.redis.close()

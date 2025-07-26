@@ -30,7 +30,7 @@ class Base(DeclarativeBase):
             db_session.add(self)
             return await db_session.commit()
         except SQLAlchemyError as ex:
-            logger.error(f"Error inserting instance of {self}: {repr(ex)}")
+            await logger.aerror(f"Error inserting instance of {self}: {repr(ex)}")
             raise HTTPException(
                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)
             ) from ex

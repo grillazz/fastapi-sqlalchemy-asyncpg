@@ -15,9 +15,9 @@ logger = AppLogger().get_logger()
 async def tick():
     async with AsyncSessionFactory() as session:
         stmt = text("select 1;")
-        logger.info(f">>>> Be or not to be...{datetime.now()}")
+        await logger.ainfo(f">>>> Be or not to be...{datetime.now()}")
         result = await session.execute(stmt)
-        logger.info(f">>>> Result: {result.scalar()}")
+        await logger.ainfo(f">>>> Result: {result.scalar()}")
         return True
 
 

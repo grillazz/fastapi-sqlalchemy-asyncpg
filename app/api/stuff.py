@@ -21,13 +21,13 @@ async def create_multi_stuff(
         db_session.add_all(stuff_instances)
         await db_session.commit()
     except SQLAlchemyError as ex:
-        logger.error(f"Error inserting instances of Stuff: {repr(ex)}")
+        await logger.aerror(f"Error inserting instances of Stuff: {repr(ex)}")
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)
         ) from ex
     else:
-        logger.info(
-            f"{len(stuff_instances)} instances of Stuff inserted into database."
+        await logger.ainfo(
+            f"{len(stuff_instances)} Stuff instances inserted into the database."
         )
         return True
 
