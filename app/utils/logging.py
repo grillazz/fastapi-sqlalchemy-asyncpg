@@ -10,6 +10,7 @@ from whenever._whenever import Instant
 
 from app.utils.singleton import SingletonMetaNoArgs
 
+
 class RotatingBytesLogger:
     """Logger that respects RotatingFileHandler's rotation capabilities."""
 
