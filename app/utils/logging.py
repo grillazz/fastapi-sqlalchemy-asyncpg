@@ -10,25 +10,60 @@ from whenever._whenever import Instant
 
 from app.utils.singleton import SingletonMetaNoArgs
 
+class RotatingBytesLogger:
+    """Logger that respects RotatingFileHandler's rotation capabilities."""
 
-# TODO: merge this wrapper with the one in structlog under one hood of AppLogger
-class BytesToTextIOWrapper:
-    def __init__(self, handler, encoding="utf-8"):
+    def __init__(self, handler):
         self.handler = handler
-        self.encoding = encoding
 
-    def write(self, b):
-        if isinstance(b, bytes):
-            self.handler.stream.write(b.decode(self.encoding))
-        else:
-            self.handler.stream.write(b)
-        self.handler.flush()
+    def msg(self, message):
+        """Process a message and pass it through the handler's emit method."""
+        if isinstance(message, bytes):
+            message = message.decode("utf-8")
 
-    def flush(self):
-        self.handler.flush()
+        # Create a log record that will trigger rotation checks
+        record = logging.LogRecord(
+            name="structlog",
+            level=logging.INFO,
+            pathname="",
+            lineno=0,
+            msg=message.rstrip("\n"),
+            args=(),
+            exc_info=None
+        )
 
-    def close(self):
-        self.handler.close()
+        # Check if rotation is needed before emitting
+        if self.handler.shouldRollover(record):
+            self.handler.doRollover()
+
+        # Emit the record through the handler
+        self.handler.emit(record)
+
+    # Required methods to make it compatible with structlog
+    def debug(self, message):
+        self.msg(message)
+
+    def info(self, message):
+        self.msg(message)
+
+    def warning(self, message):
+        self.msg(message)
+
+    def error(self, message):
+        self.msg(message)
+
+    def critical(self, message):
+        self.msg(message)
+
+
+class RotatingBytesLoggerFactory:
+    """Factory that creates loggers that respect file rotation."""
+
+    def __init__(self, handler):
+        self.handler = handler
+
+    def __call__(self, *args, **kwargs):
+        return RotatingBytesLogger(self.handler)
 
 
 @define(slots=True)
@@ -40,8 +75,7 @@ class AppStructLogger(metaclass=SingletonMetaNoArgs):
         _log_path = Path(f"{_log_date}_{os.getpid()}.log")
         _handler = RotatingFileHandler(
             filename=_log_path,
-            mode="a",
-            maxBytes=10 * 1024 * 1024,
+            maxBytes=1000,
             backupCount=5,
             encoding="utf-8"
         )
@@ -55,9 +89,7 @@ class AppStructLogger(metaclass=SingletonMetaNoArgs):
                 structlog.processors.TimeStamper(fmt="iso", utc=True),
                 structlog.processors.JSONRenderer(serializer=orjson.dumps),
             ],
-            logger_factory=structlog.BytesLoggerFactory(
-                file=BytesToTextIOWrapper(_handler)
-            )
+            logger_factory=RotatingBytesLoggerFactory(_handler)
         )
         self._logger = structlog.get_logger()
 
