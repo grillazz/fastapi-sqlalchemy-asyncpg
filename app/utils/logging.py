@@ -76,7 +76,7 @@ class AppStructLogger(metaclass=SingletonMetaNoArgs):
         _log_path = Path(f"{_log_date}_{os.getpid()}.log")
         _handler = RotatingFileHandler(
             filename=_log_path,
-            maxBytes=1000,
+            maxBytes=10 * 1024 * 1024,  # 10MB
             backupCount=5,
             encoding="utf-8"
         )
