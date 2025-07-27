@@ -1,9 +1,9 @@
 from collections.abc import AsyncGenerator
 
+from rotoger import AppStructLogger
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
 from app.config import settings as global_settings
-from rotoger import AppStructLogger
 
 logger = AppStructLogger().get_logger()
 

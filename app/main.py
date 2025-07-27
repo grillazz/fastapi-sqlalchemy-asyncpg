@@ -5,6 +5,7 @@ import asyncpg
 from fastapi import Depends, FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from rotoger import AppStructLogger
 
 from app.api.health import router as health_router
 from app.api.ml import router as ml_router
@@ -15,7 +16,6 @@ from app.api.user import router as user_router
 from app.config import settings as global_settings
 from app.redis import get_redis
 from app.services.auth import AuthBearer
-from rotoger import AppStructLogger
 
 logger = AppStructLogger().get_logger()
 templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")

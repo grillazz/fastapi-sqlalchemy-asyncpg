@@ -2,9 +2,9 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, Form
 from fastapi.responses import StreamingResponse
+from rotoger import AppStructLogger
 
 from app.services.llm import get_llm_service
-from rotoger import AppStructLogger
 
 logger = AppStructLogger().get_logger()
 

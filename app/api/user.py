@@ -1,13 +1,13 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Form, HTTPException, Request, status
+from rotoger import AppStructLogger
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
 from app.models.user import User
 from app.schemas.user import TokenResponse, UserLogin, UserResponse, UserSchema
 from app.services.auth import create_access_token
-from rotoger import AppStructLogger
 
 logger = AppStructLogger().get_logger()
 
