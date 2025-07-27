@@ -6,7 +6,7 @@ from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import DeclarativeBase, declared_attr
 
-from app.utils.logging import AppStructLogger
+from rotoger import AppStructLogger
 
 logger = AppStructLogger().get_logger()
 

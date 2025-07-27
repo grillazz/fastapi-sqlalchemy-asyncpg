@@ -6,7 +6,7 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from app.config import settings as global_settings
 from app.models.user import User
-from app.utils.logging import AppStructLogger
+from rotoger import AppStructLogger
 
 logger = AppStructLogger().get_logger()
 

@@ -29,8 +29,7 @@ dependencies = [
     "polyfactory>=2.21.0",
     "granian>=2.3.2",
     "apscheduler[redis,sqlalchemy]>=4.0.0a6",
-    "structlog>=25.4.0",
-    "whenever>=0.8.5",
+    "rotoger",
 ]
 
 [tool.uv]

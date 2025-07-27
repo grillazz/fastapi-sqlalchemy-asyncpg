@@ -56,8 +56,6 @@ COPY /templates/ templates/
 COPY .env app/
 COPY alembic.ini /panettone/alembic.ini
 COPY /alembic/ /panettone/alembic/
-COPY logging-uvicorn.json /panettone/logging-uvicorn.json
-COPY logging-granian.json /panettone/logging-granian.json
 COPY pyproject.toml /panettone/pyproject.toml
 
 RUN python -V

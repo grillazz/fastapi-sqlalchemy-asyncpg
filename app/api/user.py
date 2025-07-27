@@ -7,7 +7,7 @@ from app.database import get_db
 from app.models.user import User
 from app.schemas.user import TokenResponse, UserLogin, UserResponse, UserSchema
 from app.services.auth import create_access_token
-from app.utils.logging import AppStructLogger
+from rotoger import AppStructLogger
 
 logger = AppStructLogger().get_logger()
 

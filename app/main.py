@@ -15,7 +15,7 @@ from app.api.user import router as user_router
 from app.config import settings as global_settings
 from app.redis import get_redis
 from app.services.auth import AuthBearer
-from app.utils.logging import AppStructLogger
+from rotoger import AppStructLogger
 
 logger = AppStructLogger().get_logger()
 templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")
