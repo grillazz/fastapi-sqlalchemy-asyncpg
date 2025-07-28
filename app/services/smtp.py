@@ -5,9 +5,9 @@ from email.mime.text import MIMEText
 from attrs import define, field
 from fastapi.templating import Jinja2Templates
 from pydantic import EmailStr
+from rotoger import AppStructLogger
 
 from app.config import settings as global_settings
-from app.utils.logging import AppStructLogger
 from app.utils.singleton import SingletonMetaNoArgs
 
 logger = AppStructLogger().get_logger()

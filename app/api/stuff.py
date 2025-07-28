@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, Request, status
+from rotoger import AppStructLogger
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
 from app.models.stuff import Stuff
 from app.schemas.stuff import StuffResponse, StuffSchema
-from app.utils.logging import AppStructLogger
 
 logger = AppStructLogger().get_logger()
 

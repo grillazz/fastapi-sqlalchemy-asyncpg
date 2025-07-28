@@ -2,11 +2,10 @@ from typing import Any
 
 from asyncpg import UniqueViolationError
 from fastapi import HTTPException, status
+from rotoger import AppStructLogger
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import DeclarativeBase, declared_attr
-
-from app.utils.logging import AppStructLogger
 
 logger = AppStructLogger().get_logger()
 
