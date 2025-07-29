@@ -30,7 +30,7 @@ class RotatingBytesLogger:
             lineno=0,
             msg=message.rstrip("\n"),
             args=(),
-            exc_info=None
+            exc_info=None,
         )
 
         # Check if rotation is needed before emitting
@@ -78,7 +78,7 @@ class AppStructLogger(metaclass=SingletonMetaNoArgs):
             filename=_log_path,
             maxBytes=10 * 1024 * 1024,  # 10MB
             backupCount=5,
-            encoding="utf-8"
+            encoding="utf-8",
         )
         structlog.configure(
             cache_logger_on_first_use=True,
@@ -90,7 +90,7 @@ class AppStructLogger(metaclass=SingletonMetaNoArgs):
                 structlog.processors.TimeStamper(fmt="iso", utc=True),
                 structlog.processors.JSONRenderer(serializer=orjson.dumps),
             ],
-            logger_factory=RotatingBytesLoggerFactory(_handler)
+            logger_factory=RotatingBytesLoggerFactory(_handler),
         )
         self._logger = structlog.get_logger()
 
