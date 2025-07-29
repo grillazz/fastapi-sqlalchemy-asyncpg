@@ -18,6 +18,7 @@ services:
       - ./app:/panettone/app
       - ./tests:/panettone/tests
       - ./templates:/panettone/templates
+      - ./alembic:/panettone/alembic
     ports:
       - "8080:8080"
     depends_on:
