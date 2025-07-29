@@ -1,13 +1,23 @@
 import uuid
 
 from sqlalchemy import ForeignKey, String, select
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import JSON, UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import Mapped, joinedload, mapped_column, relationship
 
 from app.models.base import Base
 from app.models.nonsense import Nonsense
 from app.utils.decorators import compile_sql_or_scalar
+
+
+class RandomStuff(Base):
+    __tablename__ = "random_stuff"
+    __table_args__ = ({"schema": "happy_hog"},)
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), default=uuid.uuid4, primary_key=True
+    )
+    chaos: Mapped[dict] = mapped_column(JSON)
 
 
 class Stuff(Base):

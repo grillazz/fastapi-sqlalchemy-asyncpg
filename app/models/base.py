@@ -27,7 +27,9 @@ class Base(DeclarativeBase):
         """
         try:
             db_session.add(self)
-            return await db_session.commit()
+            await db_session.commit()
+            await db_session.refresh(self)
+            return self
         except SQLAlchemyError as ex:
             await logger.aerror(f"Error inserting instance of {self}: {repr(ex)}")
             raise HTTPException(

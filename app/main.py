@@ -20,6 +20,7 @@ from app.services.auth import AuthBearer
 logger = AppStructLogger().get_logger()
 templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     app.redis = await get_redis()
@@ -30,11 +31,14 @@ async def lifespan(app: FastAPI):
             min_size=5,
             max_size=20,
         )
-        await logger.ainfo("Postgres pool created", idle_size=app.postgres_pool.get_idle_size())
+        await logger.ainfo(
+            "Postgres pool created", idle_size=app.postgres_pool.get_idle_size()
+        )
         yield
     finally:
         await app.redis.close()
         await app.postgres_pool.close()
+
 
 def create_app() -> FastAPI:
     app = FastAPI(
@@ -47,7 +51,9 @@ def create_app() -> FastAPI:
     app.include_router(shakespeare_router)
     app.include_router(user_router)
     app.include_router(ml_router, prefix="/v1/ml", tags=["ML"])
-    app.include_router(health_router, prefix="/v1/public/health", tags=["Health, Public"])
+    app.include_router(
+        health_router, prefix="/v1/public/health", tags=["Health, Public"]
+    )
     app.include_router(
         health_router,
         prefix="/v1/health",
@@ -60,6 +66,7 @@ def create_app() -> FastAPI:
         return templates.TemplateResponse("index.html", {"request": request})
 
     return app
+
 
 app = create_app()
 

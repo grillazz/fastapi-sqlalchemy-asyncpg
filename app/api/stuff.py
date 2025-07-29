@@ -4,12 +4,22 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
-from app.models.stuff import Stuff
+from app.models.stuff import RandomStuff, Stuff
+from app.schemas.stuff import RandomStuff as RandomStuffSchema
 from app.schemas.stuff import StuffResponse, StuffSchema
 
 logger = AppStructLogger().get_logger()
 
 router = APIRouter(prefix="/v1/stuff")
+
+
+@router.post("/random", status_code=status.HTTP_201_CREATED)
+async def create_random_stuff(
+    payload: RandomStuffSchema, db_session: AsyncSession = Depends(get_db)
+) -> dict[str, str]:
+    random_stuff = RandomStuff(**payload.model_dump())
+    await random_stuff.save(db_session)
+    return {"id": str(random_stuff.id)}
 
 
 @router.post("/add_many", status_code=status.HTTP_201_CREATED)

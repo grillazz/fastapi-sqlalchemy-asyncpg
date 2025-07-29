@@ -21,7 +21,7 @@ docker-apply-db-migrations: ## apply alembic migrations to database/schema
 	docker compose run --rm app alembic upgrade head
 
 .PHONY: docker-create-db-migration
-docker-create-db-migration:  ## Create new alembic database migration aka database revision.
+docker-create-db-migration:  ## Create new alembic database migration aka database revision. Example: make docker-create-db-migration msg="add users table"
 	docker compose up -d db | true
 	docker compose run --no-deps app alembic revision --autogenerate -m "$(msg)"
 
