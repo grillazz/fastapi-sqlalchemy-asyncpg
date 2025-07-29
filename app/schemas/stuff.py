@@ -1,7 +1,8 @@
+from typing import Any
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, Json
-from typing import Any
+from pydantic import BaseModel, ConfigDict, Field
+
 config = ConfigDict(from_attributes=True)
 
 

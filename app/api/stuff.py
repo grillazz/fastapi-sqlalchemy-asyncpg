@@ -4,8 +4,9 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
-from app.models.stuff import Stuff, RandomStuff
-from app.schemas.stuff import StuffResponse, StuffSchema, RandomStuff as RandomStuffSchema
+from app.models.stuff import RandomStuff, Stuff
+from app.schemas.stuff import RandomStuff as RandomStuffSchema
+from app.schemas.stuff import StuffResponse, StuffSchema
 
 logger = AppStructLogger().get_logger()
 
