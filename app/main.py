@@ -14,6 +14,7 @@ from app.api.shakespeare import router as shakespeare_router
 from app.api.stuff import router as stuff_router
 from app.api.user import router as user_router
 from app.config import settings as global_settings
+from app.exception_handlers import register_exception_handlers
 from app.redis import get_redis
 from app.services.auth import AuthBearer
 
@@ -60,6 +61,9 @@ def create_app() -> FastAPI:
         tags=["Health, Bearer"],
         dependencies=[Depends(AuthBearer())],
     )
+
+    # Register exception handlers
+    register_exception_handlers(app)
 
     @app.get("/index", response_class=HTMLResponse)
     def get_index(request: Request):
