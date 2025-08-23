@@ -28,6 +28,7 @@ async def get_db() -> AsyncGenerator:
         # logger.debug(f"ASYNC Pool: {engine.pool.status()}")
         try:
             yield session
+            await session.commit()
         except Exception as e:
             await logger.aerror(f"Error getting database session: {e}")
             raise

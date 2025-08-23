@@ -20,64 +20,46 @@ class Base(DeclarativeBase):
         return self.__name__.lower()
 
     async def save(self, db_session: AsyncSession):
-        """
-
-        :param db_session:
-        :return:
-        """
         try:
             db_session.add(self)
-            await db_session.commit()
+            await db_session.flush()
             await db_session.refresh(self)
             return self
         except SQLAlchemyError as ex:
             await logger.aerror(f"Error inserting instance of {self}: {repr(ex)}")
-            raise HTTPException(
-                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)
-            ) from ex
+            raise  # This will make the exception handler catch it
 
     async def delete(self, db_session: AsyncSession):
-        """
-
-        :param db_session:
-        :return:
-        """
         try:
             await db_session.delete(self)
-            await db_session.commit()
             return True
         except SQLAlchemyError as ex:
             raise HTTPException(
                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)
             ) from ex
 
-    async def update(self, db: AsyncSession, **kwargs):
-        """
-
-        :param db:
-        :param kwargs
-        :return:
-        """
+    async def update(self, **kwargs):
         try:
             for k, v in kwargs.items():
                 setattr(self, k, v)
-            return await db.commit()
+            return True
         except SQLAlchemyError as ex:
             raise HTTPException(
                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=repr(ex)
             ) from ex
 
-    async def save_or_update(self, db: AsyncSession):
+    async def save_or_update(self, db_session: AsyncSession):
         try:
-            db.add(self)
-            return await db.commit()
+            db_session.add(self)
+            await db_session.flush()
+            return True
         except IntegrityError as exception:
             if isinstance(exception.orig, UniqueViolationError):
-                return await db.merge(self)
+                return await db_session.merge(self)
             else:
                 raise HTTPException(
                     status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                     detail=repr(exception),
                 ) from exception
         finally:
-            await db.close()
+            await db_session.close()

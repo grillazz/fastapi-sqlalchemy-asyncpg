@@ -7,7 +7,9 @@ config = ConfigDict(from_attributes=True)
 
 
 class RandomStuff(BaseModel):
-    chaos: dict[str, Any] = Field(..., description="JSON data for chaos field")
+    chaos: dict[str, Any] = Field(
+        ..., description="Pretty chaotic JSON data can be added here..."
+    )
 
 
 class StuffSchema(BaseModel):
