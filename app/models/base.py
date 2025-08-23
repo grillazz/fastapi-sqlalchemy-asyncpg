@@ -25,7 +25,6 @@ class Base(DeclarativeBase):
         await db_session.refresh(self)
         return self
 
-
     async def delete(self, db_session: AsyncSession):
         try:
             await db_session.delete(self)
@@ -58,4 +57,3 @@ class Base(DeclarativeBase):
                     status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                     detail=repr(exception),
                 ) from exception
-

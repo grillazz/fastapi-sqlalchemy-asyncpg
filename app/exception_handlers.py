@@ -1,13 +1,15 @@
-from fastapi import Request
-from fastapi.responses import JSONResponse
-from sqlalchemy.exc import SQLAlchemyError
 import orjson
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from rotoger import AppStructLogger
+from sqlalchemy.exc import SQLAlchemyError
 
 logger = AppStructLogger().get_logger()
 
-async def sqlalchemy_exception_handler(request: Request, exc: SQLAlchemyError) -> JSONResponse:
+
+async def sqlalchemy_exception_handler(
+    request: Request, exc: SQLAlchemyError
+) -> JSONResponse:
     request_path = request.url.path
     try:
         raw_body = await request.body()
@@ -26,6 +28,7 @@ async def sqlalchemy_exception_handler(request: Request, exc: SQLAlchemyError) -
         status_code=500,
         content={"message": "A database error occurred. Please try again later."},
     )
+
 
 def register_exception_handlers(app: FastAPI) -> None:
     """Register all exception handlers with the FastAPI app."""
