@@ -6,7 +6,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 logger = AppStructLogger().get_logger()
 
-
+#TODO: add reasoning for this in readme plus higligh using re-raise in db session
 async def sqlalchemy_exception_handler(
     request: Request, exc: SQLAlchemyError
 ) -> JSONResponse:
