@@ -22,11 +22,12 @@ async def create_nonsense(
 
 
 @router.get("/", response_model=NonsenseResponse)
-async def find_nonsense(
+async def get_nonsense(
     name: str,
     db_session: AsyncSession = Depends(get_db),
 ):
-    return await Nonsense.find(db_session, name)
+    nonsense = await Nonsense.get_by_name(db_session, name)
+    return nonsense
 
 
 @router.delete("/")

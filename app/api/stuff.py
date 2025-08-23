@@ -52,13 +52,8 @@ async def create_stuff(
 
 
 @router.get("/{name}", response_model=StuffResponse)
-async def find_stuff(name: str, db_session: AsyncSession = Depends(get_db)):
-    result = await Stuff.find(db_session, name)
-    if not result:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Stuff with name {name} not found.",
-        )
+async def get_stuff(name: str, db_session: AsyncSession = Depends(get_db)):
+    result = await Stuff.get_by_name(db_session, name)
     return result
 
 
