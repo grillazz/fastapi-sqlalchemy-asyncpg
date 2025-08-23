@@ -20,14 +20,11 @@ class Base(DeclarativeBase):
         return self.__name__.lower()
 
     async def save(self, db_session: AsyncSession):
-        try:
-            db_session.add(self)
-            await db_session.flush()
-            await db_session.refresh(self)
-            return self
-        except SQLAlchemyError as ex:
-            await logger.aerror(f"Error inserting instance of {self}: {repr(ex)}")
-            raise  # This will make the exception handler catch it
+        db_session.add(self)
+        await db_session.flush()
+        await db_session.refresh(self)
+        return self
+
 
     async def delete(self, db_session: AsyncSession):
         try:
@@ -61,5 +58,4 @@ class Base(DeclarativeBase):
                     status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                     detail=repr(exception),
                 ) from exception
-        finally:
-            await db_session.close()
+

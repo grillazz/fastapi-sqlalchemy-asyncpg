@@ -2,7 +2,7 @@ from collections.abc import AsyncGenerator
 
 from rotoger import AppStructLogger
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
-
+from sqlalchemy.exc import SQLAlchemyError
 from app.config import settings as global_settings
 
 logger = AppStructLogger().get_logger()
@@ -29,6 +29,11 @@ async def get_db() -> AsyncGenerator:
         try:
             yield session
             await session.commit()
-        except Exception as e:
-            await logger.aerror(f"Error getting database session: {e}")
-            raise
+        except Exception as ex:
+            if isinstance(ex, SQLAlchemyError):
+                # Re-raise SQLAlchemyError directly without handling
+                raise
+            else:
+                # Handle other exceptions
+                await logger.aerror(f"NonSQLAlchemyError: {repr(ex)}")
+                raise  # Re-raise after logging

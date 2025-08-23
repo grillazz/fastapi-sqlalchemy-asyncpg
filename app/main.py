@@ -3,10 +3,10 @@ from pathlib import Path
 
 import asyncpg
 from fastapi import Depends, FastAPI, Request
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from rotoger import AppStructLogger
-from sqlalchemy.exc import SQLAlchemyError
+
 
 from app.api.health import router as health_router
 from app.api.ml import router as ml_router
@@ -17,6 +17,7 @@ from app.api.user import router as user_router
 from app.config import settings as global_settings
 from app.redis import get_redis
 from app.services.auth import AuthBearer
+from app.exception_handlers import register_exception_handlers
 
 logger = AppStructLogger().get_logger()
 templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")
@@ -62,18 +63,8 @@ def create_app() -> FastAPI:
         dependencies=[Depends(AuthBearer())],
     )
 
-    @app.exception_handler(SQLAlchemyError)
-    async def sqlalchemy_exception_handler(request: Request, exc: SQLAlchemyError):
-        await logger.aerror(
-            "A database error occurred",
-            sql_error=repr(exc),
-            request_url=request.url.path,
-            request_body=request.body,
-        )
-        return JSONResponse(
-            status_code=500,
-            content={"message": "A database error occurred. Please try again later."},
-        )
+    # Register exception handlers
+    register_exception_handlers(app)
 
     @app.get("/index", response_class=HTMLResponse)
     def get_index(request: Request):
