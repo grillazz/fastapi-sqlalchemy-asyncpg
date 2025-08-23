@@ -1,6 +1,5 @@
 import uuid
 
-from fastapi import HTTPException, status
 from sqlalchemy import String, select
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -25,5 +24,3 @@ class Nonsense(Base):
         result = await db_session.execute(stmt)
         instance = result.scalars().first()
         return instance
-
-

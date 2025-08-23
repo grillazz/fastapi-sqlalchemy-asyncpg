@@ -1,13 +1,14 @@
 import orjson
 from fastapi import FastAPI, Request
+from fastapi.exceptions import ResponseValidationError
 from fastapi.responses import JSONResponse
 from rotoger import AppStructLogger
 from sqlalchemy.exc import SQLAlchemyError
-from fastapi.exceptions import ResponseValidationError
 
 logger = AppStructLogger().get_logger()
 
-#TODO: add reasoning for this in readme plus higligh using re-raise in db session
+
+# TODO: add reasoning for this in readme plus higligh using re-raise in db session
 async def sqlalchemy_exception_handler(
     request: Request, exc: SQLAlchemyError
 ) -> JSONResponse:
@@ -32,7 +33,7 @@ async def sqlalchemy_exception_handler(
 
 
 async def response_validation_exception_handler(
-        request: Request, exc: ResponseValidationError
+    request: Request, exc: ResponseValidationError
 ) -> JSONResponse:
     request_path = request.url.path
     try:
@@ -76,4 +77,6 @@ async def response_validation_exception_handler(
 def register_exception_handlers(app: FastAPI) -> None:
     """Register all exception handlers with the FastAPI app."""
     app.add_exception_handler(SQLAlchemyError, sqlalchemy_exception_handler)
-    app.add_exception_handler(ResponseValidationError, response_validation_exception_handler)
+    app.add_exception_handler(
+        ResponseValidationError, response_validation_exception_handler
+    )
