@@ -54,7 +54,7 @@ leveraging the power of asyncio and event loops.
 
 Notably, this example showcases the latest and greatest versions of SQLAlchemy and psycopg,
 which are renowned for their robustness, power, and speed. The inclusion of FastAPI adds a modern, fast, and high-performance web framework to the mix
-allowing for the rapid development of APIs with Python 3.8+.
+allowing for the rapid development of APIs with Python 3.13.
 
 FastAPI has received significant recognition in the industry, including a review on thoughtworks Technology Radar in April 2021,
 where it was classified as a Trial technology, with comments praising its performance, ease of use,
@@ -217,7 +217,9 @@ I've included a few of my favorites to kick things off!
 <details>
   <summary>2025 (3 changes)</summary>
       <ul>
-         <li>[MAY 3 2025] add large language model integration :robot:</li>
+         <li>[AUG 23 2025] intro exception handlers</li>
+         <li>[JUL some sunny day 2025] add rotoger</li>   
+         <li>[MAY 3, 2025] add large language model integration :robot:</li>
          <li>[MAR 8 2025] switch from poetry to uv :fast_forward:</li>
          <li>[JAN 28 2025] add SMTP setup :email:</li>
       </ul>
@@ -229,7 +231,7 @@ I've included a few of my favorites to kick things off!
          <li>[OCT 16 2024] apscheduler added to project :clock1:</li>
          <li>[AUG 17 2024] granian use case implemented with docker compose and rich logger :fast_forward:</li>
          <li>[JUN 8 2024] implement asyncpg connection pool :fast_forward:</li>
-         <li>[MAR 15 2024] add polars and calamine to project :heart_eyes_cat:</li>
+         <li>[MAR 15, 2024] add polars and calamine to project :heart_eyes_cat:</li>
          <li>[FEB 1 2024] bump project to Python 3.12 :fast_forward:</li>
       </ul>
 </details>
@@ -274,21 +276,21 @@ I've included a few of my favorites to kick things off!
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/python-has-powers/
 
-[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.115.11-009485?style=for-the-badge&logo=fastapi&logoColor=white
+[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.116.1-009485?style=for-the-badge&logo=fastapi&logoColor=white
 [fastapi-url]: https://fastapi.tiangolo.com/
-[pydantic.com]: https://img.shields.io/badge/Pydantic-2.10.6-e92063?style=for-the-badge&logo=pydantic&logoColor=white
+[pydantic.com]: https://img.shields.io/badge/Pydantic-2.12.0a1-e92063?style=for-the-badge&logo=pydantic&logoColor=white
 [pydantic-url]: https://docs.pydantic.dev/latest/
-[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.38-bb0000?color=bb0000&style=for-the-badge
+[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.43-bb0000?color=bb0000&style=for-the-badge
 [sqlalchemy-url]: https://docs.sqlalchemy.org/en/20/
-[uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.34.0-2094f3?style=for-the-badge&logo=uvicorn&logoColor=white
+[uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.35.0-2094f3?style=for-the-badge&logo=uvicorn&logoColor=white
 [uvicorn-url]: https://www.uvicorn.org/
 [asyncpg.github.io]: https://img.shields.io/badge/asyncpg-0.30.0-2e6fce?style=for-the-badge&logo=postgresql&logoColor=white
 [asyncpg-url]: https://magicstack.github.io/asyncpg/current/
-[pytest.org]: https://img.shields.io/badge/pytest-8.3.5-fff?style=for-the-badge&logo=pytest&logoColor=white
+[pytest.org]: https://img.shields.io/badge/pytest-8.4.1-fff?style=for-the-badge&logo=pytest&logoColor=white
 [pytest-url]: https://docs.pytest.org/en/6.2.x/
-[alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.15.1-6BA81E?style=for-the-badge&logo=alembic&logoColor=white
+[alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.16.4-6BA81E?style=for-the-badge&logo=alembic&logoColor=white
 [alembic-url]: https://alembic.sqlalchemy.org/en/latest/
-[rich.readthedocs.io]: https://img.shields.io/badge/rich-13.9.4-009485?style=for-the-badge&logo=rich&logoColor=white
+[rich.readthedocs.io]: https://img.shields.io/badge/rich-14.1.0-009485?style=for-the-badge&logo=rich&logoColor=white
 [rich-url]: https://rich.readthedocs.io/en/latest/
-[redis.io]: https://img.shields.io/badge/redis-5.2.1-dc382d?style=for-the-badge&logo=redis&logoColor=white
+[redis.io]: https://img.shields.io/badge/redis-6.4.0-dc382d?style=for-the-badge&logo=redis&logoColor=white
 [redis-url]: https://redis.io/
