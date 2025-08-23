@@ -44,7 +44,7 @@ async def lifespan(app: FastAPI):
 def create_app() -> FastAPI:
     app = FastAPI(
         title="Stuff And Nonsense API",
-        version="0.19.0",
+        version="0.20.0",
         lifespan=lifespan,
     )
     app.include_router(stuff_router)
