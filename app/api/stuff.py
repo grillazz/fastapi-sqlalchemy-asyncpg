@@ -84,7 +84,7 @@ async def find_stuff_pool(
         HTTPException: If the 'Stuff' object is not found or an SQLAlchemyError occurs.
     """
     try:
-        stmt = await Stuff.find(db_session, name, compile_sql=True)
+        stmt = await Stuff.get_by_name(db_session, name, compile_sql=True)
         result = await request.app.postgres_pool.fetchrow(str(stmt))
     except SQLAlchemyError as ex:
         raise HTTPException(
@@ -100,7 +100,7 @@ async def find_stuff_pool(
 
 @router.delete("/{name}")
 async def delete_stuff(name: str, db_session: AsyncSession = Depends(get_db)):
-    stuff = await Stuff.find(db_session, name)
+    stuff = await Stuff.get_by_name(db_session, name)
     return await Stuff.delete(stuff, db_session)
 
 
@@ -110,6 +110,6 @@ async def update_stuff(
     name: str,
     db_session: AsyncSession = Depends(get_db),
 ):
-    stuff = await Stuff.find(db_session, name)
+    stuff = await Stuff.get_by_name(db_session, name)
     await stuff.update(**payload.model_dump())
     return stuff
