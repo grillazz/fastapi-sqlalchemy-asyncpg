@@ -52,13 +52,8 @@ async def create_stuff(
 
 
 @router.get("/{name}", response_model=StuffResponse)
-async def find_stuff(name: str, db_session: AsyncSession = Depends(get_db)):
-    result = await Stuff.find(db_session, name)
-    if not result:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Stuff with name {name} not found.",
-        )
+async def get_stuff(name: str, db_session: AsyncSession = Depends(get_db)):
+    result = await Stuff.get_by_name(db_session, name)
     return result
 
 
@@ -89,7 +84,7 @@ async def find_stuff_pool(
         HTTPException: If the 'Stuff' object is not found or an SQLAlchemyError occurs.
     """
     try:
-        stmt = await Stuff.find(db_session, name, compile_sql=True)
+        stmt = await Stuff.get_by_name(db_session, name, compile_sql=True)
         result = await request.app.postgres_pool.fetchrow(str(stmt))
     except SQLAlchemyError as ex:
         raise HTTPException(
@@ -105,7 +100,7 @@ async def find_stuff_pool(
 
 @router.delete("/{name}")
 async def delete_stuff(name: str, db_session: AsyncSession = Depends(get_db)):
-    stuff = await Stuff.find(db_session, name)
+    stuff = await Stuff.get_by_name(db_session, name)
     return await Stuff.delete(stuff, db_session)
 
 
@@ -115,6 +110,6 @@ async def update_stuff(
     name: str,
     db_session: AsyncSession = Depends(get_db),
 ):
-    stuff = await Stuff.find(db_session, name)
+    stuff = await Stuff.get_by_name(db_session, name)
     await stuff.update(**payload.model_dump())
     return stuff

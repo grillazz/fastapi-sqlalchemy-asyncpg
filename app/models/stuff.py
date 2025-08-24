@@ -35,7 +35,7 @@ class Stuff(Base):
 
     @classmethod
     @compile_sql_or_scalar
-    async def find(cls, db_session: AsyncSession, name: str, compile_sql=False):
+    async def get_by_name(cls, db_session: AsyncSession, name: str, compile_sql=False):
         stmt = select(cls).options(joinedload(cls.nonsense)).where(cls.name == name)
         return stmt
 

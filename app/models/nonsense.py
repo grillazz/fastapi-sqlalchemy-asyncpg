@@ -1,6 +1,5 @@
 import uuid
 
-from fastapi import HTTPException, status
 from sqlalchemy import String, select
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -20,22 +19,8 @@ class Nonsense(Base):
     # TODO: apply relation to other tables
 
     @classmethod
-    async def find(cls, db_session: AsyncSession, name: str):
-        """
-
-        :param db_session:
-        :param name:
-        :return:
-        """
+    async def get_by_name(cls, db_session: AsyncSession, name: str):
         stmt = select(cls).where(cls.name == name)
         result = await db_session.execute(stmt)
         instance = result.scalars().first()
-        if instance is None:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail={
-                    "Record not found": f"There is no record for requested name value : {name}"
-                },
-            )
-        else:
-            return instance
+        return instance
