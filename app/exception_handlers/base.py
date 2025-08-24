@@ -1,34 +1,43 @@
-# app/exception_handlers/base.py
 import orjson
 from fastapi import Request
-from fastapi.responses import JSONResponse
 from rotoger import AppStructLogger
+from attrs import define, field
+
 
 logger = AppStructLogger().get_logger()
 
 
+@define(slots=True)
+class RequestInfo:
+    """Contains extracted request information."""
+    path: str = field()
+    body: dict = field(default=None)
+
+
+@define(slots=True)
 class BaseExceptionHandler:
     """Base class for all exception handlers with common functionality."""
 
     @staticmethod
-    async def extract_request_info(request: Request):
+    async def extract_request_info(request: Request) -> RequestInfo:
         """Extract common request information."""
         request_path = request.url.path
+        request_body = None
         try:
             raw_body = await request.body()
-            request_body = orjson.loads(raw_body) if raw_body else None
+            if raw_body:
+                request_body = orjson.loads(raw_body)
         except orjson.JSONDecodeError:
-            request_body = None
+            pass
 
-        return request_path, request_body
+        return RequestInfo(path=request_path, body=request_body)
 
     @classmethod
-    async def log_error(cls, message, request_info, **kwargs):
+    async def log_error(cls, message: str, request_info: RequestInfo, **kwargs):
         """Log error with standardized format."""
-        request_path, request_body = request_info
         await logger.aerror(
             message,
-            request_url=request_path,
-            request_body=request_body,
+            request_url=request_info.path,
+            request_body=request_info.body,
             **kwargs
         )
