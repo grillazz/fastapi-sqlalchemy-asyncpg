@@ -1,8 +1,7 @@
 import orjson
+from attrs import define, field
 from fastapi import Request
 from rotoger import AppStructLogger
-from attrs import define, field
-
 
 logger = AppStructLogger().get_logger()
 
@@ -10,6 +9,7 @@ logger = AppStructLogger().get_logger()
 @define(slots=True)
 class RequestInfo:
     """Contains extracted request information."""
+
     path: str = field()
     body: dict = field(default=None)
 
@@ -39,5 +39,5 @@ class BaseExceptionHandler:
             message,
             request_url=request_info.path,
             request_body=request_info.body,
-            **kwargs
+            **kwargs,
         )
