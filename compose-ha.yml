@@ -1,0 +1,94 @@
+services:
+  api1:
+    container_name: panettone_api1
+    build: .
+    environment:
+      - PYTHONPATH=/panettone
+    env_file:
+      - .env
+      - .secrets
+    command: bash -c "
+      uvicorn app.main:app
+      --host 0.0.0.0 --port 8080
+      --lifespan=on --use-colors --loop uvloop --http httptools
+      "
+    volumes:
+      - ./app:/panettone/app
+      - ./tests:/panettone/tests
+      - ./templates:/panettone/templates
+      - ./alembic:/panettone/alembic
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres
+      - redis
+
+  api2:
+    container_name: panettone_api2
+    build: .
+    environment:
+      - PYTHONPATH=/panettone
+    env_file:
+      - .env
+      - .secrets
+    command: bash -c "
+      uvicorn app.main:app
+      --host 0.0.0.0 --port 8080
+      --lifespan=on --use-colors --loop uvloop --http httptools
+      "
+    volumes:
+      - ./app:/panettone/app
+      - ./tests:/panettone/tests
+      - ./templates:/panettone/templates
+      - ./alembic:/panettone/alembic
+    ports:
+      - "8082:8080"
+    depends_on:
+      - postgres
+      - redis
+
+
+  postgres:
+    container_name: panettone_postgres
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    volumes:
+      - panettone_postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
+      - POSTGRES_USER=${POSTGRES_USER?Variable not set}
+      - POSTGRES_DB=${POSTGRES_DB?Variable not set}
+    healthcheck:
+      test:
+        [
+            "CMD-SHELL", "pg_isready -d $POSTGRES_DB -U $POSTGRES_USER"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:latest
+    container_name: panettone_redis
+    ports:
+      - "6379:6379"
+    env_file:
+      - .env
+    entrypoint: redis-server --appendonly yes
+
+  loadbalancer:
+    container_name: panettone_loadbalancer
+    build: ./nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - api1
+      - api2
+
+volumes:
+  panettone_postgres_data: {}
