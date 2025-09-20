@@ -14,32 +14,32 @@ docker-up:	## Run project with compose
 docker-clean: ## Clean Reset project containers and volumes with compose
 	docker compose down -v --remove-orphans | true
 	docker compose rm -f | true
-	docker volume rm fastapi_postgres_data | true
+	docker volume rm panettone_postgres_data | true
 
 .PHONY: docker-apply-db-migrations
 docker-apply-db-migrations: ## apply alembic migrations to database/schema
-	docker compose run --rm app alembic upgrade head
+	docker compose run --rm api1 alembic upgrade head
 
 .PHONY: docker-create-db-migration
 docker-create-db-migration:  ## Create new alembic database migration aka database revision. Example: make docker-create-db-migration msg="add users table"
-	docker compose up -d db | true
-	docker compose run --no-deps app alembic revision --autogenerate -m "$(msg)"
+	docker compose up -d postgres | true
+	docker compose run --no-deps api1 alembic revision --autogenerate -m "$(msg)"
 
 .PHONY: docker-test
 docker-test:	## Run project tests
-	docker compose -f compose.yml -f test-compose.yml  run --rm app pytest tests --durations=0 -vv
+	docker compose -f compose.yml -f test-compose.yml  run --rm api1 pytest tests --durations=0 -vv
 
 .PHONY: docker-test-snapshot
 docker-test-snapshot:	## Run project tests with inline snapshot
-	docker compose -f compose.yml -f test-compose.yml  run --rm app pytest tests --inline-snapshot=fix
+	docker compose -f compose.yml -f test-compose.yml  run --rm api1 pytest tests --inline-snapshot=fix
 
 .PHONY: safety
 safety:	## Check project and dependencies with safety https://github.com/pyupio/safety
-	docker compose run --rm app safety check
+	docker compose run --rm api1 safety check
 
 .PHONY: py-upgrade
 py-upgrade:	## Upgrade project py files with pyupgrade library for python version 3.10
-	pyupgrade --py313-plus `find app -name "*.py"`
+	pyupgrade --py313-plus `find api1 -name "*.py"`
 
 .PHONY: lint
 lint:  ## Lint project code.
@@ -47,16 +47,16 @@ lint:  ## Lint project code.
 
 .PHONY: slim-build
 slim-build: ## with power of docker-slim build smaller and safer images
-	docker-slim build --compose-file docker-compose.yml --target-compose-svc app --dep-include-target-compose-svc-deps true --http-probe-exec app fastapi-sqlalchemy-asyncpg_app:latest
+	docker-slim build --compose-file docker-compose.yml --target-compose-svc api1 --dep-include-target-compose-svc-deps true --http-probe-exec api1 fastapi-sqlalchemy-asyncpg_api1:latest
 
 .PHONY: docker-feed-database
 docker-feed-database: ## create database objects and insert data
-	docker compose exec db psql devdb devdb -f /home/gx/code/shakespeare_work.sql | true
-	docker compose exec db psql devdb devdb -f /home/gx/code/shakespeare_chapter.sql | true
-	docker compose exec db psql devdb devdb -f /home/gx/code/shakespeare_wordform.sql | true
-	docker compose exec db psql devdb devdb -f /home/gx/code/shakespeare_character.sql | true
-	docker compose exec db psql devdb devdb -f /home/gx/code/shakespeare_paragraph.sql | true
-	docker compose exec db psql devdb devdb -f /home/gx/code/shakespeare_character_work.sql
+	docker compose exec postgres psql devdb devdb -f /home/gx/code/shakespeare_work.sql | true
+	docker compose exec postgres psql devdb devdb -f /home/gx/code/shakespeare_chapter.sql | true
+	docker compose exec postgres psql devdb devdb -f /home/gx/code/shakespeare_wordform.sql | true
+	docker compose exec postgres psql devdb devdb -f /home/gx/code/shakespeare_character.sql | true
+	docker compose exec postgres psql devdb devdb -f /home/gx/code/shakespeare_paragraph.sql | true
+	docker compose exec postgres psql devdb devdb -f /home/gx/code/shakespeare_character_work.sql
 
 .PHONY: model-generate
 model-generate: ## generate sqlalchemy models from database
