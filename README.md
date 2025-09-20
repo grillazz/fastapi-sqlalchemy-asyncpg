@@ -32,6 +32,7 @@
         <li><a href="#smtp-setup">Email Configuration</a></li>
         <li><a href="#uv-knowledge-and-inspirations">UV knowledge and inspirations</a></li> 
         <li><a href="#large-language-model">Integration with local LLM</a></li>  
+        <li><a href="#ha-sample-with-nginx-as-load-balancer">High Availability sample with nginx as load balancer</a></li>
       </ul>
     </li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -184,6 +185,14 @@ ollama run llama3.2
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### HA sample with nginx as load balancer
+Sample high availability setup with nginx as load balancer and 2 uvicorn instances running on different ports.
+```shell
+make docker-up-ha
+```
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 ### UV knowledge and inspirations
 - https://docs.astral.sh/uv/
 - https://hynek.me/articles/docker-uv/
@@ -217,6 +226,7 @@ I've included a few of my favorites to kick things off!
 <details>
   <summary>2025 (3 changes)</summary>
       <ul>
+         <li>[SEP 2 2025] add sample high availability with nginx as load balancer</li>   
          <li>[AUG 23 2025] intro exception handlers</li>
          <li>[JUL some sunny day 2025] add rotoger</li>   
          <li>[MAY 3, 2025] add large language model integration :robot:</li>

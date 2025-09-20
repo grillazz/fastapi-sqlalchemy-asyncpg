@@ -1,7 +1,6 @@
 services:
-  app:
-    container_name: fsap_app
-    network_mode: host
+  api1:
+    container_name: panettone_api1
     build: .
     environment:
       - PYTHONPATH=/panettone
@@ -12,7 +11,6 @@ services:
       uvicorn app.main:app
       --host 0.0.0.0 --port 8080
       --lifespan=on --use-colors --loop uvloop --http httptools
-      --reload --log-level debug
       "
     volumes:
       - ./app:/panettone/app
@@ -22,17 +20,16 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - db
-      - inmemory
+      - postgres
+      - redis
 
-  db:
-    container_name: fsap_db
-    network_mode: host
+  postgres:
+    container_name: panettone_postgres
     build:
       context: ./db
       dockerfile: Dockerfile
     volumes:
-      - fastapi_postgres_data:/var/lib/postgresql/data
+      - panettone_postgres_data:/var/lib/postgresql/data
     env_file:
       - .env
     ports:
@@ -50,15 +47,15 @@ services:
       timeout: 5s
       retries: 5
 
-  inmemory:
+  redis:
     image: redis:latest
-    network_mode: host
-    container_name: fsap_inmemory
+    container_name: panettone_redis
     ports:
       - "6379:6379"
     env_file:
       - .env
     entrypoint: redis-server --appendonly yes
 
+
 volumes:
-  fastapi_postgres_data: {}
+  panettone_postgres_data: {}

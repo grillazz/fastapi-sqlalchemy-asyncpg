@@ -36,6 +36,9 @@ async def lifespan(app: FastAPI):
             "Postgres pool created", idle_size=app.postgres_pool.get_idle_size()
         )
         yield
+    except Exception as e:
+        await logger.aerror("Error during app startup", error=repr(e))
+        raise
     finally:
         await app.redis.close()
         await app.postgres_pool.close()
