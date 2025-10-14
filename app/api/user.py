@@ -1,7 +1,7 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Form, HTTPException, Request, status
-from rotoger import AppStructLogger
+from rotoger import Rotoger
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
@@ -9,7 +9,7 @@ from app.models.user import User
 from app.schemas.user import TokenResponse, UserLogin, UserResponse, UserSchema
 from app.services.auth import create_access_token
 
-logger = AppStructLogger().get_logger()
+logger = Rotoger().get_logger()
 
 router = APIRouter(prefix="/v1/user")
 

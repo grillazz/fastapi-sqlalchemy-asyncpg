@@ -1,13 +1,13 @@
 from collections.abc import AsyncGenerator
 
 from fastapi.exceptions import ResponseValidationError
-from rotoger import AppStructLogger
+from rotoger import Rotoger
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
 from app.config import settings as global_settings
 
-logger = AppStructLogger().get_logger()
+logger = Rotoger().get_logger()
 
 engine = create_async_engine(
     global_settings.asyncpg_url.unicode_string(),

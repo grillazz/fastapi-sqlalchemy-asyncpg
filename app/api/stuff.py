@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Request, status
-from rotoger import AppStructLogger
+from rotoger import Rotoger
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -8,7 +8,7 @@ from app.models.stuff import RandomStuff, Stuff
 from app.schemas.stuff import RandomStuff as RandomStuffSchema
 from app.schemas.stuff import StuffResponse, StuffSchema
 
-logger = AppStructLogger().get_logger()
+logger = Rotoger().get_logger()
 
 router = APIRouter(prefix="/v1/stuff")
 

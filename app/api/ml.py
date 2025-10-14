@@ -2,11 +2,11 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, Form
 from fastapi.responses import StreamingResponse
-from rotoger import AppStructLogger
+from rotoger import Rotoger
 
 from app.services.llm import get_llm_service
 
-logger = AppStructLogger().get_logger()
+logger = Rotoger().get_logger()
 
 router = APIRouter()
 
