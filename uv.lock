@@ -535,7 +535,7 @@ requires-dist = [
     { name = "python-multipart", specifier = ">=0.0.20" },
     { name = "redis", specifier = ">=6.4.0" },
     { name = "rich", specifier = ">=14.1.0" },
-    { name = "rotoger" },
+    { name = "rotoger", specifier = ">=0.1.1" },
     { name = "sqlalchemy", specifier = ">=2.0.43" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.36.0" },
     { name = "uvloop", specifier = ">=0.21.0" },
@@ -1571,7 +1571,7 @@ wheels = [
 
 [[package]]
 name = "rotoger"
-version = "0.2.0"
+version = "0.1.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
@@ -1579,9 +1579,9 @@ dependencies = [
     { name = "structlog" },
     { name = "whenever" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b8/d7/a8436ca0d01a08c536bd06650d399dd727283f1481fa0440df8806e0725a/rotoger-0.2.0.tar.gz", hash = "sha256:8350ff309755d1a29333200718faa88f15582a10725a12d41562931e1f0cde6b", size = 1795, upload-time = "2025-07-27T12:25:37.616Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/af/06/b31ae921c6eabc4b4d997722bb074ce3cb97b05abf61d0343c10d383a3fe/rotoger-0.1.1.tar.gz", hash = "sha256:5597cdf53b86c1f8b2504b59734a8b7dc7ac6b454c891f8312fe04eaaedc5897", size = 1741, upload-time = "2025-10-14T08:48:28.921Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b1/26/11b83c7b92e8435e05c422a9c3d893c2d0d0d7a04369e1fbf2c07b36eb14/rotoger-0.2.0-py3-none-any.whl", hash = "sha256:33f19777b283da97b6da8c6f8d895126b750ed21b17d724e6e5e9db240673c29", size = 2728, upload-time = "2025-07-27T12:25:36.777Z" },
+    { url = "https://files.pythonhosted.org/packages/b0/83/cda0c2e99112600163809037e3109fadad8651167ef0f336f58c3b4b8fc9/rotoger-0.1.1-py3-none-any.whl", hash = "sha256:64e19316d26d4dd64e388960bce9f5f9c30718dd9ec03a09563539695ae2e2a6", size = 2671, upload-time = "2025-10-14T08:48:27.799Z" },
 ]
 
 [[package]]

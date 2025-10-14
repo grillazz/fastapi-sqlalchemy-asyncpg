@@ -3,12 +3,12 @@ import time
 import jwt
 from fastapi import HTTPException, Request
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from rotoger import AppStructLogger
+from rotoger import Rotoger
 
 from app.config import settings as global_settings
 from app.models.user import User
 
-logger = AppStructLogger().get_logger()
+logger = Rotoger().get_logger()
 
 
 async def get_from_redis(request: Request, key: str):

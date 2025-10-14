@@ -2,14 +2,16 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query, Request, status
 from pydantic import EmailStr
-from rotoger import AppStructLogger
+from rotoger import Rotoger
 from starlette.concurrency import run_in_threadpool
 
 from app.services.smtp import SMTPEmailService
 
-logger = AppStructLogger().get_logger()
+logger = Rotoger().get_logger()
 
 router = APIRouter()
+
+
 
 
 @router.get("/redis", status_code=status.HTTP_200_OK)
