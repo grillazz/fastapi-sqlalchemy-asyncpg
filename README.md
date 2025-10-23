@@ -24,7 +24,7 @@
       <ul>
         <li><a href="#make-will-help-you">Make will help you</a></li>
         <li><a href="#how-to-feed-database">How to feed database</a></li>
-        <li><a href="#rainbow-logs-with-rich">Rainbow logs with rich</a></li>
+        <li><a href="#structured-asynchronous-logging-with-rotoger">Structured & Asynchronous Logging with Rotoger</a></li>
         <li><a href="#setup-user-auth">Setup user auth</a></li>
         <li><a href="#setup-local-env-with-uv">Setup local development with uv</a></li>
         <li><a href="#import-xlsx-files-with-polars-and-calamine">Import xlsx files with polars and calamine</a></li>
@@ -102,27 +102,21 @@ Next models were generated with https://github.com/agronholm/sqlacodegen
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Rainbow logs with rich :rainbow:
+### Structured & Asynchronous Logging with Rotoger 🪵
 
-To enhance the developer experience when viewing logs with extensive information from multiple emitters 
-(which are particularly useful during development), this project uses the [rich](https://github.com/Textualize/rich) library.
-Event with the superpowers of [rich](https://github.com/Textualize/rich), reading logs can be challenging.
-The [rich](https://github.com/Textualize/rich) library is highly beneficial, but integrating it properly as a logger object
-and maintaining it as a singleton took some effort.
+To elevate the logging capabilities beyond simple colored output,
+this project has transitioned to [Rotoger](https://github.com/tinyplugins/rotoger).
+This powerful library provides a comprehensive, production-ready logging setup for modern asynchronous applications,
+addressing challenges like log management, performance, and readability.
 
-To address the following needs:
-- Difficulty in finding specific information in logs.
-- Avoiding the complexity of setting up an ELK stack for log management.
-- Speeding up the debugging process.
+Rotoger is built upon the excellent [structlog](http://structlog.org/) library and brings several key advantages:
 
-he following steps were taken to integrate [rich](https://github.com/Textualize/rich) into the project:
-1. Configure emitters using the [logging-uvicorn.json](https://github.com/grillazz/fastapi-sqlalchemy-asyncpg/blob/main/logging-uvicorn.json)
-   or use [logging-granian.json](https://github.com/grillazz/fastapi-sqlalchemy-asyncpg/blob/main/logging-granian.json) for granian
-2. Eliminate duplicates, such as SQLAlchemy echo, by using separate handlers.
-3. Maintain the logger as a singleton to prevent multiple instances.
-4. Add the --log-config ./logging-uvicorn.json parameter to Uvicorn or --log-config ./logging-granian.json to Granian.
+- `Structured Logging`: By using structlog, all log entries are generated as structured data (JSON), making them machine-readable and significantly easier to query, parse, and analyze in log management systems.
+- `Asynchronous & Non-Blocking`: Designed for async frameworks like FastAPI, Rotoger performs logging operations in a non-blocking manner. This ensures that I/O-bound logging tasks do not hold up the event loop, maintaining high application performance.
+- `High-Performance JSON`: It leverages orjson for serialization, which is one of the fastest JSON libraries for Python. This minimizes the overhead of converting log records to JSON strings.
+- `Built-in Log Rotation`: Rotoger implements its own log rotation mechanism in Python, allowing you to manage log file sizes and retention policies directly within your application without relying on external tools like logrotate.
 
-![sample-logs-with-rich](/static/logz.png)
+This setup solves common logging pain points in production environments, such as managing large log files, ensuring logs don't impact performance, and making logs easily searchable.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
