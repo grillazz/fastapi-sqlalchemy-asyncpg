@@ -26,7 +26,7 @@ docker-up:	## Run project with compose
 docker-clean: ## Clean and reset project containers and volumes
 	docker compose down -v --remove-orphans | true
 	docker compose rm -f | true
-	docker volume ls -q | grep panettone_postgres_data | xargs docker volume rm | true
+	docker volume ls -q | grep panettone_postgres_data | xargs -r docker volume rm | true
 
 # ====================================================================================
 # DATABASE MIGRATIONS
