@@ -5,12 +5,12 @@ from email.mime.text import MIMEText
 from attrs import define, field
 from fastapi.templating import Jinja2Templates
 from pydantic import EmailStr
-from rotoger import Rotoger
+from rotoger import get_logger
 
 from app.config import settings as global_settings
 from app.utils.singleton import SingletonMetaNoArgs
 
-logger = Rotoger().get_logger()
+logger = get_logger()
 
 
 @define
