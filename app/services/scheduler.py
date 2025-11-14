@@ -3,11 +3,11 @@ from datetime import datetime
 from apscheduler import AsyncScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 from attrs import define
+from rotoger import get_logger
 from sqlalchemy import text
 from starlette.types import ASGIApp, Receive, Scope, Send
 
 from app.database import AsyncSessionFactory
-from rotoger import get_logger
 
 logger = get_logger()
 
