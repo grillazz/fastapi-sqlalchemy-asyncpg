@@ -429,10 +429,10 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "devtools", extras = ["pygments"], specifier = ">=0.12.2" },
+    { name = "devtools", extras = ["pygments"], specifier = "==0.12.2" },
     { name = "ipython", specifier = "==9.7.0" },
     { name = "pyupgrade", specifier = "==3.21.1" },
-    { name = "ruff", specifier = ">=0.14.5" },
+    { name = "ruff", specifier = "==0.14.5" },
     { name = "tryceratops", specifier = "==2.4.1" },
 ]
 

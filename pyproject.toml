@@ -34,8 +34,8 @@ dependencies = [
 
 [tool.uv]
 dev-dependencies = [
-    "ruff>=0.14.5",
-    "devtools[pygments]>=0.12.2",
+    "ruff==0.14.5",
+    "devtools[pygments]==0.12.2",
     "pyupgrade==3.21.1",
     "ipython==9.7.0",
     "tryceratops==2.4.1",

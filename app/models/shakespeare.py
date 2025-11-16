@@ -259,9 +259,7 @@ class Paragraph(Base):
     char_count: Mapped[int] = mapped_column(Integer)
     word_count: Mapped[int] = mapped_column(Integer)
 
-    character: Mapped[Character] = relationship(
-        "Character", back_populates="paragraph"
-    )
+    character: Mapped[Character] = relationship("Character", back_populates="paragraph")
     chapter: Mapped[Chapter] = relationship("Chapter", back_populates="paragraph")
     work: Mapped[Work] = relationship("Work", back_populates="paragraph")
 
