@@ -359,7 +359,7 @@ wheels = [
 
 [[package]]
 name = "fastapi-sqlalchemy-asyncpg"
-version = "0.22.0"
+version = "1.22.0"
 source = { virtual = "." }
 dependencies = [
     { name = "alembic" },
