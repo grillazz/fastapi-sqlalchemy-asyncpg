@@ -1,47 +1,44 @@
 [project]
 name = "fastapi-sqlalchemy-asyncpg"
-version = "0.22.0"
+version = "1.22.0"
 description = "A modern FastAPI application with SQLAlchemy 2.0 and AsyncPG for high-performance async database operations. Features include JWT authentication with Redis token storage, password hashing, connection pooling, data processing with Polars, Rich logging, task scheduling with APScheduler, and Shakespeare datasets integration."
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = "==3.14.0"
 dependencies = [
-    "fastapi[all]>=0.116.2",
-    "pydantic[email]>=2.12.0a1",
-    "pydantic-settings>=2.10.1",
+    "fastapi[all]==0.121.2",
+    "pydantic[email]==2.12.4",
+    "pydantic-settings==2.12.0",
     "sqlalchemy==2.0.44",
-    "uvicorn==0.38.0",
-    "asyncpg>=0.30.0",
-    "alembic>=1.16.5",
-    "httpx>=0.28.1",
-    "pytest>=8.4.2",
-    "pytest-cov>=7.0.0",
-    "uvloop>=0.21.0",
-    "httptools>=0.6.4",
-    "rich>=14.1.0",
-    "pyjwt>=2.10.1",
-    "redis>=6.4.0",
-    "bcrypt>=4.3.0",
-    "polars==1.35.2",
-    "python-multipart>=0.0.20",
-    "fastexcel>=0.15.1",
-    "inline-snapshot>=0.29.0",
-    "dirty-equals>=0.10.0",
-    "polyfactory>=2.22.2",
-    "granian>=2.5.4",
+    "uvicorn[standard]==0.38.0",
+    "asyncpg==0.30.0",
+    "alembic==1.17.2",
+    "httpx==0.28.1",
+    "pytest==9.0.1",
+    "pytest-cov==7.0.0",
+    "uvloop==0.22.1",
+    "httptools==0.7.1",
+    "rich==14.2.0",
+    "pyjwt==2.10.1",
+    "redis==7.0.1",
+    "bcrypt==5.0.0",
+    "polars[pyarrow]==1.35.2",
+    "python-multipart==0.0.20",
+    "fastexcel==0.16.0",
+    "inline-snapshot==0.31.1",
+    "dirty-equals==0.10.0",
+    "polyfactory==3.0.0",
+    "granian==2.5.7",
     "apscheduler[redis,sqlalchemy]>=4.0.0a6",
     "rotoger==0.2.1",
 ]
 
 [tool.uv]
 dev-dependencies = [
-    "ruff>=0.13.1",
-    "devtools[pygments]>=0.12.2",
-    "pyupgrade>=3.20.0",
-    "ipython>=9.5.0",
-    "sqlacodegen<=3.1.1",
-    "tryceratops>=2.4.1",
-    "locust>=2.40.5"
-
+    "ruff==0.14.5",
+    "devtools[pygments]==0.12.2",
+    "pyupgrade==3.21.1",
+    "ipython==9.7.0",
+    "tryceratops==2.4.1",
 ]
 
 
@@ -50,7 +47,7 @@ strict = true
 exclude = ["venv", ".venv", "alembic"]
 
 [tool.ruff]
-target-version = "py313"
+target-version = "py314"
 exclude = ["alembic"]
 
 [tool.ruff.lint]

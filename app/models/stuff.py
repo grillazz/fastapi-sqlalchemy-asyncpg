@@ -29,7 +29,7 @@ class Stuff(Base):
     name: Mapped[str] = mapped_column(String, primary_key=True, unique=True)
     description: Mapped[str | None]
 
-    nonsense: Mapped["Nonsense"] = relationship(
+    nonsense: Mapped[Nonsense] = relationship(
         "Nonsense", secondary="happy_hog.stuff_full_of_nonsense"
     )
 
@@ -47,7 +47,7 @@ class StuffFullOfNonsense(Base):
         UUID(as_uuid=True), default=uuid.uuid4, primary_key=True
     )
     stuff_id: Mapped[Stuff] = mapped_column(UUID, ForeignKey("happy_hog.stuff.id"))
-    nonsense_id: Mapped["Nonsense"] = mapped_column(
+    nonsense_id: Mapped[Nonsense] = mapped_column(
         UUID, ForeignKey("happy_hog.nonsense.id")
     )
     but_why: Mapped[str | None]

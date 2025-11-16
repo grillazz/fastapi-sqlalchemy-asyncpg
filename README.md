@@ -48,21 +48,9 @@ This example demonstrates the seamless integration of [FastAPI](https://fastapi.
 with [Pydantic 2.0](https://github.com/pydantic/pydantic), a robust and powerful data validation library.
 The integration is further enhanced by the use of [SQLAlchemy ORM](https://www.sqlalchemy.org/), a popular and feature-rich Object-Relational Mapping tool,
 and [PostgreSQL17](https://www.postgresql.org/docs/17/release.html) relational database.
-
 The entire stack is connected using the [asyncpg](https://github.com/MagicStack/asyncpg) Database Client Library,
 which provides a robust and efficient way to interact with PostgreSQL databases in Python,
 leveraging the power of asyncio and event loops.
-
-Notably, this example showcases the latest and greatest versions of SQLAlchemy and psycopg,
-which are renowned for their robustness, power, and speed. The inclusion of FastAPI adds a modern, fast, and high-performance web framework to the mix
-allowing for the rapid development of APIs with Python 3.13.
-
-FastAPI has received significant recognition in the industry, including a review on thoughtworks Technology Radar in April 2021,
-where it was classified as a Trial technology, with comments praising its performance, ease of use,
-and features such as API documentation using OpenAPI. Additionally, FastAPI was recognized in the Python Developers Survey 2023 Results,
-conducted by the Python Software Foundation and JetBrains, where it was reported that 1 in 4 Python developers use FastAPI,
-with a 4 percentage point increase from the previous year.
-
 
 ### Built With
 [![FastAPI][fastapi.tiangolo.com]][fastapi-url]
@@ -106,7 +94,7 @@ Next models were generated with https://github.com/agronholm/sqlacodegen
 
 To elevate the logging capabilities beyond simple colored output,
 this project has transitioned to [Rotoger](https://github.com/tinyplugins/rotoger).
-This powerful library provides a comprehensive, production-ready logging setup for modern asynchronous applications,
+This tiny library provides a comprehensive, production-ready logging setup for modern asynchronous applications,
 addressing challenges like log management, performance, and readability.
 
 Rotoger is built upon the excellent [structlog](http://structlog.org/) library and brings several key advantages:
@@ -218,7 +206,7 @@ I've included a few of my favorites to kick things off!
 
 ## Change Log
 <details>
-  <summary>2025 (3 changes)</summary>
+  <summary>2025 (7 changes)</summary>
       <ul>
          <li>[SEP 2 2025] add sample high availability with nginx as load balancer</li>   
          <li>[AUG 23 2025] intro exception handlers</li>
