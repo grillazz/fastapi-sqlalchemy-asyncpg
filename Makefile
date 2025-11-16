@@ -60,7 +60,7 @@ safety:	## Check for insecure dependencies
 
 .PHONY: py-upgrade
 py-upgrade:	## Upgrade Python syntax to a newer version
-	pyupgrade --py313-plus `find app -name "*.py"`
+	pyupgrade --py314-plus `find app -name "*.py"`
 
 .PHONY: lint
 lint:  ## Lint and format project code
