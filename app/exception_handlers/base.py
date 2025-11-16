@@ -1,9 +1,9 @@
 import orjson
 from attrs import define, field
 from fastapi import Request
-from rotoger import Rotoger
+from rotoger import get_logger
 
-logger = Rotoger().get_logger()
+logger = get_logger()
 
 
 @define(slots=True)

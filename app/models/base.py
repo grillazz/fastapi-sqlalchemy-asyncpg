@@ -2,12 +2,12 @@ from typing import Any
 
 from asyncpg import UniqueViolationError
 from fastapi import HTTPException, status
-from rotoger import Rotoger
+from rotoger import get_logger
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import DeclarativeBase, declared_attr
 
-logger = Rotoger().get_logger()
+logger = get_logger()
 
 
 class Base(DeclarativeBase):

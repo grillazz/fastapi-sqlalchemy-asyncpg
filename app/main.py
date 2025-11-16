@@ -5,7 +5,7 @@ import asyncpg
 from fastapi import Depends, FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from rotoger import Rotoger
+from rotoger import get_logger
 
 from app.api.health import router as health_router
 from app.api.ml import router as ml_router
@@ -18,7 +18,7 @@ from app.exception_handlers import register_exception_handlers
 from app.redis import get_redis
 from app.services.auth import AuthBearer
 
-logger = Rotoger().get_logger()
+logger = get_logger()
 templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")
 
 

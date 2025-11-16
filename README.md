@@ -24,7 +24,7 @@
       <ul>
         <li><a href="#make-will-help-you">Make will help you</a></li>
         <li><a href="#how-to-feed-database">How to feed database</a></li>
-        <li><a href="#structured-&-asynchronous-logging-with-rotoger">Structured & Asynchronous Logging with Rotoger</a></li>
+        <li><a href="#structured-asynchronous-logging-with-rotoger">Structured & Asynchronous Logging with Rotoger</a></li>
         <li><a href="#setup-user-auth">Setup user auth</a></li>
         <li><a href="#setup-local-env-with-uv">Setup local development with uv</a></li>
         <li><a href="#import-xlsx-files-with-polars-and-calamine">Import xlsx files with polars and calamine</a></li>

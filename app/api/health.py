@@ -2,12 +2,12 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query, Request, status
 from pydantic import EmailStr
-from rotoger import Rotoger
+from rotoger import get_logger
 from starlette.concurrency import run_in_threadpool
 
 from app.services.smtp import SMTPEmailService
 
-logger = Rotoger().get_logger()
+logger = get_logger()
 
 router = APIRouter()
 
