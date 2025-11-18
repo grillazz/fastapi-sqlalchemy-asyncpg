@@ -1,14 +1,11 @@
-FROM ubuntu:25.10 AS base
+FROM python:3.14-slim AS base
 
 RUN apt-get update -qy \
     && apt-get install -qyy \
     -o APT::Install-Recommends=false \
     -o APT::Install-Suggests=false \
     build-essential \
-    ca-certificates \
-    python3-setuptools \
-    python3.14-dev
-
+    ca-certificates
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
@@ -22,24 +19,12 @@ COPY uv.lock /_lock/
 
 RUN cd /_lock && uv sync --locked --no-install-project
 ##########################################################################
-FROM ubuntu:25.10
+FROM python:3.14-slim
 
 ENV PATH=/panettone/bin:$PATH
 
 RUN groupadd -r panettone
 RUN useradd -r -d /panettone -g panettone -N panettone
-
-STOPSIGNAL SIGINT
-
-RUN apt-get update -qy && apt-get install -qyy \
-    -o APT::Install-Recommends=false \
-    -o APT::Install-Suggests=false \
-    python3.14 \
-    libpython3.14 \
-    libpcre3
-
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY --from=base --chown=panettone:panettone /panettone /panettone
 
