@@ -1,4 +1,4 @@
-FROM python:3.14-slim AS base
+FROM python:3.14.0-slim-trixie AS base
 
 RUN apt-get update -qy \
     && apt-get install -qyy \
@@ -7,7 +7,7 @@ RUN apt-get update -qy \
     build-essential \
     ca-certificates
 
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.9.17 /uv /uvx /bin/
 
 ENV UV_LINK_MODE=copy \
     UV_COMPILE_BYTECODE=1 \
@@ -19,7 +19,7 @@ COPY uv.lock /_lock/
 
 RUN cd /_lock && uv sync --locked --no-install-project
 ##########################################################################
-FROM python:3.14-slim
+FROM python:3.14.0-slim-trixie
 
 ENV PATH=/panettone/bin:$PATH
 
