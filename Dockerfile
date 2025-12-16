@@ -11,7 +11,7 @@ COPY --from=ghcr.io/astral-sh/uv:0.9.17 /uv /uvx /bin/
 
 ENV UV_LINK_MODE=copy \
     UV_COMPILE_BYTECODE=1 \
-    UV_PYTHON=python3.14 \
+    UV_PYTHON=python3.14.0 \
     UV_PROJECT_ENVIRONMENT=/panettone
 
 COPY pyproject.toml /_lock/
