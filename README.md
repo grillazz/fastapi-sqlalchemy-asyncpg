@@ -48,21 +48,9 @@ This example demonstrates the seamless integration of [FastAPI](https://fastapi.
 with [Pydantic 2.0](https://github.com/pydantic/pydantic), a robust and powerful data validation library.
 The integration is further enhanced by the use of [SQLAlchemy ORM](https://www.sqlalchemy.org/), a popular and feature-rich Object-Relational Mapping tool,
 and [PostgreSQL17](https://www.postgresql.org/docs/17/release.html) relational database.
-
 The entire stack is connected using the [asyncpg](https://github.com/MagicStack/asyncpg) Database Client Library,
 which provides a robust and efficient way to interact with PostgreSQL databases in Python,
 leveraging the power of asyncio and event loops.
-
-Notably, this example showcases the latest and greatest versions of SQLAlchemy and psycopg,
-which are renowned for their robustness, power, and speed. The inclusion of FastAPI adds a modern, fast, and high-performance web framework to the mix
-allowing for the rapid development of APIs with Python 3.13.
-
-FastAPI has received significant recognition in the industry, including a review on thoughtworks Technology Radar in April 2021,
-where it was classified as a Trial technology, with comments praising its performance, ease of use,
-and features such as API documentation using OpenAPI. Additionally, FastAPI was recognized in the Python Developers Survey 2023 Results,
-conducted by the Python Software Foundation and JetBrains, where it was reported that 1 in 4 Python developers use FastAPI,
-with a 4 percentage point increase from the previous year.
-
 
 ### Built With
 [![FastAPI][fastapi.tiangolo.com]][fastapi-url]
@@ -73,6 +61,11 @@ with a 4 percentage point increase from the previous year.
 [![asyncpg][asyncpg.github.io]][asyncpg-url]
 [![alembic][alembic.sqlalchemy.org]][alembic-url]
 [![rich][rich.readthedocs.io]][rich-url]
+[![redis][redis.io]][redis-url]
+[![structlog][structlog.org]][structlog-url]
+[![rotoger][rotoger]][rotoger-url]
+[![granian][granian]][granian-url]
+
 
 
 
@@ -106,7 +99,7 @@ Next models were generated with https://github.com/agronholm/sqlacodegen
 
 To elevate the logging capabilities beyond simple colored output,
 this project has transitioned to [Rotoger](https://github.com/tinyplugins/rotoger).
-This powerful library provides a comprehensive, production-ready logging setup for modern asynchronous applications,
+This tiny library provides a comprehensive, production-ready logging setup for modern asynchronous applications,
 addressing challenges like log management, performance, and readability.
 
 Rotoger is built upon the excellent [structlog](http://structlog.org/) library and brings several key advantages:
@@ -218,7 +211,7 @@ I've included a few of my favorites to kick things off!
 
 ## Change Log
 <details>
-  <summary>2025 (3 changes)</summary>
+  <summary>2025 (7 changes)</summary>
       <ul>
          <li>[SEP 2 2025] add sample high availability with nginx as load balancer</li>   
          <li>[AUG 23 2025] intro exception handlers</li>
@@ -280,21 +273,27 @@ I've included a few of my favorites to kick things off!
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/python-has-powers/
 
-[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.116.1-009485?style=for-the-badge&logo=fastapi&logoColor=white
+[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.121.2-009485?style=for-the-badge&logo=fastapi&logoColor=white
 [fastapi-url]: https://fastapi.tiangolo.com/
-[pydantic.com]: https://img.shields.io/badge/Pydantic-2.12.0a1-e92063?style=for-the-badge&logo=pydantic&logoColor=white
+[pydantic.com]: https://img.shields.io/badge/Pydantic-2.12.4-e92063?style=for-the-badge&logo=pydantic&logoColor=white
 [pydantic-url]: https://docs.pydantic.dev/latest/
-[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.43-bb0000?color=bb0000&style=for-the-badge
+[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.44-bb0000?color=bb0000&style=for-the-badge&logo=python&logoColor=white
 [sqlalchemy-url]: https://docs.sqlalchemy.org/en/20/
-[uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.35.0-2094f3?style=for-the-badge&logo=uvicorn&logoColor=white
+[uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.38.0-2094f3?style=for-the-badge&logo=python&logoColor=white
 [uvicorn-url]: https://www.uvicorn.org/
 [asyncpg.github.io]: https://img.shields.io/badge/asyncpg-0.30.0-2e6fce?style=for-the-badge&logo=postgresql&logoColor=white
 [asyncpg-url]: https://magicstack.github.io/asyncpg/current/
-[pytest.org]: https://img.shields.io/badge/pytest-8.4.1-fff?style=for-the-badge&logo=pytest&logoColor=white
-[pytest-url]: https://docs.pytest.org/en/6.2.x/
-[alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.16.4-6BA81E?style=for-the-badge&logo=alembic&logoColor=white
+[pytest.org]: https://img.shields.io/badge/pytest-9.0.1-fff?style=for-the-badge&logo=pytest&logoColor=white
+[pytest-url]: https://docs.pytest.org/en/9.0.x/
+[alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.17.2-6BA81E?style=for-the-badge&logo=python&logoColor=white
 [alembic-url]: https://alembic.sqlalchemy.org/en/latest/
-[rich.readthedocs.io]: https://img.shields.io/badge/rich-14.1.0-009485?style=for-the-badge&logo=rich&logoColor=white
+[rich.readthedocs.io]: https://img.shields.io/badge/rich-14.2.0-009485?style=for-the-badge&logo=rich&logoColor=white
 [rich-url]: https://rich.readthedocs.io/en/latest/
-[redis.io]: https://img.shields.io/badge/redis-6.4.0-dc382d?style=for-the-badge&logo=redis&logoColor=white
+[redis.io]: https://img.shields.io/badge/redis-7.0.1-dc382d?style=for-the-badge&logo=redis&logoColor=white
 [redis-url]: https://redis.io/
+[structlog.org]: https://img.shields.io/badge/structlog-25.5.0-000000?style=for-the-badge&logo=python&logoColor=white
+[structlog-url]: https://www.structlog.org/en/stable/
+[rotoger]: https://img.shields.io/badge/rotoger-0.2.1-00bfff?style=for-the-badge&logo=python&logoColor=white
+[rotoger-url]: https://github.com/tinyplugins/rotoger
+[granian]: https://img.shields.io/badge/granian-2.5.7-4f6cb4?style=for-the-badge&logo=rust&logoColor=white
+[granian-url]:  https://github.com/emmett-framework/granian

@@ -12,8 +12,6 @@ logger = get_logger()
 router = APIRouter()
 
 
-
-
 @router.get("/redis", status_code=status.HTTP_200_OK)
 async def redis_check(request: Request):
     """

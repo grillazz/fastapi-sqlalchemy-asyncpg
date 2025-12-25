@@ -46,10 +46,10 @@ class Character(Base):
     abbrev: Mapped[str | None] = mapped_column(String(32))
     description: Mapped[str | None] = mapped_column(String(2056))
 
-    work: Mapped[list["Work"]] = relationship(
+    work: Mapped[list[Work]] = relationship(
         "Work", secondary="shakespeare.character_work", back_populates="character"
     )
-    paragraph: Mapped[list["Paragraph"]] = relationship(
+    paragraph: Mapped[list[Paragraph]] = relationship(
         "Paragraph", back_populates="character"
     )
 
@@ -122,11 +122,11 @@ class Work(Base):
     total_paragraphs: Mapped[int] = mapped_column(Integer)
     notes: Mapped[str | None] = mapped_column(Text)
 
-    character: Mapped[list["Character"]] = relationship(
+    character: Mapped[list[Character]] = relationship(
         "Character", secondary="shakespeare.character_work", back_populates="work"
     )
-    chapter: Mapped[list["Chapter"]] = relationship("Chapter", back_populates="work")
-    paragraph: Mapped[list["Paragraph"]] = relationship(
+    chapter: Mapped[list[Chapter]] = relationship("Chapter", back_populates="work")
+    paragraph: Mapped[list[Paragraph]] = relationship(
         "Paragraph", back_populates="work"
     )
 
@@ -170,8 +170,8 @@ class Chapter(Base):
     chapter_number: Mapped[int] = mapped_column(Integer)
     description: Mapped[str] = mapped_column(String(256))
 
-    work: Mapped["Work"] = relationship("Work", back_populates="chapter")
-    paragraph: Mapped[list["Paragraph"]] = relationship(
+    work: Mapped[Work] = relationship("Work", back_populates="chapter")
+    paragraph: Mapped[list[Paragraph]] = relationship(
         "Paragraph", back_populates="chapter"
     )
 
@@ -259,11 +259,9 @@ class Paragraph(Base):
     char_count: Mapped[int] = mapped_column(Integer)
     word_count: Mapped[int] = mapped_column(Integer)
 
-    character: Mapped["Character"] = relationship(
-        "Character", back_populates="paragraph"
-    )
-    chapter: Mapped["Chapter"] = relationship("Chapter", back_populates="paragraph")
-    work: Mapped["Work"] = relationship("Work", back_populates="paragraph")
+    character: Mapped[Character] = relationship("Character", back_populates="paragraph")
+    chapter: Mapped[Chapter] = relationship("Chapter", back_populates="paragraph")
+    work: Mapped[Work] = relationship("Work", back_populates="paragraph")
 
     @classmethod
     async def find(cls, db_session: AsyncSession, character: str):
