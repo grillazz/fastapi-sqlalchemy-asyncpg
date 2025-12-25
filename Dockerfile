@@ -1,20 +1,17 @@
-FROM ubuntu:25.10 AS base
+FROM python:3.14.0-slim-trixie AS base
 
 RUN apt-get update -qy \
     && apt-get install -qyy \
     -o APT::Install-Recommends=false \
     -o APT::Install-Suggests=false \
     build-essential \
-    ca-certificates \
-    python3-setuptools \
-    python3.14-dev
+    ca-certificates
 
-
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.9.17 /uv /uvx /bin/
 
 ENV UV_LINK_MODE=copy \
     UV_COMPILE_BYTECODE=1 \
-    UV_PYTHON=python3.14 \
+    UV_PYTHON=python3.14.0 \
     UV_PROJECT_ENVIRONMENT=/panettone
 
 COPY pyproject.toml /_lock/
@@ -22,24 +19,12 @@ COPY uv.lock /_lock/
 
 RUN cd /_lock && uv sync --locked --no-install-project
 ##########################################################################
-FROM ubuntu:25.10
+FROM python:3.14.0-slim-trixie
 
 ENV PATH=/panettone/bin:$PATH
 
 RUN groupadd -r panettone
 RUN useradd -r -d /panettone -g panettone -N panettone
-
-STOPSIGNAL SIGINT
-
-RUN apt-get update -qy && apt-get install -qyy \
-    -o APT::Install-Recommends=false \
-    -o APT::Install-Suggests=false \
-    python3.14 \
-    libpython3.14 \
-    libpcre3
-
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY --from=base --chown=panettone:panettone /panettone /panettone
 
