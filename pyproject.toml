@@ -40,8 +40,8 @@ dev-dependencies = [
     "ipython>=9.5.0",
     "sqlacodegen<=3.1.1",
     "tryceratops>=2.4.1",
-    "locust>=2.40.5"
-
+    "locust>=2.40.5",
+    "sqlalchemy-utils>=0.41.1"
 ]
 
 
