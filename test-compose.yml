@@ -1,9 +1,0 @@
-services:
-  api1:
-    environment:
-      - POSTGRES_DB=testdb
-
-  postgres:
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_DB=testdb
