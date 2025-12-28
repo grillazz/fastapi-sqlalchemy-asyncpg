@@ -35,8 +35,9 @@ def _create_db(conn) -> None:
 def _create_db_schema(conn) -> None:
     """Create a database schema if it doesn't exist."""
     try:
-        conn.execute(text("CREATE SCHEMA happy_hog"))
-        conn.execute(text("CREATE SCHEMA shakespeare"))
+        """Create a database schema if it doesn't exist."""
+        conn.execute(text("CREATE SCHEMA IF NOT EXISTS happy_hog"))
+        conn.execute(text("CREATE SCHEMA IF NOT EXISTS shakespeare"))
     except ProgrammingError:
         # This might be raised by databases that don't support `IF NOT EXISTS`
         # and the schema already exists. You can choose to ignore it.
@@ -54,7 +55,6 @@ async def start_db():
 
     # Now, connect to the newly created `testdb` with `test_engine`
     async with test_engine.begin() as conn:
-
         await conn.run_sync(_create_db_schema)
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)

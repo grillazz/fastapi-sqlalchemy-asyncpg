@@ -85,6 +85,19 @@ class Settings(BaseSettings):
     @computed_field
     @property
     def test_asyncpg_url(self) -> PostgresDsn:
+        """
+        This is a computed field that generates a PostgresDsn URL for the test database using asyncpg.
+
+        The URL is built using the MultiHostUrl.build method, which takes the following parameters:
+        - scheme: The scheme of the URL. In this case, it is "postgresql+asyncpg".
+        - username: The username for the Postgres database, retrieved from the POSTGRES_USER environment variable.
+        - password: The password for the Postgres database, retrieved from the POSTGRES_PASSWORD environment variable.
+        - host: The host of the Postgres database, retrieved from the POSTGRES_HOST environment variable.
+        - path: The path of the Postgres test database, retrieved from the POSTGRES_TEST_DB environment variable.
+
+        Returns:
+            PostgresDsn: The constructed PostgresDsn URL for the test database with asyncpg.
+        """
         return MultiHostUrl.build(
             scheme="postgresql+asyncpg",
             username=self.POSTGRES_USER,
@@ -92,6 +105,7 @@ class Settings(BaseSettings):
             host=self.POSTGRES_HOST,
             path=self.POSTGRES_TEST_DB,
         )
+
 
     @computed_field
     @property
