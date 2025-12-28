@@ -23,7 +23,7 @@ def anyio_backend(request):
     return request.param
 
 def _create_db(conn) -> None:
-    """Create a database schema if it doesn't exist."""
+    """Create the test database if it doesn't exist."""
     try:
         conn.execute(text("CREATE DATABASE testdb"))
     except ProgrammingError:
@@ -54,7 +54,7 @@ async def start_db():
 
     # Now, connect to the newly created `testdb` with `test_engine`
     async with test_engine.begin() as conn:
-        await conn.execute(text("COMMIT"))  # Ensure we're not in a transaction
+
         await conn.run_sync(_create_db_schema)
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
