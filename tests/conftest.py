@@ -1,5 +1,4 @@
 from collections.abc import AsyncGenerator
-from types import SimpleNamespace
 from typing import Any
 
 import pytest
@@ -7,7 +6,7 @@ from httpx import ASGITransport, AsyncClient
 from sqlalchemy import text
 from sqlalchemy.exc import ProgrammingError
 
-from app.database import engine, test_engine, get_test_db, get_db
+from app.database import engine, get_db, get_test_db, test_engine
 from app.main import app
 from app.models.base import Base
 from app.redis import get_redis
