@@ -34,7 +34,7 @@ dependencies = [
 
 [tool.uv]
 dev-dependencies = [
-    "ruff==0.14.9",
+    "ruff==0.14.10",
     "devtools[pygments]==0.12.2",
     "pyupgrade==3.21.2",
     "ipython==9.8.0",

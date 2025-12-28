@@ -1,9 +1,6 @@
 # pull official base image
 FROM postgres:17.6-alpine
 
-# run create.sql on init
-ADD create.sql /docker-entrypoint-initdb.d
-
 WORKDIR /home/gx/code
 
 COPY shakespeare_chapter.sql /home/gx/code/shakespeare_chapter.sql

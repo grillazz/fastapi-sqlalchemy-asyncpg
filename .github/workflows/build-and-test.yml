@@ -41,13 +41,11 @@ jobs:
           POSTGRES_DB: testdb
         ports:
           - 5432:5432
-        # needed because the postgres container does not provide a health check
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - uses: actions/checkout@v5
-      - name: Create database schema
-        run: PGPASSWORD=secret psql -h 127.0.0.1 -d testdb -U panettone -c "CREATE SCHEMA shakespeare; CREATE SCHEMA happy_hog;"
+      - name: Checkout repository
+        uses: actions/checkout@v5
 
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@v7
@@ -58,6 +56,4 @@ jobs:
         run: uv run --frozen ruff check .
 
       - name: Test with python ${{ matrix.python-version }}
-        run: uv run --frozen pytest
-
-
+        run: uv run pytest

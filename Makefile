@@ -45,7 +45,7 @@ docker-create-db-migration:  ## Create a new alembic database migration. Example
 # ====================================================================================
 .PHONY: docker-test
 docker-test:	## Run project tests
-	docker compose -f compose.yml -f test-compose.yml  run --rm api1 pytest tests --durations=0 -vv
+	docker compose -f compose.yml run --rm api1 pytest tests --durations=0 -vv
 
 .PHONY: docker-test-snapshot
 docker-test-snapshot:	## Run project tests and update snapshots
