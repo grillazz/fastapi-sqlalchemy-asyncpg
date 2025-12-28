@@ -106,7 +106,6 @@ class Settings(BaseSettings):
             path=self.POSTGRES_TEST_DB,
         )
 
-
     @computed_field
     @property
     def postgres_url(self) -> PostgresDsn:

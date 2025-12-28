@@ -1,5 +1,4 @@
 from collections.abc import AsyncGenerator
-from types import SimpleNamespace
 from typing import Any
 
 import pytest
@@ -8,7 +7,7 @@ from sqlalchemy import text
 from sqlalchemy.exc import ProgrammingError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.database import engine, test_engine, get_test_db, get_db
+from app.database import engine, get_db, test_engine
 from app.main import app
 from app.models.base import Base
 from app.redis import get_redis
@@ -22,6 +21,7 @@ from app.redis import get_redis
 )
 def anyio_backend(request):
     return request.param
+
 
 def _create_db(conn) -> None:
     """Create the test database if it doesn't exist."""
@@ -66,7 +66,7 @@ async def start_db():
 
 
 @pytest.fixture(scope="function")
-async def db_session(start_db) -> AsyncGenerator[AsyncSession, Any]:
+async def db_session() -> AsyncGenerator[AsyncSession, Any]:
     """
     Provide a transactional database session for each test function.
     Rolls back changes after the test.
