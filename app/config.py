@@ -33,7 +33,6 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str
     POSTGRES_HOST: str
     POSTGRES_DB: str
-    POSTGRES_TEST_USER: str
     POSTGRES_TEST_DB: str
 
     @computed_field

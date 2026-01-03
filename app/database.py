@@ -18,7 +18,7 @@ engine = create_async_engine(
 test_engine = create_async_engine(
     global_settings.test_asyncpg_url.unicode_string(),
     future=True,
-    echo=True,
+    echo=False,
 )
 
 # expire_on_commit=False will prevent attributes from being expired
