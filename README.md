@@ -30,6 +30,7 @@
         <li><a href="#import-xlsx-files-with-polars-and-calamine">Import xlsx files with polars and calamine</a></li>
         <li><a href="#worker-aware-async-scheduler">Schedule jobs</a></li>
         <li><a href="#smtp-setup">Email Configuration</a></li>
+        <li><a href="#testing-strategy">Testing Strategy</a></li>
         <li><a href="#uv-knowledge-and-inspirations">UV knowledge and inspirations</a></li> 
         <li><a href="#large-language-model">Integration with local LLM</a></li>  
         <li><a href="#ha-sample-with-nginx-as-load-balancer">High Availability sample with nginx as load balancer</a></li>
@@ -153,6 +154,18 @@ throughout the application lifecycle, optimizing resource usage.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Testing Strategy
+The project employs a robust testing strategy to ensure code quality and reliability. The test fixture infrastructure has been designed to provide strong test isolation, particularly concerning database interactions.
+
+A key component of this strategy is a `db_session` fixture that manages database transactions on a per-test basis. Each test runs within its own transaction, which is rolled back at the end of the test. This ensures that tests are independent and do not interfere with each other by leaving residual data in the database.
+
+This approach offers several benefits:
+- **Improved Test Isolation**: By rolling back transactions, each test starts with a clean database state.
+- **Explicit Session Management**: Test fixtures use explicit dependency overrides with the new session management, making the testing setup clear and maintainable.
+- **Direct Database Manipulation**: Where appropriate, tests use direct database manipulation for setting up test data, which can be more efficient and straightforward than using API endpoints.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ### Large Language Model
 The `/v1/ml/chat/` endpoint is designed to handle chat-based interactions with the LLM model.
 It accepts a user prompt and streams responses back in real-time.
@@ -210,6 +223,12 @@ I've included a few of my favorites to kick things off!
 
 
 ## Change Log
+<details>
+  <summary>2026 (1 change)</summary>
+      <ul>
+         <li>[JAN 11 2026] refactor test fixture infrastructure to improve test isolation :test_tube:</li>
+      </ul>
+</details>
 <details>
   <summary>2025 (7 changes)</summary>
       <ul>
