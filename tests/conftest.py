@@ -80,14 +80,13 @@ async def db_session():
 
 
 @pytest.fixture(scope="function")
-async def client(db_session) -> AsyncGenerator[AsyncClient, Any]:  # noqa: ARG001
+async def client(db_session) -> AsyncGenerator[AsyncClient, Any]:
     transport = ASGITransport(
         app=app,
     )
 
     async def override_get_db():
         yield db_session
-        await db_session.commit()
 
     async with AsyncClient(
         base_url="http://testserver/v1",
