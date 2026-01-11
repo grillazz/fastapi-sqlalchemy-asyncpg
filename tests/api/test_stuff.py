@@ -6,8 +6,8 @@ from inline_snapshot import snapshot
 from polyfactory.factories.pydantic_factory import ModelFactory
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.schemas.stuff import StuffSchema
 from app.models import Stuff
+from app.schemas.stuff import StuffSchema
 
 pytestmark = pytest.mark.anyio
 
@@ -16,7 +16,7 @@ class StuffFactory(ModelFactory[StuffSchema]):
     __model__ = StuffSchema
 
 
-async def test_add_stuff(client: AsyncClient, db_session: AsyncSession):
+async def test_add_stuff(client: AsyncClient):
     stuff = StuffFactory.build(factory_use_constructors=True).model_dump(mode="json")
     response = await client.post("/stuff", json=stuff)
     assert response.status_code == status.HTTP_201_CREATED
@@ -40,9 +40,8 @@ async def test_get_stuff(client: AsyncClient, db_session: AsyncSession):
     assert response.json() == snapshot(
         {"no_response": "The requested resource was not found"}
     )
+    # test if db_session and client share the same in-memory db and rollback works
     stuff = StuffFactory.build(factory_use_constructors=True).model_dump(mode="json")
-    # await client.post("/stuff", json=stuff)
-    # name = stuff["name"]
     stuff = Stuff(**stuff)
     name = stuff.name
     db_session.add(stuff)

@@ -2,12 +2,11 @@ from collections.abc import AsyncGenerator
 from typing import Any
 
 import pytest
-from fastapi.exceptions import ResponseValidationError
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy import text
-from sqlalchemy.exc import ProgrammingError, SQLAlchemyError
+from sqlalchemy.exc import ProgrammingError
 
-from app.database import engine, get_db, test_engine, TestAsyncSessionFactory
+from app.database import TestAsyncSessionFactory, engine, get_db, test_engine
 from app.main import app
 from app.models.base import Base
 from app.redis import get_redis
