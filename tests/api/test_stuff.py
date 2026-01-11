@@ -4,7 +4,9 @@ from fastapi import status
 from httpx import AsyncClient
 from inline_snapshot import snapshot
 from polyfactory.factories.pydantic_factory import ModelFactory
+from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.models import Stuff
 from app.schemas.stuff import StuffSchema
 
 pytestmark = pytest.mark.anyio
@@ -32,22 +34,26 @@ async def test_add_stuff(client: AsyncClient):
     )
 
 
-async def test_get_stuff(client: AsyncClient):
+async def test_get_stuff(client: AsyncClient, db_session: AsyncSession):
     response = await client.get("/stuff/nonexistent")
     assert response.status_code == status.HTTP_404_NOT_FOUND
     assert response.json() == snapshot(
         {"no_response": "The requested resource was not found"}
     )
+    # test if db_session and client share the same in-memory db and rollback works
     stuff = StuffFactory.build(factory_use_constructors=True).model_dump(mode="json")
-    await client.post("/stuff", json=stuff)
-    name = stuff["name"]
+    stuff = Stuff(**stuff)
+    name = stuff.name
+    db_session.add(stuff)
+    await db_session.commit()
+
     response = await client.get(f"/stuff/{name}")
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == snapshot(
         {
             "id": IsUUID(4),
-            "name": stuff["name"],
-            "description": stuff["description"],
+            "name": stuff.name,
+            "description": stuff.description,
         }
     )
 

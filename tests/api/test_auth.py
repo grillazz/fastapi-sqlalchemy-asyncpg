@@ -37,17 +37,28 @@ async def test_add_user(client: AsyncClient):
 
 # TODO: parametrize test with diff urls including 404 and 401
 async def test_get_token(client: AsyncClient):
-    payload = {"email": "joe@grillazz.com", "password": "s1lly"}
+    # Create the user first
+    user_payload = {
+        "email": "joe@grillazz.com",
+        "first_name": "Joe",
+        "last_name": "Garcia",
+        "password": "s1lly",
+    }
+    create_user_response = await client.post("/user/", json=user_payload)
+    assert create_user_response.status_code == status.HTTP_201_CREATED
+
+    # Now request the token
+    token_payload = {"email": "joe@grillazz.com", "password": "s1lly"}
     response = await client.post(
         "/user/token",
-        data=payload,
+        data=token_payload,
         headers={"Content-Type": "application/x-www-form-urlencoded"},
     )
     assert response.status_code == status.HTTP_201_CREATED
     claimset = jwt.decode(
         response.json()["access_token"], options={"verify_signature": False}
     )
-    assert claimset["email"] == payload["email"]
+    assert claimset["email"] == token_payload["email"]
     assert claimset["expiry"] == IsPositiveFloat()
     assert claimset["platform"] == "python-httpx/0.28.1"
 
