@@ -10,7 +10,7 @@ services:
     command: bash -c "
       uvicorn app.main:app
       --host 0.0.0.0 --port 8080
-      --lifespan=on --use-colors --loop uvloop --http httptools
+      --lifespan=on --use-colors --loop uvloop --http httptools --reload
       "
     volumes:
       - ./app:/panettone/app

@@ -34,6 +34,7 @@
         <li><a href="#uv-knowledge-and-inspirations">UV knowledge and inspirations</a></li> 
         <li><a href="#large-language-model">Integration with local LLM</a></li>  
         <li><a href="#ha-sample-with-nginx-as-load-balancer">High Availability sample with nginx as load balancer</a></li>
+        <li><a href="#performance-profiling-with-pyinstrument">Performance Profiling with Pyinstrument</a></li>
       </ul>
     </li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -193,6 +194,35 @@ make docker-up-ha
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
+### Performance Profiling with Pyinstrument
+To help identify performance bottlenecks and analyze request handling, this project integrates `pyinstrument` for on-demand profiling.
+The `ProfilingMiddleware` allows you to profile any endpoint by simply adding a query parameter to your request.
+
+When profiling is enabled for a request, `pyinstrument` will monitor the execution, and the server will respond with a detailed HTML report that you can download and view in your browser.
+This report provides a visual breakdown of where time is spent within your code.
+
+To enable profiling for an endpoint, you need to:
+1. Add a `pyprofile` query parameter to the endpoint's signature. This makes the functionality discoverable through the API documentation.
+2. Make a request to the endpoint with the query parameter `?pyprofile=true`.
+
+Here is an example from the `redis_check` health endpoint:
+```python
+from typing import Annotated
+from fastapi import Query
+
+@router.get("/redis", status_code=status.HTTP_200_OK)
+async def redis_check(
+    request: Request,
+    pyprofile: Annotated[
+        bool, Query(description="Enable profiler for this request")
+    ] = False,
+):
+    # ... endpoint logic
+```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 ### UV knowledge and inspirations
 - https://docs.astral.sh/uv/
 - https://hynek.me/articles/docker-uv/
@@ -226,7 +256,8 @@ I've included a few of my favorites to kick things off!
 <details>
   <summary>2026 (1 change)</summary>
       <ul>
-         <li>[JAN 11 2026] refactor test fixture infrastructure to improve test isolation :test_tube:</li>
+        <li>[FEB 5 2026] add profiler middleware :crystal_ball:</li>
+        <li>[JAN 11 2026] refactor test fixture infrastructure to improve test isolation :test_tube:</li>
       </ul>
 </details>
 <details>

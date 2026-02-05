@@ -6,6 +6,8 @@ from fastapi import Depends, FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from rotoger import get_logger
+from starlette.middleware import Middleware
+from starlette.middleware.gzip import GZipMiddleware
 
 from app.api.health import router as health_router
 from app.api.ml import router as ml_router
@@ -15,6 +17,7 @@ from app.api.stuff import router as stuff_router
 from app.api.user import router as user_router
 from app.config import settings as global_settings
 from app.exception_handlers import register_exception_handlers
+from app.middleware.profiler import ProfilingMiddleware
 from app.redis import get_redis
 from app.services.auth import AuthBearer
 
@@ -44,11 +47,18 @@ async def lifespan(app: FastAPI):
         await app.postgres_pool.close()
 
 
+middleware = [
+    Middleware(GZipMiddleware),
+    Middleware(ProfilingMiddleware),
+]
+
+
 def create_app() -> FastAPI:
     app = FastAPI(
         title="Stuff And Nonsense API",
         version="1.22.0",
         lifespan=lifespan,
+        middleware=middleware,
     )
     app.include_router(stuff_router)
     app.include_router(nonsense_router)
