@@ -21,6 +21,7 @@ from app.redis import get_redis
 def anyio_backend(request):
     return request.param
 
+
 def _create_db(conn) -> None:
     """Create the test database if it doesn't exist."""
     try:

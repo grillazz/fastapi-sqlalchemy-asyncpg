@@ -15,7 +15,7 @@ router = APIRouter()
 @router.get("/redis", status_code=status.HTTP_200_OK)
 async def redis_check(
     request: Request,
-    pyprofile: Annotated[
+    pyprofile: Annotated[  # noqa: ARG001
         bool, Query(description="Enable profiler for this request")
     ] = False,
 ):

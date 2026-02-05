@@ -48,9 +48,9 @@ async def lifespan(app: FastAPI):
 
 
 middleware = [
-        Middleware(GZipMiddleware),
-        Middleware(ProfilingMiddleware),
-    ]
+    Middleware(GZipMiddleware),
+    Middleware(ProfilingMiddleware),
+]
 
 
 def create_app() -> FastAPI:
@@ -77,8 +77,6 @@ def create_app() -> FastAPI:
 
     # Register exception handlers
     register_exception_handlers(app)
-
-
 
     @app.get("/index", response_class=HTMLResponse)
     def get_index(request: Request):
