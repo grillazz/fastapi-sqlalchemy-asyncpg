@@ -34,7 +34,7 @@
         <li><a href="#uv-knowledge-and-inspirations">UV knowledge and inspirations</a></li> 
         <li><a href="#large-language-model">Integration with local LLM</a></li>  
         <li><a href="#ha-sample-with-nginx-as-load-balancer">High Availability sample with nginx as load balancer</a></li>
-        <li><a heref="#performance-profiling-with-pyinstrument">Performance Profiling with Pyinstrument</a></li>
+        <li><a href="#performance-profiling-with-pyinstrument">Performance Profiling with Pyinstrument</a></li>
       </ul>
     </li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -256,7 +256,7 @@ I've included a few of my favorites to kick things off!
 <details>
   <summary>2026 (1 change)</summary>
       <ul>
-        <li>[FEB 5 2026] add profiler middleware :crystal ball:</li> 
+        <li>[FEB 5 2026] add profiler middleware :crystal_ball:</li>
         <li>[JAN 11 2026] refactor test fixture infrastructure to improve test isolation :test_tube:</li>
       </ul>
 </details>
