@@ -30,6 +30,7 @@ dependencies = [
     "granian==2.6.0",
     "apscheduler[redis,sqlalchemy]>=4.0.0a6",
     "rotoger==0.2.1",
+    "pyinstrument>=5.1.2",
 ]
 
 [tool.uv]

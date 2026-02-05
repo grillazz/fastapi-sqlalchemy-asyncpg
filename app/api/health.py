@@ -13,7 +13,12 @@ router = APIRouter()
 
 
 @router.get("/redis", status_code=status.HTTP_200_OK)
-async def redis_check(request: Request):
+async def redis_check(
+    request: Request,
+    pyprofile: Annotated[
+        bool, Query(description="Enable profiler for this request")
+    ] = False,
+):
     """
     Endpoint to check Redis health and retrieve server information.
 
@@ -23,6 +28,7 @@ async def redis_check(request: Request):
 
     Args:
         request (Request): The incoming HTTP request.
+        pyprofile (bool, optional): If `True`, enables the profiler for this request. Defaults to `False`.
 
     Returns:
         dict or None: Returns Redis server information as a dictionary if successful,
