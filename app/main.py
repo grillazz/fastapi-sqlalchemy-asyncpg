@@ -5,7 +5,7 @@ import asyncpg
 from fastapi import Depends, FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from rotoger import get_logger
+from app.services.logging import get_logger
 from starlette.middleware import Middleware
 from starlette.middleware.gzip import GZipMiddleware
 
@@ -21,12 +21,13 @@ from app.middleware.profiler import ProfilingMiddleware
 from app.redis import get_redis
 from app.services.auth import AuthBearer
 
-logger = get_logger()
+# logger = get_logger()
 templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    app.logger = get_logger()
     app.redis = await get_redis()
     postgres_dsn = global_settings.postgres_url.unicode_string()
     try:
@@ -35,12 +36,12 @@ async def lifespan(app: FastAPI):
             min_size=5,
             max_size=20,
         )
-        await logger.ainfo(
+        await app.logger.ainfo(
             "Postgres pool created", idle_size=app.postgres_pool.get_idle_size()
         )
         yield
     except Exception as e:
-        await logger.aerror("Error during app startup", error=repr(e))
+        await app.logger.aerror("Error during app startup", error=repr(e))
         raise
     finally:
         await app.redis.close()

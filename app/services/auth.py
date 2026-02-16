@@ -3,7 +3,7 @@ import time
 import jwt
 from fastapi import HTTPException, Request
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from rotoger import get_logger
+from app.services.logging import get_logger
 
 from app.config import settings as global_settings
 from app.models.user import User

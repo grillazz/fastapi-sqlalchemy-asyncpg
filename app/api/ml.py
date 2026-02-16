@@ -2,7 +2,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, Form
 from fastapi.responses import StreamingResponse
-from rotoger import get_logger
+from app.services.logging import get_logger
 
 from app.services.llm import get_llm_service
 

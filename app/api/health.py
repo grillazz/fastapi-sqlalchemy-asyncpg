@@ -2,7 +2,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query, Request, status
 from pydantic import EmailStr
-from rotoger import get_logger
+from app.services.logging import get_logger
 from starlette.concurrency import run_in_threadpool
 
 from app.services.smtp import SMTPEmailService

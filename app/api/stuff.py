@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Request, status
-from rotoger import get_logger
+from app.services.logging import get_logger
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
