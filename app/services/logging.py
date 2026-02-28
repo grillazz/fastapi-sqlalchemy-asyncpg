@@ -7,90 +7,80 @@ import orjson
 import structlog
 from whenever._whenever import Instant
 
+# ---------------------------------------------------------------------------
+# Constants / defaults
+# ---------------------------------------------------------------------------
+_DEFAULT_LOG_PATH = "."
+_DEFAULT_MAX_BYTES = 10 * 1024 * 1024  # 10 MiB
+_DEFAULT_BACKUP_COUNT = 5
 
-def _configure_logger() -> structlog.BoundLogger:
-    """
-    Configures and returns a structlog logger with a rotating file handler.
+# Generic registry: add any stdlib logger name + its desired level here.
+_STDLIB_LOGGERS: dict[str, int] = {
+    "root": logging.INFO,
+    "uvicorn": logging.INFO,
+    "sqlalchemy": logging.WARNING,
+}
 
-    The logger is configured using environment variables for path, file size,
-    and backup count. It formats logs as JSON.
-    """
-    log_dir = Path(os.environ.get("ROTOGER_LOG_PATH", "."))
+# Shared processor chain used by both structlog and the stdlib formatter.
+_SHARED_PROCESSORS: list[structlog.types.Processor] = [
+    structlog.contextvars.merge_contextvars,
+    structlog.stdlib.add_log_level,
+    structlog.stdlib.add_logger_name,
+    structlog.stdlib.PositionalArgumentsFormatter(),
+    structlog.processors.TimeStamper(fmt="iso", utc=True),
+    structlog.processors.format_exc_info,
+]
+
+
+def _build_handler() -> RotatingFileHandler:
+    log_dir = Path(os.getenv("ROTOGER_LOG_PATH", _DEFAULT_LOG_PATH))
     log_dir.mkdir(parents=True, exist_ok=True)
-    log_date = Instant.now().py_datetime().strftime("%Y%m%d")
-    log_path = log_dir / f"{log_date}_{os.getpid()}.log"
-
-    # Use int() to ensure env var values are correctly typed
-    max_bytes = int(os.environ.get("ROTOGER_LOG_MAX_BYTES", 10 * 1024 * 1024))
-    backup_count = int(os.environ.get("ROTOGER_LOG_BACKUP_COUNT", 5))
+    log_path = log_dir / f"{Instant.now().py_datetime().strftime('%Y%m%d')}_{os.getpid()}.log"
 
     handler = RotatingFileHandler(
         filename=log_path,
-        maxBytes=max_bytes,
-        backupCount=backup_count,
+        maxBytes=int(os.getenv("ROTOGER_LOG_MAX_BYTES", _DEFAULT_MAX_BYTES)),
+        backupCount=int(os.getenv("ROTOGER_LOG_BACKUP_COUNT", _DEFAULT_BACKUP_COUNT)),
         encoding="utf-8",
-
     )
+    handler.setFormatter(
+        structlog.stdlib.ProcessorFormatter(
+            foreign_pre_chain=_SHARED_PROCESSORS,
+            processor=structlog.processors.JSONRenderer(
+                serializer=lambda *a, **kw: orjson.dumps(*a, **kw).decode()
+            ),
+        )
+    )
+    return handler
 
-    # Use structlog's standard library integration
+
+def _configure_logger() -> structlog.BoundLogger:
+    """Configure structlog + stdlib loggers and return a bound logger."""
     structlog.configure(
         processors=[
-            structlog.contextvars.merge_contextvars,
-            structlog.stdlib.add_log_level,
-            structlog.stdlib.PositionalArgumentsFormatter(),
-            structlog.processors.TimeStamper(fmt="iso", utc=True),
-            structlog.processors.format_exc_info,
+            *_SHARED_PROCESSORS,
             structlog.stdlib.ProcessorFormatter.wrap_for_formatter,
-            # structlog.stdlib.add_logger_name,
         ],
         logger_factory=structlog.stdlib.LoggerFactory(),
         wrapper_class=structlog.stdlib.BoundLogger,
         cache_logger_on_first_use=True,
     )
 
-    # Configure the underlying standard logger
-    formatter = structlog.stdlib.ProcessorFormatter(
-        # These run after the processors defined in structlog.configure
-        foreign_pre_chain=[
-            structlog.contextvars.merge_contextvars,
-            structlog.stdlib.add_log_level,
-            structlog.stdlib.PositionalArgumentsFormatter(),
-            structlog.processors.TimeStamper(fmt="iso", utc=True),
-            structlog.processors.format_exc_info,
-            structlog.stdlib.add_logger_name,
-        ],
-        processor=structlog.processors.JSONRenderer(
-            serializer=lambda *args, **kwargs: orjson.dumps(*args, **kwargs).decode()
-        ),
-    )
-    handler.setFormatter(formatter)
-    root_logger = logging.getLogger("root")  # Get the root logger
-    root_logger.addHandler(handler)
-    root_logger.propagate = False  # Prevent logs from being propagated to the root logger
-    root_logger.setLevel(logging.INFO)
+    handler = _build_handler()
 
-    uvicorn_logger = logging.getLogger("uvicorn")  # Get the root logger
-    uvicorn_logger.addHandler(handler)
-    uvicorn_logger.propagate = False  # Prevent logs from being propagated to the root logger
-    uvicorn_logger.setLevel(logging.INFO)
+    for name, level in _STDLIB_LOGGERS.items():
+        logger = logging.getLogger(name)
+        logger.addHandler(handler)
+        logger.propagate = False
+        logger.setLevel(level)
 
-    sa_logger = logging.getLogger("sqlalchemy")  # Get the root logger
-    sa_logger.addHandler(handler)
-    sa_logger.propagate = False  # Prevent logs from being propagated to the root logger
-    sa_logger.setLevel(logging.WARNING)
-
-    # Set SQLAlchemy engine logger level specifically if needed
-    # logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
     return structlog.get_logger()
 
 
-
-# Module-level singleton instance
+# Module-level singleton
 _logger_instance = _configure_logger()
 
 
 def get_logger() -> structlog.BoundLogger:
-    """
-    Returns the configured singleton logger instance.
-    """
+    """Return the configured singleton logger instance."""
     return _logger_instance
