@@ -5,7 +5,7 @@ import asyncpg
 from fastapi import Depends, FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from app.services.logging import get_logger
+from rotoger import get_logger
 from starlette.middleware import Middleware
 from starlette.middleware.gzip import GZipMiddleware
 
@@ -21,7 +21,6 @@ from app.middleware.profiler import ProfilingMiddleware
 from app.redis import get_redis
 from app.services.auth import AuthBearer
 
-# logger = get_logger()
 templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")
 
 

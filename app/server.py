@@ -1,5 +1,6 @@
 from granian import Granian
 
+
 def startup():
     print("Server starting up...")
 

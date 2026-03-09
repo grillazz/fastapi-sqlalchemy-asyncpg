@@ -1,5 +1,9 @@
+from collections.abc import Callable
+from typing import Annotated, Any
+
 from fastapi import APIRouter, Depends, HTTPException, Request, status
-from app.services.logging import get_logger
+from pydantic import ValidationError, WrapValidator
+from rotoger import get_logger
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -22,12 +26,26 @@ async def create_random_stuff(
     return {"id": str(random_stuff.id)}
 
 
+failed_items: list[dict] = []  # Global or pass via context
+
+def catch_invalid(v: Any, handler: Callable[[Any], Any] ) -> Any:
+    try:
+        return handler(v)
+    except ValidationError:
+        failed_items.append(v)  # Intercept here!
+        return None  # Or raise if needed
+
 @router.post("/add_many", status_code=status.HTTP_201_CREATED)
 async def create_multi_stuff(
-    payload: list[StuffSchema], db_session: AsyncSession = Depends(get_db)
+    payload: list[Annotated[StuffSchema, WrapValidator(catch_invalid)]], db_session: AsyncSession = Depends(get_db)
 ):
+    await logger.ainfo(f">>>{failed_items}")
     try:
-        stuff_instances = [Stuff(**stuff.model_dump()) for stuff in payload]
+        await logger.ainfo(f">>>{failed_items}")
+        await logger.ainfo(f">>>{payload}")
+        stuff_instances = [
+            Stuff(**stuff.model_dump()) for stuff in payload if stuff is not None
+        ]
         db_session.add_all(stuff_instances)
         await db_session.commit()
     except SQLAlchemyError as ex:
@@ -39,6 +57,7 @@ async def create_multi_stuff(
         await logger.ainfo(
             f"{len(stuff_instances)} Stuff instances inserted into the database."
         )
+        return {"inserted": len(stuff_instances)}
         return True
 
 

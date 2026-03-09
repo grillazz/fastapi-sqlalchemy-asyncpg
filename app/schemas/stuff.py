@@ -1,7 +1,7 @@
-from typing import Any, Callable
+from typing import Any
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, WrapValidator, ValidationError
+from pydantic import BaseModel, ConfigDict, Field
 
 config = ConfigDict(from_attributes=True)
 
