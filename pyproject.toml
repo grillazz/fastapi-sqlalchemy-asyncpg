@@ -22,14 +22,14 @@ dependencies = [
     "redis==7.1.0",
     "bcrypt==5.0.0",
     "polars[pyarrow]==1.36.1",
-    "python-multipart==0.0.20",
+    "python-multipart==0.0.22",
     "fastexcel==0.18.0",
     "inline-snapshot==0.31.1",
     "dirty-equals==0.11",
     "polyfactory==3.1.0",
     "granian==2.6.0",
     "apscheduler[redis,sqlalchemy]>=4.0.0a6",
-    "rotoger==0.2.1",
+    "rotoger==0.3.0",
     "pyinstrument>=5.1.2",
 ]
 

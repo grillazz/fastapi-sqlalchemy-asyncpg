@@ -5,7 +5,6 @@ from pydantic import BaseModel, ConfigDict, Field
 
 config = ConfigDict(from_attributes=True)
 
-
 class RandomStuff(BaseModel):
     chaos: dict[str, Any] = Field(
         ..., description="Pretty chaotic JSON data can be added here..."
