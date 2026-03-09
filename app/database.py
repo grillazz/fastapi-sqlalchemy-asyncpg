@@ -1,7 +1,7 @@
 from collections.abc import AsyncGenerator
 
 from fastapi.exceptions import ResponseValidationError
-from app.services.logging import get_logger
+from rotoger import get_logger
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 

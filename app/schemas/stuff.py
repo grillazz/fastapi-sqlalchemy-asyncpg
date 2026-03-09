@@ -1,10 +1,9 @@
-from typing import Any
+from typing import Any, Callable
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, WrapValidator, ValidationError
 
 config = ConfigDict(from_attributes=True)
-
 
 class RandomStuff(BaseModel):
     chaos: dict[str, Any] = Field(

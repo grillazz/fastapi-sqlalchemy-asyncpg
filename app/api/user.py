@@ -1,7 +1,7 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Form, HTTPException, Request, status
-from app.services.logging import get_logger
+from rotoger import get_logger
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db

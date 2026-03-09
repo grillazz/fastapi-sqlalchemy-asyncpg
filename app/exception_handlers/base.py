@@ -1,7 +1,7 @@
 import orjson
 from attrs import define, field
 from fastapi import Request
-from app.services.logging import get_logger
+from rotoger import get_logger
 
 logger = get_logger()
 
