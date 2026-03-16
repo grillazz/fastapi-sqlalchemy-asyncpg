@@ -1,4 +1,4 @@
-FROM python:3.14.0-slim-trixie AS base
+FROM python:3.14.3-slim-trixie AS base
 
 RUN apt-get update -qy \
     && apt-get install -qyy \
@@ -19,7 +19,7 @@ COPY uv.lock /_lock/
 
 RUN cd /_lock && uv sync --locked --no-install-project
 ##########################################################################
-FROM python:3.14.0-slim-trixie
+FROM python:3.14.3-slim-trixie
 
 ENV PATH=/panettone/bin:$PATH
 
