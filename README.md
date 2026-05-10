@@ -315,7 +315,7 @@ I've included a few of my favorites to kick things off!
 [license-shield]: https://img.shields.io/github/license/grillazz/fastapi-sqlalchemy-asyncpg.svg?style=for-the-badge
 [license-url]: https://github.com/grillazz/fastapi-sqlalchemy-asyncpg/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/python-has-powers/
+[linkedin-url]: https://www.linkedin.com/in/ordinary-hobbit/
 
 [fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.124.4-009485?style=for-the-badge&logo=fastapi&logoColor=white
 [fastapi-url]: https://fastapi.tiangolo.com/
