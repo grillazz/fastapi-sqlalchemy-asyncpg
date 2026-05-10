@@ -46,13 +46,7 @@
     
 ## About The Project
 
-This example demonstrates the seamless integration of [FastAPI](https://fastapi.tiangolo.com/), a modern, high-performance web framework,
-with [Pydantic 2.0](https://github.com/pydantic/pydantic), a robust and powerful data validation library.
-The integration is further enhanced by the use of [SQLAlchemy ORM](https://www.sqlalchemy.org/), a popular and feature-rich Object-Relational Mapping tool,
-and [PostgreSQL17](https://www.postgresql.org/docs/17/release.html) relational database.
-The entire stack is connected using the [asyncpg](https://github.com/MagicStack/asyncpg) Database Client Library,
-which provides a robust and efficient way to interact with PostgreSQL databases in Python,
-leveraging the power of asyncio and event loops.
+This demonstration application showcases the powerful integration of [FastAPI](https://fastapi.tiangolo.com/)—a modern, high-performance web framework—with [Pydantic 2.0](https://github.com/pydantic/pydantic) for robust data validation. The backend architecture is further reinforced by leveraging the [SQLAlchemy ORM](https://www.sqlalchemy.org/) along with an asynchronous connection to a [PostgreSQL 17](https://www.postgresql.org/docs/17/release.html) relational database. High-throughput communication across the stack is achieved using the [asyncpg](https://github.com/MagicStack/asyncpg) database client library, delivering an efficient, non-blocking interface to process database transactions seamlessly within Python's asyncio event loop.
 
 ### Built With
 [![FastAPI][fastapi.tiangolo.com]][fastapi-url]
@@ -76,7 +70,7 @@ leveraging the power of asyncio and event loops.
 ## Getting Started
 
 ### Make will help you
-To build , run and test and more ... use magic of make help to play with this project.
+To simplify building, running, testing, and managing this project, a `Makefile` is provided. Run `make help` to see a full list of available commands.
 ```shell
 1. make docker-build
 2. make docker-up > alternatively > make docker-up-granian
@@ -90,10 +84,9 @@ To build , run and test and more ... use magic of make help to play with this pr
 
 ### How to feed database
 
-It took me a while to find nice data set. Hope works of Shakespeare as example will be able to cover 
-first part with read only declarative base configuration and all type of funny selects :)
-Data set is coming form https://github.com/catherinedevlin/opensourceshakespeare
-Next models were generated with https://github.com/agronholm/sqlacodegen
+Finding a robust and engaging dataset can be challenging. Fortunately, the works of William Shakespeare provide an excellent foundation for demonstrating read-only declarative models and executing a wide variety of complex queries.
+The dataset originates from https://github.com/catherinedevlin/opensourceshakespeare.
+The data models were subsequently generated using https://github.com/agronholm/sqlacodegen.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -254,8 +247,9 @@ I've included a few of my favorites to kick things off!
 
 ## Change Log
 <details>
-  <summary>2026 (1 change)</summary>
+  <summary>2026 (2 changes)</summary>
       <ul>
+        <li>[MAY 10 2026] bump project to Python 3.14 :fast_forward:</li>
         <li>[FEB 5 2026] add profiler middleware :crystal_ball:</li>
         <li>[JAN 11 2026] refactor test fixture infrastructure to improve test isolation :test_tube:</li>
       </ul>
@@ -323,27 +317,27 @@ I've included a few of my favorites to kick things off!
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/python-has-powers/
 
-[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.121.2-009485?style=for-the-badge&logo=fastapi&logoColor=white
+[fastapi.tiangolo.com]: https://img.shields.io/badge/FastAPI-0.124.4-009485?style=for-the-badge&logo=fastapi&logoColor=white
 [fastapi-url]: https://fastapi.tiangolo.com/
-[pydantic.com]: https://img.shields.io/badge/Pydantic-2.12.4-e92063?style=for-the-badge&logo=pydantic&logoColor=white
+[pydantic.com]: https://img.shields.io/badge/Pydantic-2.12.5-e92063?style=for-the-badge&logo=pydantic&logoColor=white
 [pydantic-url]: https://docs.pydantic.dev/latest/
-[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.44-bb0000?color=bb0000&style=for-the-badge&logo=python&logoColor=white
+[sqlalchemy.org]: https://img.shields.io/badge/SQLAlchemy-2.0.45-bb0000?color=bb0000&style=for-the-badge&logo=python&logoColor=white
 [sqlalchemy-url]: https://docs.sqlalchemy.org/en/20/
 [uvicorn.org]: https://img.shields.io/badge/Uvicorn-0.38.0-2094f3?style=for-the-badge&logo=python&logoColor=white
 [uvicorn-url]: https://www.uvicorn.org/
-[asyncpg.github.io]: https://img.shields.io/badge/asyncpg-0.30.0-2e6fce?style=for-the-badge&logo=postgresql&logoColor=white
+[asyncpg.github.io]: https://img.shields.io/badge/asyncpg-0.31.0-2e6fce?style=for-the-badge&logo=postgresql&logoColor=white
 [asyncpg-url]: https://magicstack.github.io/asyncpg/current/
-[pytest.org]: https://img.shields.io/badge/pytest-9.0.1-fff?style=for-the-badge&logo=pytest&logoColor=white
+[pytest.org]: https://img.shields.io/badge/pytest-9.0.2-fff?style=for-the-badge&logo=pytest&logoColor=white
 [pytest-url]: https://docs.pytest.org/en/9.0.x/
 [alembic.sqlalchemy.org]: https://img.shields.io/badge/alembic-1.17.2-6BA81E?style=for-the-badge&logo=python&logoColor=white
 [alembic-url]: https://alembic.sqlalchemy.org/en/latest/
 [rich.readthedocs.io]: https://img.shields.io/badge/rich-14.2.0-009485?style=for-the-badge&logo=rich&logoColor=white
 [rich-url]: https://rich.readthedocs.io/en/latest/
-[redis.io]: https://img.shields.io/badge/redis-7.0.1-dc382d?style=for-the-badge&logo=redis&logoColor=white
+[redis.io]: https://img.shields.io/badge/redis-7.1.0-dc382d?style=for-the-badge&logo=redis&logoColor=white
 [redis-url]: https://redis.io/
 [structlog.org]: https://img.shields.io/badge/structlog-25.5.0-000000?style=for-the-badge&logo=python&logoColor=white
 [structlog-url]: https://www.structlog.org/en/stable/
-[rotoger]: https://img.shields.io/badge/rotoger-0.2.1-00bfff?style=for-the-badge&logo=python&logoColor=white
+[rotoger]: https://img.shields.io/badge/rotoger-0.3.0-00bfff?style=for-the-badge&logo=python&logoColor=white
 [rotoger-url]: https://github.com/tinyplugins/rotoger
-[granian]: https://img.shields.io/badge/granian-2.5.7-4f6cb4?style=for-the-badge&logo=rust&logoColor=white
+[granian]: https://img.shields.io/badge/granian-2.6.0-4f6cb4?style=for-the-badge&logo=rust&logoColor=white
 [granian-url]:  https://github.com/emmett-framework/granian
