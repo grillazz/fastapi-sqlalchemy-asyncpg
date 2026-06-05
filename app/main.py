@@ -30,21 +30,21 @@ async def lifespan(app: FastAPI):
     app.redis = await get_redis()
     postgres_dsn = global_settings.postgres_url.unicode_string()
     try:
-        app.postgres_pool = await asyncpg.create_pool(
-            dsn=postgres_dsn,
-            min_size=5,
-            max_size=20,
-        )
-        await app.logger.ainfo(
-            "Postgres pool created", idle_size=app.postgres_pool.get_idle_size()
-        )
+        # app.postgres_pool = await asyncpg.create_pool(
+        #     dsn=postgres_dsn,
+        #     min_size=5,
+        #     max_size=20,
+        # )
+        # await app.logger.ainfo(
+        #     "Postgres pool created", idle_size=app.postgres_pool.get_idle_size()
+        # )
         yield
     except Exception as e:
         await app.logger.aerror("Error during app startup", error=repr(e))
         raise
     finally:
         await app.redis.close()
-        await app.postgres_pool.close()
+        # await app.postgres_pool.close()
 
 
 middleware = [
