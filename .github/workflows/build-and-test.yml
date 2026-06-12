@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ "3.14.0" ]
+        python-version: [ "3.14.4" ]
 
     env:
       PYTHONDONTWRITEBYTECODE: 1

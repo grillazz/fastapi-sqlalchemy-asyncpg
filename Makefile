@@ -66,12 +66,17 @@ py-upgrade:	## Upgrade Python syntax to a newer version
 lint:  ## Lint and format project code
 	uv run ruff check --fix .
 
+
 # ====================================================================================
 # DOCKER IMAGE BUILDING
 # ====================================================================================
 .PHONY: slim-build
 slim-build: ## Build smaller and more secure Docker images with docker-slim
-	docker-slim build --compose-file docker-compose.yml --target-compose-svc api1 --dep-include-target-compose-svc-deps true --http-probe-exec api1 fastapi-sqlalchemy-asyncpg_api1:latest
+	docker-slim build --compose-file compose.yml \
+	--target-compose-svc api1 \
+	--dep-include-target-compose-svc-deps true \
+	--preserve-path panettone --include-path panettone \
+	--http-probe-exec api1 fastapi-sqlalchemy-asyncpg-api1:latest
 
 # ====================================================================================
 # DATABASE SEEDING

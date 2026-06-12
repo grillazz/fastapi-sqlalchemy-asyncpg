@@ -60,4 +60,4 @@ services:
 
 
 volumes:
-  panettone_postgres_data: {}
+  panettone_postgres_data: { }

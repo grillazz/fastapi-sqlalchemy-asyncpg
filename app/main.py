@@ -44,7 +44,7 @@ async def lifespan(app: FastAPI):
         raise
     finally:
         await app.redis.close()
-        await app.postgres_pool.close()
+        # await app.postgres_pool.close()
 
 
 middleware = [
