@@ -75,8 +75,8 @@ slim-build: ## Build smaller and more secure Docker images with docker-slim
 	docker-slim build --compose-file compose.yml \
 	--target-compose-svc api1 \
 	--dep-include-target-compose-svc-deps true \
-	--http-probe-exec api1 fastapi-sqlalchemy-asyncpg-api1:latest \
-	--include-path /panettone/lib/python3.14
+	--preserve-path panettone --include-path panettone \
+	--http-probe-exec api1 fastapi-sqlalchemy-asyncpg-api1:latest
 
 # ====================================================================================
 # DATABASE SEEDING

@@ -1,7 +1,7 @@
 services:
   api1:
     container_name: panettone_api1
-    image: fastapi-sqlalchemy-asyncpg-api1.slim:latest
+    build: .
     environment:
       - PYTHONPATH=/panettone
     env_file:
@@ -19,45 +19,45 @@ services:
       - ./alembic:/panettone/alembic
     ports:
       - "8080:8080"
-#    depends_on:
-#      postgres:
-#        condition: service_healthy
-#      redis:
-#        condition: service_started
-#
-#  postgres:
-#    container_name: panettone_postgres
-#    build:
-#      context: ./db
-#      dockerfile: Dockerfile
-#    volumes:
-#      - panettone_postgres_data:/var/lib/postgresql/data
-#    env_file:
-#      - .env
-#    ports:
-#      - 5432:5432
-#    environment:
-#      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
-#      - POSTGRES_USER=${POSTGRES_USER?Variable not set}
-#      - POSTGRES_DB=${POSTGRES_DB?Variable not set}
-#    healthcheck:
-#      test:
-#        [
-#            "CMD-SHELL", "pg_isready -d $POSTGRES_DB -U $POSTGRES_USER"
-#        ]
-#      interval: 5s
-#      timeout: 5s
-#      retries: 5
-#
-#  redis:
-#    image: redis:latest
-#    container_name: panettone_redis
-#    ports:
-#      - "6379:6379"
-#    env_file:
-#      - .env
-#    entrypoint: redis-server --appendonly yes
-#
-#
-#volumes:
-#  panettone_postgres_data: {}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  postgres:
+    container_name: panettone_postgres
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    volumes:
+      - panettone_postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
+      - POSTGRES_USER=${POSTGRES_USER?Variable not set}
+      - POSTGRES_DB=${POSTGRES_DB?Variable not set}
+    healthcheck:
+      test:
+        [
+            "CMD-SHELL", "pg_isready -d $POSTGRES_DB -U $POSTGRES_USER"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:latest
+    container_name: panettone_redis
+    ports:
+      - "6379:6379"
+    env_file:
+      - .env
+    entrypoint: redis-server --appendonly yes
+
+
+volumes:
+  panettone_postgres_data: { }
