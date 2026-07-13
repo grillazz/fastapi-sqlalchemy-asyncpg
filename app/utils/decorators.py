@@ -15,7 +15,7 @@ def compile_sql_or_scalar(func):
     """
 
     @wraps(func)
-    async def wrapper(cls, db_session, name, compile_sql=False, *args, **kwargs):
+    async def wrapper(cls, db_session, name, compile_sql: bool=False, *args, **kwargs):
         """
         Wrapper function that either compiles the SQL statement or executes it.
 

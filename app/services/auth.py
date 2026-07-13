@@ -25,7 +25,7 @@ async def verify_jwt(request: Request, token: str) -> bool:
 
 
 class AuthBearer(HTTPBearer):
-    def __init__(self, auto_error: bool = True):
+    def __init__(self, auto_error: bool = True) -> None:
         super().__init__(auto_error=auto_error)
 
     async def __call__(self, request: Request):

@@ -1,3 +1,4 @@
+from starlette.templating import _TemplateResponse
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -79,7 +80,7 @@ def create_app() -> FastAPI:
     register_exception_handlers(app)
 
     @app.get("/index", response_class=HTMLResponse)
-    def get_index(request: Request):
+    def get_index(request: Request) -> _TemplateResponse:
         return templates.TemplateResponse("index.html", {"request": request})
 
     return app

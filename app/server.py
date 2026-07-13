@@ -1,10 +1,10 @@
 from granian import Granian
 
 
-def startup():
+def startup() -> None:
     print("Server starting up...")
 
-def shutdown():
+def shutdown() -> None:
     print("Server shutting down...")
 
 server = Granian(

@@ -42,6 +42,9 @@ dev-dependencies = [
     "tryceratops==2.4.1",
 ]
 
+[tool.pyrefly.errors]
+redundant-cast = "warn"
+
 
 [tool.mypy]
 strict = true
@@ -83,3 +86,11 @@ format-command="ruff format --stdin-filename {filename}"
 [tool.inline-snapshot.shortcuts]
 review=["review"]
 fix=["create","fix"]
+
+[tool.pyrefly]
+project-excludes = [
+    "**/venv*",
+    "**/.venv*",
+    "**/alembic*",
+]
+preset = "legacy"
