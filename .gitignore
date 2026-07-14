@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 /requirements-dev.txt
 /.env.smtp
+
+
+.idea
