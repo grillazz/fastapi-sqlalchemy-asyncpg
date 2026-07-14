@@ -8,16 +8,18 @@ the small public API below.
 """
 
 import asyncio
-from dataclasses import dataclass, field
 from uuid import UUID, uuid4
 
+import attrs
+
 from app.schemas.chat import ChatMessage
+from app.utils.singleton import SingletonMetaNoArgs
 
 
-@dataclass(slots=True)
+@attrs.define(slots=True)
 class ChatSession:
-    id: UUID = field(default_factory=uuid4)
-    messages: list[ChatMessage] = field(default_factory=list)
+    id: UUID = attrs.field(factory=uuid4)
+    messages: list[ChatMessage] = attrs.field(factory=list)
 
     def add(self, message: ChatMessage) -> None:
         self.messages.append(message)
@@ -26,8 +28,12 @@ class ChatSession:
         return list(self.messages)
 
 
-class ChatSessionManager:
-    """Tracks active chat sessions keyed by their opaque session id."""
+class ChatSessionManager(metaclass=SingletonMetaNoArgs):
+    """Tracks active chat sessions keyed by their opaque session id.
+
+    Implemented as a singleton to ensure exactly one instance per application,
+    maintaining a consistent registry of all active websocket chat sessions.
+    """
 
     def __init__(self) -> None:
         self._sessions: dict[UUID, ChatSession] = {}

@@ -33,11 +33,11 @@ async def lifespan(app: FastAPI):
     app.logger = get_logger()
     app.redis = await get_redis()
     postgres_dsn = global_settings.postgres_url.unicode_string()
-    # Chat service: initialize the pluggable model-client adapter and the
-    # in-memory session manager. See app/services/chat_agent.py to swap the
-    # local stub for a real model client (OpenAI, Ollama, etc.).
+    # Chat service: initialize the pluggable model-client adapter. The session
+    # manager is now a singleton and will be auto-instantiated on first access.
+    # See app/services/chat_agent.py to swap the local stub for a real model
+    # client (OpenAI, Ollama, etc.).
     app.chat_agent = build_chat_agent(global_settings.chat)
-    app.chat_sessions = ChatSessionManager()
     try:
         # app.postgres_pool = await asyncpg.create_pool(
         #     dsn=postgres_dsn,

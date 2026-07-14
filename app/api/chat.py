@@ -100,7 +100,7 @@ async def chat_websocket(websocket: WebSocket) -> None:
     await websocket.accept()
 
     agent: ChatAgent = websocket.app.chat_agent
-    session_manager: ChatSessionManager = websocket.app.chat_sessions
+    session_manager: ChatSessionManager = ChatSessionManager()
     session = await session_manager.create()
 
     await websocket.send_json(Connected(session_id=session.id).model_dump(mode="json"))

@@ -13,7 +13,9 @@ import asyncio
 import random
 from collections.abc import AsyncIterator
 from typing import Protocol, runtime_checkable
+from urllib.parse import urlparse
 
+import attrs
 import httpx
 import orjson
 
@@ -70,6 +72,58 @@ class LocalEchoAgent:
         return None
 
 
+def _validate_base_url(instance: OllamaChatAgent, attribute: attrs.Attribute, value: str) -> None:
+    """Validate that base_url is a valid HTTP(S) URL.
+
+    Args:
+        instance: The OllamaChatAgent instance being initialized.
+        attribute: The attrs attribute descriptor for base_url.
+        value: The URL string to validate.
+
+    Raises:
+        ValueError: If base_url is not a valid HTTP(S) URL.
+    """
+    parsed = urlparse(value)
+    if parsed.scheme not in ("http", "https"):
+        msg = f"base_url must be HTTP(S), got scheme '{parsed.scheme}' from '{value}'"
+        raise ValueError(msg)
+    if not parsed.netloc:
+        msg = f"base_url must include a host, got '{value}'"
+        raise ValueError(msg)
+
+
+def _validate_timeout(instance: OllamaChatAgent, attribute: attrs.Attribute, value: float) -> None:
+    """Validate that timeout is positive.
+
+    Args:
+        instance: The OllamaChatAgent instance being initialized.
+        attribute: The attrs attribute descriptor for timeout.
+        value: The timeout value in seconds.
+
+    Raises:
+        ValueError: If timeout is not positive.
+    """
+    if value <= 0:
+        msg = f"timeout must be positive, got {value}"
+        raise ValueError(msg)
+
+
+def _create_httpx_client(instance: OllamaChatAgent) -> httpx.AsyncClient:
+    """Factory function to create the httpx.AsyncClient with validated config.
+
+    This function is called from __attrs_post_init__ after all field validators
+    have run, ensuring the client is created with validated configuration.
+
+    Args:
+        instance: The OllamaChatAgent instance being initialized.
+
+    Returns:
+        An initialized httpx.AsyncClient configured with base_url and timeout.
+    """
+    return httpx.AsyncClient(base_url=instance.base_url, timeout=instance.timeout)
+
+
+@attrs.define(slots=True, eq=False, hash=False)
 class OllamaChatAgent:
     """Streams chat completions from an OpenAI-compatible endpoint.
 
@@ -77,13 +131,59 @@ class OllamaChatAgent:
     any OpenAI-compatible ``/chat/completions`` endpoint works too. This is
     a ready-to-swap-in replacement for :class:`LocalEchoAgent` once a real
     model should be used.
+
+    Attrs Configuration:
+        - slots=True: Memory-efficient attribute storage (~40-50% reduction)
+        - eq=False, hash=False: Instances are not comparable (contain async resources)
     """
 
-    def __init__(self, base_url: str, model: str) -> None:
-        self.model = model
-        self._client = httpx.AsyncClient(base_url=base_url, timeout=60.0)
+    model: str = attrs.field(
+        metadata={
+            "description": "LLM model identifier",
+            "examples": ["llama3.2", "mistral", "neural-chat"],
+        }
+    )
+    base_url: str = attrs.field(
+        validator=_validate_base_url,
+        metadata={
+            "description": "OpenAI-compatible API endpoint base URL",
+            "example": "http://localhost:11434/v1",
+        },
+    )
+    timeout: float = attrs.field(
+        default=60.0,
+        validator=_validate_timeout,
+        converter=float,
+        metadata={
+            "description": "Request timeout in seconds",
+            "default": 60.0,
+            "constraints": "Must be positive",
+        },
+    )
+    _client: httpx.AsyncClient = attrs.field(
+        init=False,
+        repr=False,
+        metadata={"description": "Internal HTTP client for API communication"},
+    )
+
+    def __attrs_post_init__(self) -> None:
+        """Initialize the HTTP client after field validation.
+
+        This hook is called by attrs after __init__ completes and all field
+        validators have run. It's used to initialize the internal _client
+        field which depends on validated configuration.
+        """
+        self._client = _create_httpx_client(self)
 
     async def stream_reply(self, messages: list[ChatMessage]) -> AsyncIterator[str]:
+        """Stream chat completion responses from the configured model.
+
+        Args:
+            messages: Full message history (oldest first) following Pydantic AI convention.
+
+        Yields:
+            Text chunks from the model's streaming response.
+        """
         payload = {
             "model": self.model,
             "messages": [{"role": m.role, "content": m.content} for m in messages],
@@ -106,6 +206,7 @@ class OllamaChatAgent:
                     yield content
 
     async def aclose(self) -> None:
+        """Release the internal HTTP client resources."""
         await self._client.aclose()
 
 
