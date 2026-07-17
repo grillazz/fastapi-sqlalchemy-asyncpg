@@ -33,6 +33,7 @@ WORKDIR /panettone
 COPY /app/ app/
 COPY /tests/ tests/
 COPY /templates/ templates/
+COPY /static/ /panettone/static/
 COPY .env app/
 COPY alembic.ini /panettone/alembic.ini
 COPY /alembic/ /panettone/alembic/
