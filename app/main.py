@@ -52,7 +52,7 @@ async def lifespan(app: FastAPI):
         await app.logger.aerror("Error during app startup", error=repr(e))
         raise
     finally:
-        await app.redis.close()
+        await app.redis.aclose()
         await app.chat_agent.aclose()
         # await app.postgres_pool.close()
 
