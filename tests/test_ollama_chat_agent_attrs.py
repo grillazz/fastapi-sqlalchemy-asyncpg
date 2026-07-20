@@ -2,8 +2,8 @@
 import httpx
 import pytest
 
-from app.services.chat_agent import OllamaChatAgent, LocalEchoAgent, build_chat_agent
 from app.config import ChatConfig
+from app.services.chat_agent import LocalEchoAgent, OllamaChatAgent, build_chat_agent
 
 
 class TestOllamaChatAgentAttrsFeatures:

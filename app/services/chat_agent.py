@@ -72,7 +72,7 @@ class LocalEchoAgent:
         return None
 
 
-def _validate_base_url(instance: OllamaChatAgent, attribute: attrs.Attribute, value: str) -> None:
+def _validate_base_url(_instance: OllamaChatAgent, _attribute: attrs.Attribute, value: str) -> None:
     """Validate that base_url is a valid HTTP(S) URL.
 
     Args:
@@ -92,7 +92,7 @@ def _validate_base_url(instance: OllamaChatAgent, attribute: attrs.Attribute, va
         raise ValueError(msg)
 
 
-def _validate_timeout(instance: OllamaChatAgent, attribute: attrs.Attribute, value: float) -> None:
+def _validate_timeout(_instance: OllamaChatAgent, _attribute: attrs.Attribute, value: float) -> None:
     """Validate that timeout is positive.
 
     Args:

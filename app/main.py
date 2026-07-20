@@ -1,7 +1,6 @@
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-import asyncpg
 from fastapi import Depends, FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -23,7 +22,6 @@ from app.middleware.profiler import ProfilingMiddleware
 from app.redis import get_redis
 from app.services.auth import AuthBearer
 from app.services.chat_agent import build_chat_agent
-from app.services.chat_session import ChatSessionManager
 
 templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")
 
@@ -32,7 +30,7 @@ templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates"
 async def lifespan(app: FastAPI):
     app.logger = get_logger()
     app.redis = await get_redis()
-    postgres_dsn = global_settings.postgres_url.unicode_string()
+    global_settings.postgres_url.unicode_string()
     # Chat service: initialize the pluggable model-client adapter. The session
     # manager is now a singleton and will be auto-instantiated on first access.
     # See app/services/chat_agent.py to swap the local stub for a real model
