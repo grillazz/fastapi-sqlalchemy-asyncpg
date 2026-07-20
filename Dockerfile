@@ -17,7 +17,7 @@ ENV UV_LINK_MODE=copy \
 COPY pyproject.toml /_lock/
 COPY uv.lock /_lock/
 
-RUN cd /_lock && uv sync --locked --no-install-project
+RUN cd /_lock && uv sync --group dev --group test --locked --no-install-project
 ##########################################################################
 FROM python:3.14.4-slim-trixie
 
@@ -33,6 +33,7 @@ WORKDIR /panettone
 COPY /app/ app/
 COPY /tests/ tests/
 COPY /templates/ templates/
+COPY /static/ /panettone/static/
 COPY .env app/
 COPY alembic.ini /panettone/alembic.ini
 COPY /alembic/ /panettone/alembic/

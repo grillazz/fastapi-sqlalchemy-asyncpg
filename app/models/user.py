@@ -21,15 +21,15 @@ class User(Base):
     _password: bytes = Column(LargeBinary, nullable=False)
 
     @property
-    def password(self):
+    def password(self) -> str:
         return self._password.decode("utf-8")
 
     @password.setter
-    def password(self, password: SecretStr):
+    def password(self, password: SecretStr) -> None:
         _password_string = password.get_secret_value().encode("utf-8")
         self._password = bcrypt.hashpw(_password_string, bcrypt.gensalt())
 
-    def check_password(self, password: SecretStr):
+    def check_password(self, password: SecretStr) -> bool:
         return bcrypt.checkpw(
             password.get_secret_value().encode("utf-8"), self._password
         )

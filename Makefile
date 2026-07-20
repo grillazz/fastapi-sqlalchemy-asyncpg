@@ -16,7 +16,7 @@ help: ## Show this help
 # ====================================================================================
 .PHONY: docker-build
 docker-build:	## Build project Docker images using compose
-	docker compose build
+	docker compose  -f granian-compose.yml build
 
 .PHONY: docker-up
 docker-up:	## Run project with compose

@@ -1,14 +1,15 @@
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-import asyncpg
 from fastapi import Depends, FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from rotoger import get_logger
 from starlette.middleware import Middleware
 from starlette.middleware.gzip import GZipMiddleware
+from starlette.templating import _TemplateResponse
 
+from app.api.chat import router as chat_ws_router
 from app.api.health import router as health_router
 from app.api.ml import router as ml_router
 from app.api.nonsense import router as nonsense_router
@@ -20,6 +21,7 @@ from app.exception_handlers import register_exception_handlers
 from app.middleware.profiler import ProfilingMiddleware
 from app.redis import get_redis
 from app.services.auth import AuthBearer
+from app.services.chat_agent import build_chat_agent
 
 templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")
 
@@ -28,22 +30,28 @@ templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates"
 async def lifespan(app: FastAPI):
     app.logger = get_logger()
     app.redis = await get_redis()
-    postgres_dsn = global_settings.postgres_url.unicode_string()
+    global_settings.postgres_url.unicode_string()
+    # Chat service: initialize the pluggable model-client adapter. The session
+    # manager is now a singleton and will be auto-instantiated on first access.
+    # See app/services/chat_agent.py to swap the local stub for a real model
+    # client (OpenAI, Ollama, etc.).
+    app.chat_agent = build_chat_agent(global_settings.chat)
     try:
-        app.postgres_pool = await asyncpg.create_pool(
-            dsn=postgres_dsn,
-            min_size=5,
-            max_size=20,
-        )
-        await app.logger.ainfo(
-            "Postgres pool created", idle_size=app.postgres_pool.get_idle_size()
-        )
+        # app.postgres_pool = await asyncpg.create_pool(
+        #     dsn=postgres_dsn,
+        #     min_size=5,
+        #     max_size=20,
+        # )
+        # await app.logger.ainfo(
+        #     "Postgres pool created", idle_size=app.postgres_pool.get_idle_size()
+        # )
         yield
     except Exception as e:
         await app.logger.aerror("Error during app startup", error=repr(e))
         raise
     finally:
-        await app.redis.close()
+        await app.redis.aclose()
+        await app.chat_agent.aclose()
         # await app.postgres_pool.close()
 
 
@@ -65,6 +73,7 @@ def create_app() -> FastAPI:
     app.include_router(shakespeare_router)
     app.include_router(user_router)
     app.include_router(ml_router, prefix="/v1/ml", tags=["ML"])
+    app.include_router(chat_ws_router, prefix="/v1/chat", tags=["Chat"])
     app.include_router(
         health_router, prefix="/v1/public/health", tags=["Health, Public"]
     )
@@ -79,7 +88,7 @@ def create_app() -> FastAPI:
     register_exception_handlers(app)
 
     @app.get("/index", response_class=HTMLResponse)
-    def get_index(request: Request):
+    def get_index(request: Request) -> _TemplateResponse:
         return templates.TemplateResponse("index.html", {"request": request})
 
     return app

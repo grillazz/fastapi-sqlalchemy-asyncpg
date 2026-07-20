@@ -5,7 +5,7 @@ import orjson
 
 
 class StreamLLMService:
-    def __init__(self, base_url: str = "http://localhost:11434/v1"):
+    def __init__(self, base_url: str = "http://localhost:11434/v1") -> None:
         self.base_url = base_url
         self.model = "llama3.2"
 

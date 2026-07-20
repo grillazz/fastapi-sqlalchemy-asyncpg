@@ -45,7 +45,7 @@ class SMTPEmailService(metaclass=SingletonMetaNoArgs):
     )
     server: smtplib.SMTP = field(init=False)  # Deferred initialization in post-init
 
-    def __attrs_post_init__(self):
+    def __attrs_post_init__(self) -> None:
         """
         Initializes the SMTP server connection after the object is created.
 
@@ -98,7 +98,7 @@ class SMTPEmailService(metaclass=SingletonMetaNoArgs):
         subject: str,
         body_text: str = "",
         body_html: str = None,
-    ):
+    ) -> None:
         """
         Sends an email to the specified recipients.
 
@@ -130,7 +130,7 @@ class SMTPEmailService(metaclass=SingletonMetaNoArgs):
         template: str,
         context: dict,
         sender: EmailStr,
-    ):
+    ) -> None:
         """
         Sends an email using a Jinja2 template.
 
