@@ -33,6 +33,7 @@
         <li><a href="#testing-strategy">Testing Strategy</a></li>
         <li><a href="#uv-knowledge-and-inspirations">UV knowledge and inspirations</a></li> 
         <li><a href="#large-language-model">Integration with local LLM</a></li>  
+        <li><a href="#websocket-ai-chat-service">Websocket AI chat service</a></li>
         <li><a href="#ha-sample-with-nginx-as-load-balancer">High Availability sample with nginx as load balancer</a></li>
         <li><a href="#performance-profiling-with-pyinstrument">Performance Profiling with Pyinstrument</a></li>
       </ul>
@@ -175,6 +176,65 @@ This approach minimizes idle time and optimizes resource utilization, making it 
 Install ollama and run the server
 ```shell
 ollama run llama3.2
+```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Websocket AI chat service
+A general-purpose, websocket-based chat service lives at `/v1/chat/ws`, built with FastAPI 0.139.0
+and Pydantic models for every message shape exchanged over the wire. It follows the
+[Pydantic AI chat-app](https://github.com/pydantic/pydantic-ai/blob/main/docs/web.md) interaction
+pattern - a session id, role-labeled messages, and streamed assistant chunks - so a UI can be wired
+up later without changing the backend contract.
+
+**Module layout**
+- `app/schemas/chat.py` — Pydantic `BaseModel`s for `ChatMessage` (role/content) and the
+  client/server websocket event envelopes (discriminated on a `type` field).
+- `app/services/chat_agent.py` — the pluggable async `ChatAgent` adapter `Protocol`, a
+  dependency-free `LocalEchoAgent` stub (default, no API keys/network required), and an
+  `OllamaChatAgent` example that streams from an OpenAI-compatible `/chat/completions` endpoint.
+- `app/services/chat_session.py` — a small in-memory `ChatSessionManager` tracking one
+  `ChatSession` (id + message history) per open websocket connection.
+- `app/api/chat.py` (re-exported as `app/ws.py`) — the `/ws` websocket route implementing the
+  chat flow.
+
+**Lifespan wiring**: `app/main.py`'s `lifespan` builds the configured `ChatAgent` via
+`build_chat_agent(settings.chat)` and a fresh `ChatSessionManager` on startup (`app.chat_agent`
+/ `app.state.chat_sessions`), and calls `chat_agent.aclose()` on shutdown to release any held
+connections.
+
+**Configuration** (`ChatConfig` in `app/config.py`, all overridable via environment variables):
+
+| Env var | Default | Description |
+| --- | --- | --- |
+| `CHAT_BACKEND` | `stub` | `stub` (local echo, no network) or `ollama` (OpenAI-compatible streaming) |
+| `CHAT_BASE_URL` | `http://localhost:11434/v1` | Base URL used by the `ollama` backend |
+| `CHAT_MODEL` | `llama3.2` | Model name sent to the `ollama` backend |
+| `CHAT_STREAM_DELAY` | `0.02` | Per-word delay (seconds) the stub uses to emulate token streaming |
+
+**Example websocket flow** (one JSON object per text frame):
+```
+-> (connect to ws://localhost:8080/v1/chat/ws)
+<- {"type": "connected", "session_id": "..."}
+-> {"type": "start", "system_prompt": "You are a helpful assistant."}
+<- {"type": "started", "session_id": "..."}
+-> {"type": "user_message", "content": "Hello there"}
+<- {"type": "assistant_chunk", "index": 0, "content": "Hello "}
+<- {"type": "assistant_chunk", "index": 1, "content": "there! "}
+<- {"type": "assistant_message", "message": {"role": "assistant", "content": "Hello there! "}}
+-> {"type": "history_request"}
+<- {"type": "history", "messages": [...]}
+-> {"type": "end"}
+```
+
+**Swapping in a real model**: implement the `ChatAgent` protocol (an async `stream_reply(messages)`
+generator yielding text chunks, plus `aclose()`) in a new class - e.g. wrapping the OpenAI SDK - and
+return it from `build_chat_agent` for a new `backend` value. No changes are needed in
+`app/api/chat.py` or the session manager.
+
+Run the tests for this service locally with:
+```shell
+pytest tests/api/test_chat_ws.py -vv
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
