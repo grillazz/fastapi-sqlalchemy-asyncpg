@@ -43,6 +43,11 @@ docker-create-db-migration:  ## Create a new alembic database migration. Example
 # ====================================================================================
 # TESTING
 # ====================================================================================
+.PHONY: test
+test: ## Run project tests locally with Compose dependencies
+	docker compose -f compose.yml up -d --wait postgres redis
+	POSTGRES_HOST=127.0.0.1 REDIS_HOST=127.0.0.1 uv run --frozen pytest tests --durations=0 -vv
+
 .PHONY: docker-test
 docker-test:	## Run project tests
 	docker compose -f compose.yml run --rm api1 pytest tests --durations=0 -vv

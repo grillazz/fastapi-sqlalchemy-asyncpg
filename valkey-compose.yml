@@ -24,7 +24,7 @@ services:
       context: ./db
       dockerfile: Dockerfile
     volumes:
-      - fastapi_postgres_data:/var/lib/postgresql/data
+      - fastapi_postgres_data:/var/lib/postgresql
     env_file:
       - .env
     ports:
