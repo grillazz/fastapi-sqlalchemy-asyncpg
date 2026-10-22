@@ -22,6 +22,7 @@ from app.middleware.profiler import ProfilingMiddleware
 from app.redis import get_redis
 from app.services.auth import AuthBearer
 from app.services.chat_agent import build_chat_agent
+from app.services.scheduler import scheduler_lifespan
 
 templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")
 
@@ -45,7 +46,8 @@ async def lifespan(app: FastAPI):
         # await app.logger.ainfo(
         #     "Postgres pool created", idle_size=app.postgres_pool.get_idle_size()
         # )
-        yield
+        async with scheduler_lifespan():
+            yield
     except Exception as e:
         await app.logger.aerror("Error during app startup", error=repr(e))
         raise
@@ -96,16 +98,4 @@ def create_app() -> FastAPI:
 
 app = create_app()
 
-# --- Unused/experimental code and TODOs ---
-# from apscheduler import AsyncScheduler
-# from apscheduler.datastores.sqlalchemy import SQLAlchemyDataStore
-# from apscheduler.eventbrokers.redis import RedisEventBroker
-# from app.database import engine
-# from app.services.scheduler import SchedulerMiddleware
-# _scheduler_data_store = SQLAlchemyDataStore(engine, schema="scheduler")
-# _scheduler_event_broker = RedisEventBroker(client_or_url=global_settings.redis_url.unicode_string())
-# _scheduler_himself = AsyncScheduler(_scheduler_data_store, _scheduler_event_broker)
-# app.add_middleware(SchedulerMiddleware, scheduler=_scheduler_himself)
 # TODO: every non-GET method should reset cache
-# TODO: scheduler tasks needing DB should access connection pool via request
-# TODO: https://stackoverflow.com/questions/16053364/make-sure-only-one-worker-launches-the-apscheduler-event-in-a-pyramid-web-app-ru

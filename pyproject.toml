@@ -29,6 +29,7 @@ dependencies = [
     "websockets==17.3",
     "jinja2==3.1.6",
     "whenever==0.10.5",
+    "sniffio==1.3.1",
 ]
 
 [dependency-groups]

@@ -130,11 +130,13 @@ In `pl.read_excel()` “calamine” engine can be used for reading all major typ
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Worker aware async scheduler
-The project uses the APScheduler library to schedule tasks in the background.
-The APScheduler library is a powerful and flexible in-process task scheduler with Cron-like capabilities.
-It allows you to schedule jobs to run at specific times or intervals, and it supports multiple job stores, triggers, and executors.
-The library is designed to be easy to use and highly configurable, making it suitable for a wide range of use cases.
-It was added to project in version 4.0.0a5 with Redis as event broker and SQLAlchemy as data store.
+The app starts an `AsyncScheduler` as part of FastAPI's lifespan. Each worker shares
+the persistent SQLAlchemy data store in the `scheduler` schema and uses Redis as the
+event broker, allowing APScheduler to coordinate scheduling across workers. The
+`tick-sql-25` schedule runs `app.services.scheduler.tick` every 25 seconds and is
+replaced on startup so its definition stays current. The project uses APScheduler
+4.0.0a6, a pre-release; see the
+[ASGI/FastAPI integration example](https://github.com/agronholm/apscheduler/blob/4.0.0a6/examples/web/asgi_fastapi.py).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
