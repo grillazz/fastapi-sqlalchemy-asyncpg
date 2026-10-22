@@ -130,11 +130,13 @@ In `pl.read_excel()` “calamine” engine can be used for reading all major typ
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Worker aware async scheduler
-The project uses the APScheduler library to schedule tasks in the background.
-The APScheduler library is a powerful and flexible in-process task scheduler with Cron-like capabilities.
-It allows you to schedule jobs to run at specific times or intervals, and it supports multiple job stores, triggers, and executors.
-The library is designed to be easy to use and highly configurable, making it suitable for a wide range of use cases.
-It was added to project in version 4.0.0a5 with Redis as event broker and SQLAlchemy as data store.
+The app starts an `AsyncScheduler` as part of FastAPI's lifespan. Each worker shares
+the persistent SQLAlchemy data store in the `scheduler` schema and uses Redis as the
+event broker, allowing APScheduler to coordinate scheduling across workers. The
+`tick-sql-25` schedule runs `app.services.scheduler.tick` every 25 seconds and is
+replaced on startup so its definition stays current. The project uses APScheduler
+4.0.0a6, a pre-release; see the
+[ASGI/FastAPI integration example](https://github.com/agronholm/apscheduler/blob/4.0.0a6/examples/web/asgi_fastapi.py).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -183,7 +185,7 @@ ollama run llama3.2
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Websocket AI chat service
-A general-purpose, websocket-based chat service lives at `/v1/chat/ws`, built with FastAPI 0.139.0
+A general-purpose, websocket-based chat service lives at `/v1/chat/ws`, built with FastAPI 0.159.1
 and Pydantic models for every message shape exchanged over the wire. It follows the
 [Pydantic AI chat-app](https://github.com/pydantic/pydantic-ai/blob/main/docs/web.md) interaction
 pattern - a session id, role-labeled messages, and streamed assistant chunks - so a UI can be wired
@@ -201,9 +203,14 @@ up later without changing the backend contract.
   chat flow.
 
 **Lifespan wiring**: `app/main.py`'s `lifespan` builds the configured `ChatAgent` via
-`build_chat_agent(settings.chat)` and a fresh `ChatSessionManager` on startup (`app.chat_agent`
-/ `app.state.chat_sessions`), and calls `chat_agent.aclose()` on shutdown to release any held
+`build_chat_agent(settings.chat)` and a fresh `ChatSessionManager` on startup. The agent is stored
+on `app.chat_agent`, and the session manager on `app.state.chat_sessions`; the websocket route
+uses that manager to track active sessions. On shutdown, `chat_agent.aclose()` releases any held
 connections.
+
+The WebSocket integration tests use HTTPX2's async `ASGIWebSocketTransport`
+(`httpx2[ws]`) to exercise the application without starting a server. They manage
+the app lifespan explicitly because the transport does not start it.
 
 **Configuration** (`ChatConfig` in `app/config.py`, all overridable via environment variables):
 
