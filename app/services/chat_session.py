@@ -13,7 +13,6 @@ from uuid import UUID, uuid4
 import attrs
 
 from app.schemas.chat import ChatMessage
-from app.utils.singleton import SingletonMetaNoArgs
 
 
 @attrs.define(slots=True)
@@ -28,11 +27,11 @@ class ChatSession:
         return list(self.messages)
 
 
-class ChatSessionManager(metaclass=SingletonMetaNoArgs):
+class ChatSessionManager:
     """Tracks active chat sessions keyed by their opaque session id.
 
-    Implemented as a singleton to ensure exactly one instance per application,
-    maintaining a consistent registry of all active websocket chat sessions.
+    Each application lifespan owns its own manager, maintaining a consistent
+    registry of active websocket chat sessions for that application.
     """
 
     def __init__(self) -> None:

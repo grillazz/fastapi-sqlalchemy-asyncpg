@@ -185,7 +185,7 @@ ollama run llama3.2
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Websocket AI chat service
-A general-purpose, websocket-based chat service lives at `/v1/chat/ws`, built with FastAPI 0.139.0
+A general-purpose, websocket-based chat service lives at `/v1/chat/ws`, built with FastAPI 0.159.1
 and Pydantic models for every message shape exchanged over the wire. It follows the
 [Pydantic AI chat-app](https://github.com/pydantic/pydantic-ai/blob/main/docs/web.md) interaction
 pattern - a session id, role-labeled messages, and streamed assistant chunks - so a UI can be wired
@@ -203,9 +203,14 @@ up later without changing the backend contract.
   chat flow.
 
 **Lifespan wiring**: `app/main.py`'s `lifespan` builds the configured `ChatAgent` via
-`build_chat_agent(settings.chat)` and a fresh `ChatSessionManager` on startup (`app.chat_agent`
-/ `app.state.chat_sessions`), and calls `chat_agent.aclose()` on shutdown to release any held
+`build_chat_agent(settings.chat)` and a fresh `ChatSessionManager` on startup. The agent is stored
+on `app.chat_agent`, and the session manager on `app.state.chat_sessions`; the websocket route
+uses that manager to track active sessions. On shutdown, `chat_agent.aclose()` releases any held
 connections.
+
+The WebSocket integration tests use HTTPX2's async `ASGIWebSocketTransport`
+(`httpx2[ws]`) to exercise the application without starting a server. They manage
+the app lifespan explicitly because the transport does not start it.
 
 **Configuration** (`ChatConfig` in `app/config.py`, all overridable via environment variables):
 

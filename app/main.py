@@ -22,6 +22,7 @@ from app.middleware.profiler import ProfilingMiddleware
 from app.redis import get_redis
 from app.services.auth import AuthBearer
 from app.services.chat_agent import build_chat_agent
+from app.services.chat_session import ChatSessionManager
 from app.services.scheduler import scheduler_lifespan
 
 templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")
@@ -32,11 +33,9 @@ async def lifespan(app: FastAPI):
     app.logger = get_logger()
     app.redis = await get_redis()
     global_settings.postgres_url.unicode_string()
-    # Chat service: initialize the pluggable model-client adapter. The session
-    # manager is now a singleton and will be auto-instantiated on first access.
-    # See app/services/chat_agent.py to swap the local stub for a real model
-    # client (OpenAI, Ollama, etc.).
+    # Initialize the chat agent and per-application session registry.
     app.chat_agent = build_chat_agent(global_settings.chat)
+    app.state.chat_sessions = ChatSessionManager()
     try:
         # app.postgres_pool = await asyncpg.create_pool(
         #     dsn=postgres_dsn,
