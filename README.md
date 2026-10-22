@@ -234,10 +234,11 @@ generator yielding text chunks, plus `aclose()`) in a new class - e.g. wrapping 
 return it from `build_chat_agent` for a new `backend` value. No changes are needed in
 `app/api/chat.py` or the session manager.
 
-Run the tests for this service locally with:
+Run the full test suite locally with:
 ```shell
-pytest tests/api/test_chat_ws.py -vv
+make test
 ```
+This starts PostgreSQL and Redis with Docker Compose, then points host-side tests at their published localhost ports.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
