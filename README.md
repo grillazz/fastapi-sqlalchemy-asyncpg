@@ -317,15 +317,23 @@ I've included a few of my favorites to kick things off!
 
 ## Change Log
 <details>
-  <summary>2026 (2 changes)</summary>
+  <summary>2026 (11 changes)</summary>
       <ul>
+        <li>[OCT 22 2026] document the websocket AI chat service</li>
+        <li>[OCT 22 2026] upgrade project dependencies and metadata</li>
+        <li>[OCT 22 2026] update dependency version references</li>
+        <li>[OCT 22 2026] upgrade PostgreSQL to 18 and update Compose data paths</li>
+        <li>[OCT 22 2026] add <code>make test</code> for local test runs</li>
+        <li>[OCT 22 2026] manage the async scheduler through the application lifespan</li>
+        <li>[OCT 22 2026] scope chat sessions to the application and use HTTPX2 for websocket tests</li>
+        <li>[OCT 22 2026] adopt HTTPX2 across async services and clarify docstrings</li>
         <li>[MAY 10 2026] bump project to Python 3.14 :fast_forward:</li>
         <li>[FEB 5 2026] add profiler middleware :crystal_ball:</li>
         <li>[JAN 11 2026] refactor test fixture infrastructure to improve test isolation :test_tube:</li>
       </ul>
 </details>
 <details>
-  <summary>2025 (7 changes)</summary>
+  <summary>2025 (6 changes)</summary>
       <ul>
          <li>[SEP 2 2025] add sample high availability with nginx as load balancer</li>   
          <li>[AUG 23 2025] intro exception handlers</li>
