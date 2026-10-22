@@ -54,7 +54,7 @@ services:
       context: ./db
       dockerfile: Dockerfile
     volumes:
-      - panettone_postgres_data:/var/lib/postgresql/data
+      - panettone_postgres_data:/var/lib/postgresql
       - ./db/create.sql:/docker-entrypoint-initdb.d/create.sql
     env_file:
       - .env

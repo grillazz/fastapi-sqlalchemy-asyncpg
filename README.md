@@ -47,7 +47,9 @@
     
 ## About The Project
 
-This demonstration application showcases the powerful integration of [FastAPI](https://fastapi.tiangolo.com/)—a modern, high-performance web framework—with [Pydantic 2.0](https://github.com/pydantic/pydantic) for robust data validation. The backend architecture is further reinforced by leveraging the [SQLAlchemy ORM](https://www.sqlalchemy.org/) along with an asynchronous connection to a [PostgreSQL 17](https://www.postgresql.org/docs/17/release.html) relational database. High-throughput communication across the stack is achieved using the [asyncpg](https://github.com/MagicStack/asyncpg) database client library, delivering an efficient, non-blocking interface to process database transactions seamlessly within Python's asyncio event loop.
+This demonstration application showcases the powerful integration of [FastAPI](https://fastapi.tiangolo.com/)—a modern, high-performance web framework—with [Pydantic 2.0](https://github.com/pydantic/pydantic) for robust data validation. The backend architecture is further reinforced by leveraging the [SQLAlchemy ORM](https://www.sqlalchemy.org/) along with an asynchronous connection to a [PostgreSQL 18](https://www.postgresql.org/docs/18/release.html) relational database. High-throughput communication across the stack is achieved using the [asyncpg](https://github.com/MagicStack/asyncpg) database client library, delivering an efficient, non-blocking interface to process database transactions seamlessly within Python's asyncio event loop.
+
+PostgreSQL 18 uses `/var/lib/postgresql` for its persistent data volume. Existing PostgreSQL 17 data must be migrated with `pg_upgrade` or a dump and restore before using the updated Compose configurations.
 
 ### Built With
 [![FastAPI][fastapi.tiangolo.com]][fastapi-url]

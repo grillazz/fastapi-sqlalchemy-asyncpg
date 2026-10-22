@@ -1,5 +1,5 @@
 # pull official base image
-FROM postgres:17.7-alpine
+FROM postgres:18.6-alpine
 
 WORKDIR /home/gx/code
 
