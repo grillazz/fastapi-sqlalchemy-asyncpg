@@ -330,7 +330,7 @@ dependencies = [
     { name = "fastexcel" },
     { name = "granian" },
     { name = "httptools" },
-    { name = "httpx" },
+    { name = "httpx2" },
     { name = "jinja2" },
     { name = "polars" },
     { name = "pydantic", extra = ["email"] },
@@ -359,6 +359,7 @@ dev = [
 ]
 test = [
     { name = "dirty-equals" },
+    { name = "httpx" },
     { name = "httpx2", extra = ["ws"] },
     { name = "inline-snapshot" },
     { name = "polyfactory" },
@@ -376,7 +377,7 @@ requires-dist = [
     { name = "fastexcel", specifier = "==0.21.0" },
     { name = "granian", specifier = "==2.8.5" },
     { name = "httptools", specifier = "==0.9.0" },
-    { name = "httpx", specifier = "==0.28.1" },
+    { name = "httpx2", specifier = "==2.16.0" },
     { name = "jinja2", specifier = "==3.1.6" },
     { name = "polars", specifier = "==2.0.0" },
     { name = "pydantic", extras = ["email"], specifier = "==2.14.1" },
@@ -405,6 +406,7 @@ dev = [
 ]
 test = [
     { name = "dirty-equals", specifier = "==0.11" },
+    { name = "httpx", specifier = "==0.28.1" },
     { name = "httpx2", extras = ["ws"], specifier = "==2.16.0" },
     { name = "inline-snapshot", specifier = "==0.36.1" },
     { name = "polyfactory", specifier = "==3.5.0" },

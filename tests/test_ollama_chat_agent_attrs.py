@@ -1,5 +1,6 @@
 """Test suite for refactored OllamaChatAgent with attrs features."""
-import httpx
+
+import httpx2
 import pytest
 
 from app.config import ChatConfig
@@ -54,14 +55,14 @@ class TestOllamaChatAgentAttrsFeatures:
         assert isinstance(agent.timeout, float)
         assert agent.timeout == 30.0
 
-    def test_factory_initialization_of_client(self):
-        """Test that _client is created via factory function."""
+    def test_client_initialization_after_field_validation(self):
+        """Test that the async client uses the validated configuration."""
         agent = OllamaChatAgent(model="llama3.2", base_url="http://localhost:11434/v1")
         assert hasattr(agent, "_client")
-        assert isinstance(agent._client, httpx.AsyncClient)
-        # httpx normalizes URLs by adding a trailing slash
+        assert isinstance(agent._client, httpx2.AsyncClient)
+        # httpx2 normalizes URLs by adding a trailing slash
         assert str(agent._client.base_url) == "http://localhost:11434/v1/"
-        assert agent._client.timeout == httpx.Timeout(60.0)
+        assert agent._client.timeout == httpx2.Timeout(60.0)
 
     def test_slots_enabled_no_dict(self):
         """Test that slots=True prevents __dict__ attribute."""
@@ -72,12 +73,8 @@ class TestOllamaChatAgentAttrsFeatures:
 
     def test_equality_disabled(self):
         """Test that eq=False means instances are not equal even with same values."""
-        agent1 = OllamaChatAgent(
-            model="llama3.2", base_url="http://localhost:11434/v1"
-        )
-        agent2 = OllamaChatAgent(
-            model="llama3.2", base_url="http://localhost:11434/v1"
-        )
+        agent1 = OllamaChatAgent(model="llama3.2", base_url="http://localhost:11434/v1")
+        agent2 = OllamaChatAgent(model="llama3.2", base_url="http://localhost:11434/v1")
         # With eq=False, only identity comparison works
         assert agent1 != agent2
         assert agent1 == agent1
@@ -112,9 +109,7 @@ class TestOllamaChatAgentAttrsFeatures:
 
     def test_https_urls_accepted(self):
         """Test that HTTPS URLs are properly accepted."""
-        agent = OllamaChatAgent(
-            model="llama3.2", base_url="https://api.example.com/v1"
-        )
+        agent = OllamaChatAgent(model="llama3.2", base_url="https://api.example.com/v1")
         assert agent.base_url == "https://api.example.com/v1"
 
     def test_metadata_annotations_present(self):
@@ -133,4 +128,3 @@ class TestOllamaChatAgentAttrsFeatures:
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
-

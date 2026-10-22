@@ -1,3 +1,5 @@
+"""Bearer-token authentication and Redis-backed token storage."""
+
 import time
 
 import jwt
@@ -11,24 +13,27 @@ from app.models.user import User
 logger = get_logger()
 
 
-async def get_from_redis(request: Request, key: str):
+async def get_from_redis(request: Request, key: str) -> str | None:
+    """Return the Redis value stored under ``key``."""
     return await request.app.redis.get(key)
 
 
-async def set_to_redis(request: Request, key: str, value: str, ex: int):
+async def set_to_redis(request: Request, key: str, value: str, ex: int) -> bool:
+    """Store ``value`` in Redis for ``ex`` seconds."""
     return await request.app.redis.set(key, value, ex=ex)
 
 
 async def verify_jwt(request: Request, token: str) -> bool:
+    """Check whether Redis recognizes the bearer token."""
     payload = await get_from_redis(request, token)
     return bool(payload)
 
 
 class AuthBearer(HTTPBearer):
-    def __init__(self, auto_error: bool = True) -> None:
-        super().__init__(auto_error=auto_error)
+    """Validate bearer credentials against the active Redis token store."""
 
-    async def __call__(self, request: Request):
+    async def __call__(self, request: Request) -> str:
+        """Return a valid token or raise an authorization error."""
         credentials: HTTPAuthorizationCredentials = await super().__call__(request)
         if not credentials:
             raise HTTPException(status_code=403, detail="Invalid authorization code.")
@@ -44,8 +49,8 @@ class AuthBearer(HTTPBearer):
         return credentials.credentials
 
 
-async def create_access_token(user: User, request: Request):
-    # sourcery skip: avoid-builtin-shadow
+async def create_access_token(user: User, request: Request) -> str | None:
+    """Sign a user token and store it in Redis until its configured expiry."""
     payload = {
         "email": user.email,
         "expiry": time.time() + global_settings.jwt_expire,
@@ -55,8 +60,8 @@ async def create_access_token(user: User, request: Request):
         payload, str(user.password), algorithm=global_settings.jwt_algorithm
     )
 
-    _bool = await set_to_redis(
+    stored = await set_to_redis(
         request, token, str(payload), ex=global_settings.jwt_expire
     )
-    if _bool:
+    if stored:
         return token

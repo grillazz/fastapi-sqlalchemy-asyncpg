@@ -16,7 +16,7 @@ from typing import Protocol, runtime_checkable
 from urllib.parse import urlparse
 
 import attrs
-import httpx
+import httpx2
 import orjson
 
 from app.config import ChatConfig
@@ -49,9 +49,11 @@ class LocalEchoAgent:
     """
 
     def __init__(self, stream_delay_seconds: float = 0.02) -> None:
+        """Initialize the delay between streamed words."""
         self.stream_delay_seconds = stream_delay_seconds
 
     def _compose_reply(self, messages: list[ChatMessage]) -> str:
+        """Compose a canned response to the latest user message."""
         last_user = next(
             (m.content for m in reversed(messages) if m.role == "user"), ""
         )
@@ -63,26 +65,20 @@ class LocalEchoAgent:
         return f"You said: {last_user!r}. This is a local echo response (stub agent)."
 
     async def stream_reply(self, messages: list[ChatMessage]) -> AsyncIterator[str]:
+        """Yield the canned reply one word at a time."""
         reply = self._compose_reply(messages)
         for word in reply.split(" "):
             await asyncio.sleep(self.stream_delay_seconds + random.uniform(0, 0.01))
             yield word + " "
 
     async def aclose(self) -> None:
-        return None
+        """Close resources; the local agent holds none."""
 
 
-def _validate_base_url(_instance: OllamaChatAgent, _attribute: attrs.Attribute, value: str) -> None:
-    """Validate that base_url is a valid HTTP(S) URL.
-
-    Args:
-        instance: The OllamaChatAgent instance being initialized.
-        attribute: The attrs attribute descriptor for base_url.
-        value: The URL string to validate.
-
-    Raises:
-        ValueError: If base_url is not a valid HTTP(S) URL.
-    """
+def _validate_base_url(
+    _instance: OllamaChatAgent, _attribute: attrs.Attribute, value: str
+) -> None:
+    """Require an absolute HTTP(S) endpoint URL."""
     parsed = urlparse(value)
     if parsed.scheme not in ("http", "https"):
         msg = f"base_url must be HTTP(S), got scheme '{parsed.scheme}' from '{value}'"
@@ -92,35 +88,13 @@ def _validate_base_url(_instance: OllamaChatAgent, _attribute: attrs.Attribute, 
         raise ValueError(msg)
 
 
-def _validate_timeout(_instance: OllamaChatAgent, _attribute: attrs.Attribute, value: float) -> None:
-    """Validate that timeout is positive.
-
-    Args:
-        instance: The OllamaChatAgent instance being initialized.
-        attribute: The attrs attribute descriptor for timeout.
-        value: The timeout value in seconds.
-
-    Raises:
-        ValueError: If timeout is not positive.
-    """
+def _validate_timeout(
+    _instance: OllamaChatAgent, _attribute: attrs.Attribute, value: float
+) -> None:
+    """Require a positive request timeout."""
     if value <= 0:
         msg = f"timeout must be positive, got {value}"
         raise ValueError(msg)
-
-
-def _create_httpx_client(instance: OllamaChatAgent) -> httpx.AsyncClient:
-    """Factory function to create the httpx.AsyncClient with validated config.
-
-    This function is called from __attrs_post_init__ after all field validators
-    have run, ensuring the client is created with validated configuration.
-
-    Args:
-        instance: The OllamaChatAgent instance being initialized.
-
-    Returns:
-        An initialized httpx.AsyncClient configured with base_url and timeout.
-    """
-    return httpx.AsyncClient(base_url=instance.base_url, timeout=instance.timeout)
 
 
 @attrs.define(slots=True, eq=False, hash=False)
@@ -132,9 +106,6 @@ class OllamaChatAgent:
     a ready-to-swap-in replacement for :class:`LocalEchoAgent` once a real
     model should be used.
 
-    Attrs Configuration:
-        - slots=True: Memory-efficient attribute storage (~40-50% reduction)
-        - eq=False, hash=False: Instances are not comparable (contain async resources)
     """
 
     model: str = attrs.field(
@@ -160,20 +131,15 @@ class OllamaChatAgent:
             "constraints": "Must be positive",
         },
     )
-    _client: httpx.AsyncClient = attrs.field(
+    _client: httpx2.AsyncClient = attrs.field(
         init=False,
         repr=False,
         metadata={"description": "Internal HTTP client for API communication"},
     )
 
     def __attrs_post_init__(self) -> None:
-        """Initialize the HTTP client after field validation.
-
-        This hook is called by attrs after __init__ completes and all field
-        validators have run. It's used to initialize the internal _client
-        field which depends on validated configuration.
-        """
-        self._client = _create_httpx_client(self)
+        """Create the HTTPX2 client after attrs validates the fields."""
+        self._client = httpx2.AsyncClient(base_url=self.base_url, timeout=self.timeout)
 
     async def stream_reply(self, messages: list[ChatMessage]) -> AsyncIterator[str]:
         """Stream chat completion responses from the configured model.
@@ -195,13 +161,11 @@ class OllamaChatAgent:
             async for line in response.aiter_lines():
                 if not line.startswith("data: ") or line == "data: [DONE]":
                     continue
-                try:
-                    data = orjson.loads(line[6:])
-                    content = (
-                        data.get("choices", [{}])[0].get("delta", {}).get("content", "")
-                    )
-                except Exception:
-                    content = ""
+                data = orjson.loads(line.removeprefix("data: "))
+                choices = data.get("choices", [])
+                if not choices:
+                    continue
+                content = choices[0].get("delta", {}).get("content", "")
                 if content:
                     yield content
 
